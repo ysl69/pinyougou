@@ -25,8 +25,16 @@
         <property name="mapperLocations" value="classpath:com/pinyougou/mapper/*Mapper.xml"></property>
     </bean>
 
-    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+    <!--<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <property name="basePackage" value="com.pinyougou.mapper"></property>
-    </bean>
+    </bean>-->
 
+
+    <!--通用的Mapper-->
+    <bean class="tk.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.pinyougou.mapper"/>
+        <property name="properties">
+            <value>mappers=tk.mybatis.mapper.common.Mapper</value>
+        </property>
+    </bean>
 </beans>
