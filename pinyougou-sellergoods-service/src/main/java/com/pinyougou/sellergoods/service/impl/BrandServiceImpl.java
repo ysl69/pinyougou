@@ -4,11 +4,13 @@ import com.alibaba.dubbo.config.annotation.Service;
 import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.pinyougou.core.service.CoreServiceImpl;
 import com.pinyougou.mapper.TbBrandMapper;
 import com.pinyougou.pojo.TbBrand;
 import com.pinyougou.sellergoods.service.BrandService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import tk.mybatis.mapper.common.Mapper;
 import tk.mybatis.mapper.entity.Example;
 
 import java.util.Arrays;
@@ -21,19 +23,21 @@ import java.util.List;
  **/
 
 @Service
-public class BrandServiceImpl implements BrandService {
+public class BrandServiceImpl extends CoreServiceImpl<TbBrand> implements BrandService {
 
-    @Autowired
+
     private TbBrandMapper brandMapper;
 
-    /**
-     * 查询所有的品牌列表
-     * @return
-     */
-    @Override
-    public List<TbBrand> findAll() {
-        return brandMapper.selectAll();
-    }
+   /* @Autowired
+    public BrandServiceImpl(Mapper<TbBrand> baseMapper, Class<TbBrand> clazz) {
+        super(baseMapper, clazz);
+    }*/
+   @Autowired
+   public BrandServiceImpl(TbBrandMapper brandMapper) {
+       super(brandMapper, TbBrand.class);
+       this.brandMapper=brandMapper;
+   }
+
 
 
     /**
@@ -97,58 +101,5 @@ public class BrandServiceImpl implements BrandService {
         String str = JSON.toJSONString(pageInfo);
         PageInfo pageInfo1 = JSON.parseObject(str, PageInfo.class);
         return pageInfo1;
-    }
-
-
-    /**
-     * 添加品牌
-     * @param brand
-     */
-    @Override
-    public void add(TbBrand brand) {
-        brandMapper.insert(brand);
-    }
-
-
-    /**
-     * 更新品牌
-     * @param brand
-     */
-    @Override
-    public void update(TbBrand brand) {
-        brandMapper.updateByPrimaryKey(brand);
-    }
-
-
-    /**
-     * 根据ID获取实体
-     * @param id
-     * @return
-     */
-    @Override
-    public TbBrand findOne(Long id) {
-        return brandMapper.selectByPrimaryKey(id);
-    }
-
-
-    /**
-     * 删除
-     * @param ids
-     */
-    @Override
-    public void delete(Long[] ids) {
-        //  delete from tb_brand where id in (1,2,3)
-        /*for (Long id : ids) {
-            brandMapper.deleteByPrimaryKey(id);
-        }*/
-
-        Example example = new Example(TbBrand.class);
-        // 创建条件
-        Example.Criteria criteria = example.createCriteria();
-        //第一个参数 指定的是pojo的属性名
-        //第二个参数 指定的对应的值
-        criteria.andIn("id", Arrays.asList(ids));
-        brandMapper.deleteByExample(example);
-        //deleteByExample  delete 就相当于delete from tb_brand  exmaple :就是相当于where
     }
 }

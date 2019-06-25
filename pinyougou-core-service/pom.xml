@@ -10,9 +10,9 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>pinyougou-sellergoods-interface</artifactId>
+    <artifactId>pinyougou-core-service</artifactId>
 
-    <name>pinyougou-sellergoods-interface</name>
+    <name>pinyougou-core-service</name>
     <!-- FIXME change it to the project's website -->
     <url>http://www.example.com</url>
 
@@ -31,12 +31,7 @@
         </dependency>
         <dependency>
             <groupId>com.pinyougou</groupId>
-            <artifactId>pinyougou-pojo</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>com.pinyougou</groupId>
-            <artifactId>pinyougou-core-service</artifactId>
+            <artifactId>pinyougou-dao</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
     </dependencies>

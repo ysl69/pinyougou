@@ -1,6 +1,7 @@
 package com.pinyougou.sellergoods.service;
 
 import com.github.pagehelper.PageInfo;
+import com.pinyougou.core.service.CoreService;
 import com.pinyougou.pojo.TbBrand;
 import java.util.List;
 
@@ -9,14 +10,7 @@ import java.util.List;
  * @Date 2019/6/24 10:26
  * @Description: TODO  服务层接口
  **/
-public interface BrandService {
-
-    /**
-     * 查询所有的品牌列表
-     *
-     * @return
-     */
-    List<TbBrand> findAll();
+public interface BrandService extends CoreService<TbBrand> {
 
 
     /**
@@ -36,34 +30,5 @@ public interface BrandService {
      * @return
      */
     PageInfo<TbBrand> findPage(Integer pageNo,Integer pageSize,TbBrand brand);
-
-
-    /**
-     * 添加品牌
-     * @param brand
-     */
-    public void add(TbBrand brand);
-
-
-    /**
-     * 更新品牌
-     * @param brand
-     */
-    public void update(TbBrand brand);
-
-
-    /**
-     * 根据ID获取实体
-     * @param id
-     * @return
-     */
-    public TbBrand findOne(Long id);
-
-
-    /**
-     * 删除
-     * @param ids
-     */
-    public void  delete(Long[] ids);
 }
 
