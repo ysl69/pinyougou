@@ -1,6 +1,6 @@
 package com.pinyougou.sellergoods.service;
 import java.util.List;
-import com.pinyougou.pojo.TbBrand;
+import com.pinyougou.pojo.TbSpecificationOption;
 
 import com.github.pagehelper.PageInfo;
 import com.pinyougou.core.service.CoreService;
@@ -9,7 +9,7 @@ import com.pinyougou.core.service.CoreService;
  * @author Administrator
  *
  */
-public interface BrandService extends CoreService<TbBrand> {
+public interface SpecificationOptionService extends CoreService<TbSpecificationOption> {
 	
 	
 	
@@ -17,7 +17,7 @@ public interface BrandService extends CoreService<TbBrand> {
 	 * 返回分页列表
 	 * @return
 	 */
-	 PageInfo<TbBrand> findPage(Integer pageNo,Integer pageSize);
+	 PageInfo<TbSpecificationOption> findPage(Integer pageNo, Integer pageSize);
 	
 	
 
@@ -27,6 +27,6 @@ public interface BrandService extends CoreService<TbBrand> {
 	 * @param pageSize 每页记录数
 	 * @return
 	 */
-	PageInfo<TbBrand> findPage(Integer pageNo,Integer pageSize,TbBrand Brand);
+	PageInfo<TbSpecificationOption> findPage(Integer pageNo, Integer pageSize, TbSpecificationOption SpecificationOption);
 	
 }

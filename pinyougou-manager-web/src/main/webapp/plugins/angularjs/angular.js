@@ -10875,12 +10875,12 @@ function $QProvider() {
 
 
 /**
- * Constructs a promise manager.
+ * Constructs a promise sellergoods.
  *
  * @param {function(function)} nextTick Function for executing functions in the next turn.
  * @param {function(...*)} exceptionHandler Function into which unexpected exceptions are passed for
  *     debugging purposes.
- * @returns {object} Promise manager.
+ * @returns {object} Promise sellergoods.
  */
 function qFactory(nextTick, exceptionHandler) {
 

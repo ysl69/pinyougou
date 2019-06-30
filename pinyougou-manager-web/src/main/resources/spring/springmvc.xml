@@ -5,7 +5,7 @@
        xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
     <!--组件扫描 注解驱动-->
-    <context:component-scan base-package="com.pinyougou.manager.controller"></context:component-scan>
+    <context:component-scan base-package="com.pinyougou.sellergoods.controller"></context:component-scan>
     <!--加载json的转换器 默认是使用Jackson的json jar包这里使用fastjson-->
     <!--注解驱动并设置统一日期的输出格式-->
     <mvc:annotation-driven>
@@ -38,9 +38,9 @@
     </mvc:annotation-driven>
     <!--配置dubbo的配置项-->
     <dubbo:application name="pinyougou-manager-web"></dubbo:application>
-    <dubbo:registry protocol="zookeeper" address="192.168.70.101" port="2181"></dubbo:registry>
+    <dubbo:registry protocol="zookeeper" address="192.168.25.133" port="2181"></dubbo:registry>
     <!--dubbo注解配置-->
-    <dubbo:annotation package="com.pinyougou.manager.controller"></dubbo:annotation>
+    <dubbo:annotation package="com.pinyougou.sellergoods.controller"></dubbo:annotation>
 
     <dubbo:consumer timeout="100000"></dubbo:consumer>
 
