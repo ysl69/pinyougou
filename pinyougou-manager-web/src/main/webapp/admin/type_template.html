@@ -18,9 +18,11 @@
     <link rel="stylesheet" href="../plugins/select2/select2-bootstrap.css" />
     <script src="../plugins/select2/select2.min.js" type="text/javascript"></script>
 
+
 </head>
 
 <body class="hold-transition skin-red sidebar-mini" >
+<div id="app">
   <!-- .box-body -->
                 
                     <div class="box-header with-border">
@@ -36,9 +38,8 @@
                             <div class="pull-left">
                                 <div class="form-group form-inline">
                                     <div class="btn-group">
-                                        <button type="button" class="btn btn-default" title="新建" data-toggle="modal" data-target="#editModal" ><i class="fa fa-file-o"></i> 新建</button>
-                                        <button type="button" class="btn btn-default" title="删除"><i class="fa fa-trash-o"></i> 删除</button>
-                                       
+                                        <button type="button" class="btn btn-default" title="新建" data-toggle="modal" data-target="#editModal" @click="entity={customAttributeItems:[]}"><i class="fa fa-file-o"></i> 新建</button>
+                                        <button type="button" class="btn btn-default" title="删除" @click="dele()"><i class="fa fa-trash-o" ></i> 删除</button>
                                         <button type="button" class="btn btn-default" title="刷新" onclick="window.location.reload();"><i class="fa fa-refresh"></i> 刷新</button>
                                     </div>
                                 </div>
@@ -67,32 +68,23 @@
 			                          </tr>
 			                      </thead>
 			                      <tbody>
-			                          <tr>
-			                              <td><input  type="checkbox"></td>			                              
-				                          <td>1</td>
-									      <td>手机</td>
-									      <td>联想,华为,中兴</td>
-									      <td>网络制式</td>									 
-									      <td></td>		                                                                  
+								  <tr>
+			                          <tr v-for="(entity,index) in list">
+			                              <td><input  type="checkbox" :value="entity.id" v-model="ids"></td>
+				                          <td>{{entity.id}}</td>
+									      <td>{{entity.name}}</td>
+									      <td>{{jsonToString(entity.brandIds,'text')}}</td>
+									      <td>{{jsonToString(entity.specIds,'text')}}</td>
+									      <td>{{jsonToString(entity.customAttributeItems,'text')}}</td>
 		                                  <td class="text-center">                                           
-		                                 	  <button type="button" class="btn bg-olive btn-xs" data-toggle="modal" data-target="#editModal" >修改</button>                                           
-		                                  </td>
-			                          </tr>
-									  <tr>
-			                              <td><input  type="checkbox"></td>			                              
-				                          <td>2</td>
-									      <td>服装</td>
-									      <td>七匹狼,雅戈尔</td>
-									      <td>服装尺码</td>									 
-									      <td></td>		                                                                  
-		                                  <td class="text-center">                                           
-		                                 	  <button type="button" class="btn bg-olive btn-xs" data-toggle="modal" data-target="#editModal" >修改</button>                                           
+		                                 	  <button type="button" class="btn bg-olive btn-xs" data-toggle="modal"
+													  data-target="#editModal" @click="findOne(entity.id)">修改</button>
 		                                  </td>
 			                          </tr>
 			                      </tbody>
 			                  </table>
-			                  <!--数据列表/-->                        
-							  
+			                  <!--数据列表/-->
+							<navigation :pages="pages" :current.sync="pageNo"  @navpage="searchList"></navigation>
 							 
                         </div>
                         <!-- 数据表格 /-->
@@ -117,20 +109,20 @@
 		<div class="modal-body">							
 			
 			<table class="table table-bordered table-striped"  width="800px">
-		      	<tr>
-		      		<td>商品类型</td>
-		      		<td><input  class="form-control" placeholder="商品类型">  </td>
-		      	</tr>			   
+				<tr>
+					<td>模板名称</td>
+					<td><input v-model="entity.name" class="form-control" placeholder="模板名称"></td>
+				</tr>
 		      	<tr>
 		      		<td>关联品牌</td>
 		      		<td>
-		      			<input select2 config="{data:[{id:'1',text:'联想'},{id:'2',text:'华为'}]}" multiple placeholder="选择品牌（可多选）" class="form-control" type="text"/>
+						<v-select multiple v-model="entity.brandIds" label="text" :options="brandOptions"></v-select>
 		      		</td>
 		      	</tr>
 		      	<tr>
 		      		<td>关联规格</td>
 		      		<td>
-		<input select2 select2-model="entity.specIds" config="options['specification']" multiple placeholder="选择规格（可多选）" class="form-control" type="text"/>
+						<v-select multiple v-model="entity.specIds" label="text" :options="specOptions"></v-select>
 		      		</td>
 		      	</tr>	
 		      	
@@ -138,7 +130,8 @@
 		      		<td>扩展属性</td>
 		      		<td>
 		      			<div class="btn-group">
-                             <button type="button" class="btn btn-default" title="新增扩展属性"><i class="fa fa-file-o"></i> 新增扩展属性</button>
+                             <button type="button" class="btn btn-default" title="新增扩展属性" @click="addTableRow()"><i
+									 class="fa fa-file-o"></i> 新增扩展属性</button>
                                                                     
                         </div>
 						<table class="table table-bordered table-striped"  width="800px">
@@ -150,15 +143,12 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
+								<tr v-for="(pojo,index) in entity.customAttributeItems">
 									<td><input type="checkbox" class="icheckbox_square-blue" ></td>
-									<td><input class="form-control" placeholder="属性名称" ></td>
-									<td><button type="button" class="btn btn-default" title="删除"><i class="fa fa-trash-o"></i> 删除</button></td>
-								</tr>
-								<tr>
-									<td><input type="checkbox" class="icheckbox_square-blue" ></td>
-									<td><input class="form-control" placeholder="属性名称" ></td>
-									<td><button type="button" class="btn btn-default" title="删除"><i class="fa fa-trash-o"></i> 删除</button></td>
+									<td><input v-model="pojo.text" class="form-control" placeholder="属性名称" ></td>
+									<td><button type="button" class="btn btn-default" title="删除"
+												@click="removeTableRow(index)">
+										<i class="fa fa-trash-o"></i> 删除</button></td>
 								</tr>
 							</tbody>
 						</table>	
@@ -170,13 +160,24 @@
 			
 		</div>
 		<div class="modal-footer">						
-			<button class="btn btn-success" data-dismiss="modal" aria-hidden="true">保存</button>
+			<button class="btn btn-success" data-dismiss="modal" aria-hidden="true" @click="save()">保存</button>
 			<button class="btn btn-default" data-dismiss="modal" aria-hidden="true">关闭</button>
 		</div>
 	  </div>
 	</div>
 </div>
-    
+</div>
 </body>
+<!--引入JS-->
+<script src="../plugins/vue/vue.js"></script>
+<script src="../plugins/axios/axios.js"></script>
+<script src="../js/pagination.js"></script>
+<script src="../js/controller/typeTemplateController.js"></script>
 
+<script src="../js/vue-select.js"></script>
+<link rel="stylesheet" href="../css/vue-select.css">
+<!--vue的select 需要先引入JS 再进行 组件注册，才能使用-->
+<script>
+	Vue.component('v-select', VueSelect.VueSelect);
+</script>
 </html>
