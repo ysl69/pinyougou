@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://code.alibabatech.com/schema/dubbo
+                           http://code.alibabatech.com/schema/dubbo/dubbo.xsd
+                           http://www.springframework.org/schema/mvc
+                           http://www.springframework.org/schema/mvc/spring-mvc.xsd
+                           http://www.springframework.org/schema/context
+                           http://www.springframework.org/schema/context/spring-context.xsd">
+
+
+    <!--配置应用名 服务消费方-->
+    <dubbo:application name="pinyougou-shop-web"></dubbo:application>
+    <!--配置注册中心-->
+    <dubbo:registry protocol="zookeeper" address="192.168.25.133" port="2181"></dubbo:registry>
+    <!--引用服务 通过注解 @reference 扫描 即可引用 包含了组件扫描-->
+    <dubbo:annotation package="com.pinyougou.shop.controller"></dubbo:annotation>
+
+    <context:component-scan base-package="com.pinyougou.shop.controller"></context:component-scan>
+
+    <!--注解驱动并设置统一日期的输出格式-->
+    <mvc:annotation-driven>
+        <mvc:message-converters register-defaults="true">
+            <bean class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">
+                <property name="supportedMediaTypes" value="application/json"/>
+                <property name="features">
+                    <array>
+                        <!--返回结果是包含null值  默认是过滤掉-->
+                        <value>WriteMapNullValue</value>
+                        <!--修改全局日期格式 默认是false 表示不修改，自己定义 配置在此处表示要统一日期格式输出 ，默认格式为：yyyy-MM-dd -->
+                        <!--JSON.DEFFAULT_DATE_FORMAT-->
+                        <value>WriteDateUseDateFormat</value>
+                    </array>
+                </property>
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+</beans>
