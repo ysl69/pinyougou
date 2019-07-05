@@ -2,7 +2,7 @@ package com.pinyougou.sellergoods.service.impl;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired; 
+import org.springframework.beans.factory.annotation.Autowired;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.PageHelper;
@@ -161,6 +161,15 @@ public class SellerServiceImpl extends CoreServiceImpl<TbSeller>  implements Sel
 
         return pageInfo;
     }
+
+	@Override
+	public void updateStatus(String id, String status) {
+		TbSeller seller = new TbSeller();
+		seller.setSellerId(id);
+		seller.setStatus(status);
+		// 根据主键来更新
+		sellerMapper.updateByPrimaryKeySelective(seller);
+	}
 
 
 	@Override

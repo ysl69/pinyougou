@@ -28,5 +28,12 @@ public interface SellerService extends CoreService<TbSeller> {
 	 * @return
 	 */
 	PageInfo<TbSeller> findPage(Integer pageNo, Integer pageSize, TbSeller Seller);
-	
+
+
+	/**
+	 * 商家审核  修改状态值
+	 * @param id
+	 * @param status
+	 */
+	public void updateStatus(String id,String status);
 }

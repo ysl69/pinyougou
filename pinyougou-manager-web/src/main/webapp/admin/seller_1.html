@@ -18,6 +18,7 @@
 </head>
 
 <body class="hold-transition skin-red sidebar-mini"  >
+<div id="app">
   <!-- .box-body -->
                 <div class="box box-primary">
                     <div class="box-header with-border">
@@ -57,34 +58,27 @@
 			                          </tr>
 			                      </thead>
 			                      <tbody>
-			                          <tr>
+			                          <tr v-for="entity in list">
 			                              <td><input  type="checkbox"></td>			                              
-				                          <td>1</td>
-									      <td>梦琪琪商贸有限公司</td>
-									      <td>梦琪琪</td>
-									      <td>李梦琪</td>
-									      <td>13402312232</td>
+				                          <td>{{entity.sellerId}}</td>
+									      <td>{{entity.name}}</td>
+									      <td>{{entity.nickName}}</td>
+										  <td>{{entity.linkmanName}}</td>
+										  <td>{{entity.telephone}}</td>
 		                                 
 		                                  <td class="text-center">                                           
-		                                 	  <button type="button" class="btn bg-olive btn-xs" data-toggle="modal" data-target="#sellerModal" >详情</button>                                           
-		                                  </td>
-			                          </tr>
-									  <tr>
-			                              <td><input  type="checkbox"></td>			                              
-				                          <td>2</td>
-									      <td>黑瞎子苹果专卖店</td>
-									      <td>黑瞎子</td>
-									      <td>孙大鹏</td>
-									      <td>13622244111</td>
-		                                  
-		                                  <td class="text-center">                                           
-		                                 	  <button type="button" class="btn bg-olive btn-xs" data-toggle="modal" data-target="#sellerModal" >详情</button>                                           
+		                                 	  <button type="button" class="btn bg-olive btn-xs" data-toggle="modal"
+													  data-target="#sellerModal" @click="findOne(entity.sellerId)">详情
+											  </button>
+
+
+
 		                                  </td>
 			                          </tr>
 			                      </tbody>
 			                  </table>
-			                  <!--数据列表/-->                        
-							  
+			                  <!--数据列表/-->
+							<navigation :pages="pages" :current.sync="pageNo"  @navpage="searchList"></navigation>
 							 
                         </div>
                         <!-- 数据表格 /-->
@@ -121,22 +115,22 @@
 			    <div class="tab-pane active in" id="home">
 			      <br>
 			      <table class="table table-bordered table-striped"  width="800px">
-			      	<tr>
-			      		<td>公司名称</td>
-			      		<td>美琪数码经营店</td>
-			      	</tr>
-			      	<tr>
-			      		<td>公司手机</td>
-			      		<td>13900221212</td>
-			      	</tr>
-			      	<tr>
-			      		<td>公司电话</td>
-			      		<td>010-20112222</td>
-			      	</tr>
-			      	<tr>
-			      		<td>公司详细地址</td>
-			      		<td>北京市西三旗建材城西路888号</td>
-			      	</tr>
+					  <tr>
+						  <td>公司名称</td>
+						  <td>{{entity.name}}</td>
+					  </tr>
+					  <tr>
+						  <td>公司手机</td>
+						  <td>{{entity.mobile}}</td>
+					  </tr>
+					  <tr>
+						  <td>公司电话</td>
+						  <td>{{entity.telephone}}</td>
+					  </tr>
+					  <tr>
+						  <td>公司详细地址</td>
+						  <td>{{entity.addressDetail}}</td>
+					  </tr>
 			      </table>			      
       			</div>	
 			    <div class="tab-pane fade" id="linkman">
@@ -213,16 +207,22 @@
 			
 		</div>
 		<div class="modal-footer">						
-			<button class="btn btn-success" data-dismiss="modal" aria-hidden="true">审核通过</button>
-         	<button class="btn btn-danger"  data-dismiss="modal" aria-hidden="true">审核未通过</button>
-            <button class="btn btn-danger" data-dismiss="modal" aria-hidden="true">关闭商家</button>
+			<button class="btn btn-success" data-dismiss="modal" aria-hidden="true"
+					@click="updateStatus(entity.sellerId,'1')">审核通过</button>
+         	<button class="btn btn-danger"  data-dismiss="modal" aria-hidden="true"
+					@Click="updateStatus(entity.sellerId,'2')">审核未通过</button>
+            <button class="btn btn-danger" data-dismiss="modal" aria-hidden="true"
+					@click="updateStatus(entity.sellerId,'3')">关闭商家</button>
 			<button class="btn btn-default" data-dismiss="modal" aria-hidden="true">关闭</button>
 		</div>
 	  </div>
 	</div>
 </div>
 
-
+				</div>
 </body>
-
+<script src="../plugins/vue/vue.js"></script>
+<script src="../plugins/axios/axios.js"></script>
+<script src="../js/pagination.js"></script>
+<script src="../js/controller/sellerController.js"></script>
 </html>
