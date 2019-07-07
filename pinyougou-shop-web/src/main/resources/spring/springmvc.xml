@@ -40,4 +40,9 @@
             </bean>
         </mvc:message-converters>
     </mvc:annotation-driven>
+
+    <!--引入springsecurity-->
+    <import resource="spring-security.xml"></import>
+
+    <dubbo:annotation package="com.pinyougou.shop.controller,com.pinyougou.shop.security"></dubbo:annotation>
 </beans>

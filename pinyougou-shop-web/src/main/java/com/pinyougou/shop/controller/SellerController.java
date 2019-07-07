@@ -1,6 +1,8 @@
 package com.pinyougou.shop.controller;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.pinyougou.pojo.TbSeller;
@@ -19,7 +21,9 @@ public class SellerController {
 
 	@Reference
 	private SellerService sellerService;
-	
+
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 	/**
 	 * 返回全部列表
 	 * @return
@@ -45,6 +49,7 @@ public class SellerController {
 	@RequestMapping("/add")
 	public Result add(@RequestBody TbSeller seller){
 		try {
+			seller.setPassword(passwordEncoder.encode(seller.getPassword()));
 			sellerService.add(seller);
 			return new Result(true, "增加成功");
 		} catch (Exception e) {
