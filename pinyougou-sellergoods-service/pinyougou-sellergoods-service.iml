@@ -46,6 +46,7 @@
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.6" level="project" />
     <orderEntry type="library" name="Maven: log4j:log4j:1.2.17" level="project" />
     <orderEntry type="library" name="Maven: joda-time:joda-time:2.9.9" level="project" />
+    <orderEntry type="library" name="Maven: net.oschina.zcx7878:fastdfs-client-java:1.27.0.0" level="project" />
     <orderEntry type="module" module-name="pinyougou-sellergoods-interface" />
     <orderEntry type="module" module-name="pinyougou-pojo" />
     <orderEntry type="library" name="Maven: javax.persistence:persistence-api:1.0" level="project" />

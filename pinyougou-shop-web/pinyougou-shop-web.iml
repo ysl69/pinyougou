@@ -9,6 +9,10 @@
         <webroots>
           <root url="file://$MODULE_DIR$/src/main/webapp" relative="/" />
         </webroots>
+        <sourceRoots>
+          <root url="file://$MODULE_DIR$/src/main/java" />
+          <root url="file://$MODULE_DIR$/src/main/resources" />
+        </sourceRoots>
       </configuration>
     </facet>
     <facet type="Spring" name="Spring">
@@ -21,6 +25,7 @@
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/src/main/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/resources" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/test/java" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>
     <orderEntry type="inheritedJdk" />
@@ -80,6 +85,7 @@
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-log4j12:1.7.6" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.6" level="project" />
     <orderEntry type="library" name="Maven: joda-time:joda-time:2.9.9" level="project" />
+    <orderEntry type="library" name="Maven: net.oschina.zcx7878:fastdfs-client-java:1.27.0.0" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-context:5.0.2.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-webmvc:5.0.2.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-jdbc:5.0.2.RELEASE" level="project" />
