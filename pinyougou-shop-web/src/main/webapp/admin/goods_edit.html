@@ -28,6 +28,7 @@
 </head>
 
 <body class="hold-transition skin-red sidebar-mini" >
+<div id="app">
 
             <!-- 正文区域 -->
             <section class="content">
@@ -86,7 +87,8 @@
 									
 		                           <div class="col-md-2 title">商品名称</div>
 		                           <div class="col-md-10 data">
-		                               <input type="text" class="form-control"    placeholder="商品名称" value="">
+		                               <input type="text" class="form-control" v-model="entity.goods.goodsName"
+											  placeholder="商品名称" value="">
 		                           </div>
 		                           
 		                           <div class="col-md-2 title">品牌</div>
@@ -96,14 +98,16 @@
 		
 								   <div class="col-md-2 title">副标题</div>
 		                           <div class="col-md-10 data">
-		                               <input type="text" class="form-control"   placeholder="副标题" value="">
+		                               <input type="text" class="form-control" v-model="entity.goods.caption"
+											  placeholder="副标题" value="">
 		                           </div>
 		                           
 		                           <div class="col-md-2 title">价格</div>
 		                           <div class="col-md-10 data">
 		                           	   <div class="input-group">
 			                          	   <span class="input-group-addon">¥</span>
-			                               <input type="text" class="form-control"  placeholder="价格" value="">
+			                               <input v-model="entity.goods.price" type="text" class="form-control"
+												  placeholder="价格" value="">
 		                           	   </div>
 		                           </div>
 		                           
@@ -115,12 +119,14 @@
 		                           <div class="col-md-2 title rowHeight2x">包装列表</div>
 		                           <div class="col-md-10 data rowHeight2x">
 		                               
-		                           	<textarea rows="4"  class="form-control"   placeholder="包装列表"></textarea>
+		                           	<textarea rows="4" v-model="entity.goodsDesc.packageList"  class="form-control"
+											  placeholder="包装列表"></textarea>
 		                           </div>
 		                           
 		                           <div class="col-md-2 title rowHeight2x">售后服务</div>
 		                           <div class="col-md-10 data rowHeight2x">
-		                               <textarea rows="4"  class="form-control"    placeholder="售后服务"></textarea>
+		                               <textarea rows="4" v-model="entity.goods.saleService"  class="form-control"
+												 placeholder="售后服务"></textarea>
 		                           </div>                        
                                   
                                     
@@ -344,7 +350,7 @@
                  	
                    </div>
                   <div class="btn-toolbar list-toolbar">
-				      <button class="btn btn-primary" ng-click="setEditorValue();save()"><i class="fa fa-save"></i>保存</button>
+				      <button class="btn btn-primary" @click="add()"><i class="fa fa-save"></i>保存</button>
 				      <button class="btn btn-default" ng-click="goListPage()">返回列表</button>
 				  </div>
 			
@@ -428,7 +434,7 @@
 	  </div>
 	</div>
 </div>
-
+</div>
             
             <!-- 正文区域 /-->
 <script type="text/javascript">
@@ -441,7 +447,11 @@
 	});
 
 </script>
-       
+<script src="../plugins/vue/vue.js"></script>
+<!--<script src="../js/controller/base.js"></script>-->
+<script src="../plugins/axios/axios.js"></script>
+<script src="../js/pagination.js"></script>
+<script src="../js/controller/goodsController.js"></script>
 </body>
 
 </html>
