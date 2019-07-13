@@ -77,6 +77,10 @@
             <artifactId>fastdfs-client-java</artifactId>
             <version>1.27.0.0</version>
         </dependency>
+        <dependency>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

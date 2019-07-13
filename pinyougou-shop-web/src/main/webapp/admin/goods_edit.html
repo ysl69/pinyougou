@@ -139,7 +139,8 @@
 								 <!-- 颜色图片 -->
 								 <div class="btn-group">
 					                 <button type="button" class="btn btn-default" title="新建" data-target="#uploadModal"  data-toggle="modal"  ><i class="fa fa-file-o"></i> 新建</button>
-                             		 <button type="button" class="btn btn-default" title="删除" ><i class="fa fa-trash-o"></i> 删除</button>                 
+                             		 <button type="button" class="btn btn-default" title="删除" ><i class="fa fa-trash-o"></i> 删除</button>
+
 					             </div>
 								 
 								 <table class="table table-bordered table-striped table-hover dataTable">
@@ -150,16 +151,22 @@
 					                            </th>
 											    <th class="sorting">颜色</th>
 											    <th class="sorting">图片</th>
+												<th>操作</th>
 							            </thead>
 					                    <tbody>
-					                      <tr>
+					                      <tr v-for="(image,index) in entity.goodsDesc.itemImages">
 					                            <td><input  type="checkbox" ></td> 
 									            <td>
-									            	
+									            	{{image.color}}
 									            </td>
 									            <td>
-									           		<img alt="" src="" width="100px" height="100px">	            	 
+									           		<img alt="" :src="image.url" width="100px" height="100px">
+
 									            </td>
+											  <td>
+												  <button type="button" class="btn btn-default" title="删除" @click="remove_image_entity(index)">
+													  <i class="fafa-trash-o"></i>删除</button>
+											  </td>
 					                      </tr>
 					                    </tbody>
 								 </table> 
@@ -366,11 +373,11 @@
 			<h3 id="myModalLabel">上传商品图片</h3>
 		</div>
 		<div class="modal-body">							
-			
+			{{image_entity}}
 			<table class="table table-bordered table-striped">
 		      	<tr>
 		      		<td>颜色</td>
-		      		<td><input  class="form-control" placeholder="颜色" ng-model="image_entity.color">  </td>
+		      		<td><input  class="form-control" v-model="image_entity.color" placeholder="颜色" ng-model="image_entity.color">  </td>
 		      	</tr>			    
 		      	<tr>
 		      		<td>商品图片</td>
@@ -379,12 +386,12 @@
 							<tr>
 								<td>
 								<input type="file" id="file" />				                
-					                <button class="btn btn-primary" type="button" ng-click="uploadFile()">
+					                <button class="btn btn-primary" type="button" @click="uploadFile()">
 				                   		上传
 					                </button>	
 					            </td>
 								<td>
-									<img  src="{{image_entity.url}}" width="200px" height="200px">
+									<img  :src="image_entity.url" width="200px" height="200px">
 								</td>
 							</tr>						
 						</table>
@@ -394,7 +401,7 @@
 			
 		</div>
 		<div class="modal-footer">						
-			<button class="btn btn-success" ng-click="add_image_entity()" data-dismiss="modal" aria-hidden="true">保存</button>
+			<button class="btn btn-success" n @click="addImageEntity()" data-dismiss="modal" aria-hidden="true">保存</button>
 			<button class="btn btn-default" data-dismiss="modal" aria-hidden="true">关闭</button>
 		</div>
 	  </div>

@@ -4,7 +4,8 @@
         pages:15,
         pageNo:1,
         list:[],
-        entity:{goods:{},goodsDesc:{},itemList:[]},
+        entity:{goods:{},goodsDesc:{itemImages:[]},itemList:[]},
+        image_entity:{url:'',color:''},
         ids:[],
         searchEntity:{}
     },
@@ -96,6 +97,45 @@
             }).catch(function (error) {
                 console.log("1231312131321");
             });
+        },
+
+        // 上传图片
+        uploadFile:function () {
+            var formData = new FormData();
+            //参数formData.append('file' 中的file 为表单的参数名  必须和 后台的file一致
+            //file.files[0]  中的file 指定的时候页面中的input="file"的id的值 files 指定的是选中的图片所在的文件对象数组，这里只有一个就选中[0]
+            formData.append("file",file.files[0]);
+            axios({
+                url:'http://localhost:9110/upload/uploadFile.shtml',
+                data:formData,
+                method:'post',
+                headers:{
+                    'Content-Type':'multipart/form-data'
+                },
+                // 开启跨域请求携带相关认证信息
+                withCredentials:true
+            }).then(function (response) {
+                if (response.data.success){
+                    // 上传成功
+                    console.log(this);
+                    app.image_entity.url = response.data.message;
+                    console.log(JSON.stringify(app.image_entity));
+                } else {
+                    // 上传失败
+                    alert(response.data.message);
+                }
+            })
+        },
+
+
+        // 添加图片
+        addImageEntity:function () {
+            this.entity.goodsDesc.itemImages.push(this.image_entity);
+        },
+
+        //移除图片
+        remove_image_entity:function (index) {
+            this.entity.goodsDesc.itemImages.splice(index,1);
         }
 
 

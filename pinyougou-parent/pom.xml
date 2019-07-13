@@ -17,6 +17,7 @@
       <module>../pinyougou-core-service</module>
       <module>../itheima-spring-security</module>
     <module>../pinyougou-shop-web</module>
+      <module>../pinyougou-upload-web</module>
   </modules>
   <packaging>pom</packaging>
 
