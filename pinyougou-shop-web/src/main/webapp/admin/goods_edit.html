@@ -67,17 +67,28 @@
 		                           	  	<table>
 		                           	  		<tr>
 		                           	  			<td>
-		                           	  				<select class="form-control" >														
+		                           	  				<select class="form-control" v-model="entity.goods.category1Id">
+														<option :value="itemCat.id" v-for="itemCat in itemCat1List">
+															{{itemCat.name}}
+														</option>
 		                           	  				</select>
 		                              			</td>
 		                              			<td>
-		                           	  				<select class="form-control select-sm" ></select>
+		                           	  				<select class="form-control select-sm" v-model="entity.goods.category2Id">
+														<option :value="itemCat.id" v-for="itemCat in itemCat2List">
+															{{itemCat.name}}
+														</option>
+													</select>
 		                              			</td>
 		                              			<td>
-		                           	  				<select class="form-control select-sm" ></select>
+                                                    <select class="form-control" v-model="entity.goods.category3Id" >
+                                                        <option :value="itemCat.id" v-for="itemCat in itemCat3List">
+                                                            {{itemCat.name}}
+                                                        </option>
+                                                    </select>
 		                              			</td>
 		                              			<td>
-		                           	  				模板ID:19
+		                           	  				模板ID:{{entity.goods.typeTemplateId}}
 		                              			</td>
 		                           	  		</tr>
 		                           	  	</table>

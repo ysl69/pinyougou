@@ -6,6 +6,9 @@
         list:[],
         entity:{goods:{},goodsDesc:{itemImages:[]},itemList:[]},
         image_entity:{url:'',color:''},
+        itemCat1List:[],  // 一级分类的列表，变量
+        itemCat2List:[],  // 二级分类的列表，变量
+        itemCat3List:[],  // 三级分类的列表，变量
         ids:[],
         searchEntity:{}
     },
@@ -136,15 +139,60 @@
         //移除图片
         remove_image_entity:function (index) {
             this.entity.goodsDesc.itemImages.splice(index,1);
+        },
+
+        // 一级分类
+        findItemCat1List:function () {
+            axios.get('/itemCat/findByParentId/0.shtml').then(function (response) {
+                app.itemCat1List = response.data;
+            }).catch(function (error) {
+                console.log(error);
+            })
         }
 
+    },
+    watch:{
+        //entity.goods.category1Id 为要监听变量 ，当发生变化时 触发函数，newval 表示的是新值，oldvalue 表示的是旧值
+        'entity.goods.category1Id':function (newvalue,oldvalue) {
+            // 赋值为空
+            if (newvalue != undefined){
+                axios.get('/itemCat/findByParentId/'+newvalue+'.shtml').then(function (response) {
+                    app.itemCat2List = response.data;
+                }).catch(function (error) {
+                    console.log(error);
+                })
+            }
+        },
 
+        'entity.goods.category2Id':function (newvalue,oldvalue) {
+            if (newvalue != undefined){
+                axios.get('/itemCat/findByParentId/'+newvalue+'.shtml').then(function (response) {
+                    app.itemCat3List = response.data;
+                }).catch(function (error) {
+                    console.log(error);
+                })
+            }
+        },
 
+        'entity.goods.category3Id':function (newvalue, oldvalue) {
+            if (newvalue != undefined){
+                axios.get('/itemCat/findOne/' + newvalue + '.shtml').then(function (response) {
+                    //获取列表数据 三级分类的列表
+                    // app.entity.goods.typeTemplateId = response.data.typeId;
+                    //第一个参数：需要改变的值的对象变量
+                    //第二个参数：需要赋值的属性名
+                    //第三个参数：要赋予的值
+                    app.$set(app.entity.goods,'typeTemplateId',response.data.typeId);
+                    console.log(response.data.typeId);
+                    console.log(app.entity.goods.typeTemplateId);
+                })
+            }
+        }
     },
     //钩子函数 初始化了事件和
     created: function () {
-      
-        this.searchList(1);
+        //this.searchList(1);
+        this.findItemCat1List();
 
     }
 
