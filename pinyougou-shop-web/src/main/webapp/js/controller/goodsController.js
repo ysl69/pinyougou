@@ -4,8 +4,9 @@
         pages:15,
         pageNo:1,
         list:[],
-        entity:{goods:{},goodsDesc:{itemImages:[],customAttributeItems:[]},itemList:[]},
+        entity:{goods:{},goodsDesc:{itemImages:[],customAttributeItems:[],specificationItems:[]},itemList:[]},
         image_entity:{url:'',color:''},
+        specList:[], //规格列表 包括选项的列表
         itemCat1List:[],  // 一级分类的列表，变量
         itemCat2List:[],  // 二级分类的列表，变量
         itemCat3List:[],  // 三级分类的列表，变量
@@ -149,7 +150,57 @@
             }).catch(function (error) {
                 console.log(error);
             })
-        }
+        },
+
+        //当点击复选框的时候调用 并影响变量：entity.goodsDesc.specficationItems的值
+        updateChecked:function ($event,specName,specValue) {
+            //1 如果有对象
+            let searchObject = this.searchObjectByKey(this.entity.goodsDesc.specificationItems,specName,"attributeName");
+            if (searchObject != null){
+                //searchObject====={"attributeName":"网络制式","attributeValue":["移动3G","移动4G"]}
+                //判断 是否是勾选 如果是勾选 添加数据
+                if ($event.target.checked){
+                    //判断 是否是勾选 如果是勾选 添加数据
+                    searchObject.attributeValue.push(specValue);
+                }else {
+                    //否则 就是移除数据
+                    searchObject.attributeValue.splice(searchObject.attributeValue.indexOf(specValue),1);
+                    //判断如果数组的长度为0 移除对象
+                    if (searchObject.attributeValue.length == 0){
+                        this.entity.goodsDesc.specificationItems.splice(this.entity.goodsDesc.specificationItems.indexOf(searchObject),1);
+                    }
+                }
+            }else {
+                //2. 如果没有对象
+                //直接添加对象即可
+                //[{"attributeName":"网络制式","attributeValue":["移动3G","移动4G"]},{"attributeName":"屏幕尺寸","attributeValue":["6寸","5.5寸"]}]
+                this.entity.goodsDesc.specificationItems.push({
+                    "attributeName":specName,
+                    "attributeValue":[specValue]
+                })
+            }
+            
+        },
+
+
+        /**
+         *
+         * @param list 从该数组中查询[{"attributeName":"网络制式","attributeValue":["移动3G","移动4G"]}]
+         * @param specName  指定查询的属性的具体值 比如 网络
+         * @param key  指定从哪一个属性名查找  比如：attributeName
+         * @returns {*}
+         */
+        searchObjectByKey:function (list,specName,key) {
+            for (var i=0;i<list.length;i++){
+                let specificationItem = list[i]; //{"attributeName":"网络制式","attributeValue":["移动3G","移动4G"]}
+                if (specificationItem[key] == specName){
+                    return specificationItem;
+                }
+            }
+            return null;
+        },
+
+        
 
     },
     watch:{
@@ -199,11 +250,15 @@
                     // 品牌列表
                     app.brandTextList = JSON.parse(typeTempalte.brandIds);//[{"id":1,"text":"联想"}]
 
-                    //获取扩展属性
+                    //获取模板的扩展属性的值赋值显示
                     app.entity.goodsDesc.customAttributeItems = JSON.parse(typeTempalte.customAttributeItems);
                 })
+                //监听模板的变化 根据模板的ID 获取模板的规格的数据拼接成要的格式
+                axios.get('/typeTemplate/findSpecList/'+newvalue+'.shtml').then(function (response) {
+                    app.specList = response.data;
+                })
             }
-        }        
+        }
     },
     //钩子函数 初始化了事件和
     created: function () {

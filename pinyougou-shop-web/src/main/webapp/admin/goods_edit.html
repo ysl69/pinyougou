@@ -54,15 +54,17 @@
                             </li>                       
                         </ul>
                         <!--tab头/-->
-						{{entity}}
+
                         <!--tab内容-->
                         <div class="tab-content">
 
                             <!--表单内容-->
                             <div class="tab-pane active" id="home">
-                                <div class="row data-type">                                  
+								{{entity}}
+                                <div class="row data-type">
+
 								   <div class="col-md-2 title">商品分类</div>
-		                          
+
 		                           	  <div class="col-md-10 data">
 		                           	  	<table>
 		                           	  		<tr>
@@ -204,7 +206,9 @@
                             </div>
                       
                             <!--规格-->
+
                             <div class="tab-pane" id="spec">
+								{{entity.goodsDesc.specificationItems}}
                             	<div class="row data-type">
 	                            	<div class="col-md-2 title">是否启用规格</div>
 			                        <div class="col-md-10 data">
@@ -218,39 +222,16 @@
                             	
 	                                <div class="row data-type">
 	                                
-		                                <div>
-			                                <div class="col-md-2 title">屏幕尺寸</div>
+		                                <div v-for="spec in specList">
+			                                <div class="col-md-2 title">{{spec.text}}</div>
 					                        <div class="col-md-10 data">
 					                               
-					                            <span>
-					                            	<input  type="checkbox" >4.0					                            				                            	
-					                            </span>  	
-												<span>
-					                            	<input  type="checkbox" >4.5					                            				                            	
+					                            <span v-for="option in spec.options">
+					                            	<input  type="checkbox"
+															@click="updateChecked($event,spec.text,option.optionName)">{{option.optionName}}
 					                            </span>
-												<span>
-					                            	<input  type="checkbox" >5.0					                            				                            	
-					                            </span>												
-					                            	
 					                        </div>
-		                                </div>   
-										<div>
-			                                <div class="col-md-2 title">网络制式</div>
-					                        <div class="col-md-10 data">
-					                               
-					                            <span>
-					                            	<input  type="checkbox" >2G					                            				                            	
-					                            </span>  	
-												<span>
-					                            	<input  type="checkbox" >3G					                            				                            	
-					                            </span>
-												<span>
-					                            	<input  type="checkbox" >4G					                            				                            	
-					                            </span>												
-					                            	
-					                        </div>
-		                                </div>  
-		                                                                                  
+		                                </div>
 	                                </div>
 	
 	                                

@@ -1,7 +1,12 @@
 package com.pinyougou.sellergoods.service.impl;
 import java.util.Arrays;
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired; 
+import java.util.Map;
+
+import com.pinyougou.mapper.TbSpecificationOptionMapper;
+import com.pinyougou.pojo.TbSpecificationOption;
+import org.apache.zookeeper.Op;
+import org.springframework.beans.factory.annotation.Autowired;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.PageHelper;
@@ -88,5 +93,32 @@ public class TypeTemplateServiceImpl extends CoreServiceImpl<TbTypeTemplate>  im
 
         return pageInfo;
     }
-	
+
+
+
+    @Autowired
+    private TbSpecificationOptionMapper optionMapper;
+
+	/**
+	 * 返回规格列表
+	 * @param id
+	 * @return
+	 */
+	@Override
+	public List<Map> findSpecList(Long id) {
+		TbTypeTemplate tbTypeTemplate = typeTemplateMapper.selectByPrimaryKey(id);
+		String specIds = tbTypeTemplate.getSpecIds();
+		List<Map> maps = JSON.parseArray(specIds, Map.class);
+
+		for (Map map : maps) {
+			Integer id1 = (Integer) map.get("id");  // 规格的id
+			TbSpecificationOption record = new TbSpecificationOption();
+			record.setSpecId(Long.valueOf(id1));
+
+			List<TbSpecificationOption> optionsList = optionMapper.select(record);
+			map.put("options",optionsList);
+		}
+		return maps;
+	}
+
 }

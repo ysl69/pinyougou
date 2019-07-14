@@ -8,6 +8,7 @@ import entity.Result;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * controller
@@ -104,5 +105,16 @@ public class TypeTemplateController {
                                       @RequestBody TbTypeTemplate typeTemplate) {
         return typeTemplateService.findPage(pageNo, pageSize, typeTemplate);
     }
+
+
+	/**
+	 * 查询规格列表
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping("/findSpecList/{id}")
+	public List<Map> findSepcList(@PathVariable(value = "id") Long id){
+		return typeTemplateService.findSpecList(id);
+	}
 	
 }
