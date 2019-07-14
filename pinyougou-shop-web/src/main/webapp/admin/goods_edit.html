@@ -54,7 +54,7 @@
                             </li>                       
                         </ul>
                         <!--tab头/-->
-						
+						{{entity}}
                         <!--tab内容-->
                         <div class="tab-content">
 
@@ -104,7 +104,11 @@
 		                           
 		                           <div class="col-md-2 title">品牌</div>
 		                           <div class="col-md-10 data">
-		                              <select class="form-control" ></select>
+		                              <select class="form-control" v-model="entity.goods.brandId">
+										  <option :value="brand.id" v-for="brand in brandTextList">
+											  {{brand.text}}
+										  </option>
+									  </select>
 		                           </div>
 		
 								   <div class="col-md-2 title">副标题</div>

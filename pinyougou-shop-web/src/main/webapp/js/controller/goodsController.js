@@ -9,6 +9,7 @@
         itemCat1List:[],  // 一级分类的列表，变量
         itemCat2List:[],  // 二级分类的列表，变量
         itemCat3List:[],  // 三级分类的列表，变量
+        brandTextList:[],  // 品牌列表
         ids:[],
         searchEntity:{}
     },
@@ -187,7 +188,19 @@
                     console.log(app.entity.goods.typeTemplateId);
                 })
             }
-        }
+        },
+
+        //监听模板的ID 的变化 查询该模板的对象，对象里面有品牌列表数据
+        'entity.goods.typeTemplateId':function (newvalue, oldvalue) {
+            if (newvalue != undefined){
+                axios.get('/typeTemplate/findOne/'+newvalue+'.shtml').then(function (response) {
+                    // 获取到的是模板的对象
+                    var typeTempalte = response.data;
+                    // 品牌列表
+                    app.brandTextList = JSON.parse(typeTempalte.brandIds);//[{"id":1,"text":"联想"}]
+                })
+            }
+        }        
     },
     //钩子函数 初始化了事件和
     created: function () {
