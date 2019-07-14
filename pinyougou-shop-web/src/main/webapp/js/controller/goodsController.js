@@ -4,7 +4,7 @@
         pages:15,
         pageNo:1,
         list:[],
-        entity:{goods:{},goodsDesc:{itemImages:[]},itemList:[]},
+        entity:{goods:{},goodsDesc:{itemImages:[],customAttributeItems:[]},itemList:[]},
         image_entity:{url:'',color:''},
         itemCat1List:[],  // 一级分类的列表，变量
         itemCat2List:[],  // 二级分类的列表，变量
@@ -198,6 +198,9 @@
                     var typeTempalte = response.data;
                     // 品牌列表
                     app.brandTextList = JSON.parse(typeTempalte.brandIds);//[{"id":1,"text":"联想"}]
+
+                    //获取扩展属性
+                    app.entity.goodsDesc.customAttributeItems = JSON.parse(typeTempalte.customAttributeItems);
                 })
             }
         }        
