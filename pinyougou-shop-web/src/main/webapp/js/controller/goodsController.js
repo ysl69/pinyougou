@@ -200,7 +200,42 @@
             return null;
         },
 
-        
+        //点击复选框的时候 调用生成 sku列表的的变量
+        createLsit:function () {
+            //1.定义初始化的值
+            this.entity.itemList = [{'spec':{},'price':0,'num':0,'status':'0','isDefault':'0'}];
+
+            //2.循环遍历 specificationItems
+            var specificationItems = this.entity.goodsDesc.specificationItems;
+            for(var i=0;i<specificationItems.length;i++) {
+                //3.获取 规格的名称 和规格选项的值 拼接 返回一个最新的SKU的列表
+                var obj = specificationItems[i];
+                this.entity.itemList = this.addColum(
+                    this.entity.itemList,
+                    obj.attributeName,
+                    obj.attributeValue);
+            }
+        },
+
+        /**
+         *获取 规格的名称 和规格选项的值 拼接 返回一个最新的SKU的列表 方法
+         * @param list
+         * @param columnName  网络
+         * @param columnValue  [移动3G,移动4G]
+         */
+        addColum:function (list,columnName,columnValue) {
+            var newList = [];
+            for (var i = 0; i < list.length; i++) {
+                var oldRow = list[i];
+                for (var j = 0; j < columnValue.length; j++) {
+                    var newRow = JSON.parse(JSON.stringify(oldRow));//深克隆
+                    var value = columnValue[j];//移动3G
+                    newRow.spec[columnName] = value;
+                    newList.push(newRow);
+                }
+            }
+            return newList;
+        },
 
     },
     watch:{

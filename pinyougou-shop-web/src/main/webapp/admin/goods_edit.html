@@ -212,123 +212,62 @@
                             	<div class="row data-type">
 	                            	<div class="col-md-2 title">是否启用规格</div>
 			                        <div class="col-md-10 data">
-			                        	<input type="checkbox" >
-			                            <button type="button" class="btn btn-default" title="自定义规格" data-target="#mySpecModal"  data-toggle="modal"  ><i class="fa fa-file-o"></i> 自定义规格</button>               
+			                        	<input type="checkbox" v-model="entity.goods.isEnableSpec" :true-value="1"
+											   :false-value="0">
+			                            <button type="button" class="btn btn-default" title="自定义规格" data-target="#mySpecModal"  data-toggle="modal"  >
+											<i class="fa fa-file-o"></i> 自定义规格
+										</button>
 			                        </div>
                             	</div>
                             	<p>
                             	
                             	<div>
                             	
-	                                <div class="row data-type">
-	                                
+	                                <div class="row data-type" v-if="entity.goods.isEnableSpec=='1'">
+
 		                                <div v-for="spec in specList">
 			                                <div class="col-md-2 title">{{spec.text}}</div>
 					                        <div class="col-md-10 data">
 					                               
 					                            <span v-for="option in spec.options">
 					                            	<input  type="checkbox"
-															@click="updateChecked($event,spec.text,option.optionName)">{{option.optionName}}
+															@click="updateChecked($event,spec.text,option.optionName);createLsit()">{{option.optionName}}
 					                            </span>
 					                        </div>
 		                                </div>
 	                                </div>
-	
+								{{entity.itemList}}
 	                                
 	                                <div class="row data-type">
 	                                	 <table class="table table-bordered table-striped table-hover dataTable">
 						                    <thead>
-						                        <tr>					                          
-												    <th class="sorting">屏幕尺寸</th>
-													<th class="sorting">网络制式</th>
-												    <th class="sorting">价格</th>
-												    <th class="sorting">库存</th>
-												    <th class="sorting">是否启用</th>
-												    <th class="sorting">是否默认</th>
+						                        <tr>
+													<th class="sorting" v-for="specification in entity.goodsDesc.specificationItems">{{specification.attributeName}}</th>
+													<th class="sorting">价格</th>
+													<th class="sorting">库存</th>
+													<th class="sorting">是否启用</th>
+													<th class="sorting">是否默认</th>
 											    </tr>
 								            </thead>
 						                    <tbody>
-						                      <tr>					                           
-										            <td>
-										            	4.0
-										            </td>
-													<td>
-										            	3G
-										            </td>
-										            <td>
-										           		<input class="form-control"  placeholder="价格">
-										            </td>
-										            <td>
-										            	<input class="form-control" placeholder="库存数量">
-										            </td>
-										            <td>
-										             	<input type="checkbox" >
-										            </td>
-										            <td>
-										                <input type="checkbox" >									             	
-										            </td>
-						                      </tr>
-											  <tr>					                           
-										            <td>
-										            	4.0
-										            </td>
-													<td>
-										            	4G
-										            </td>
-										            <td>
-										           		<input class="form-control"  placeholder="价格">
-										            </td>
-										            <td>
-										            	<input class="form-control" placeholder="库存数量">
-										            </td>
-										            <td>
-										             	<input type="checkbox" >
-										            </td>
-										            <td>
-										                <input type="checkbox" >									             	
-										            </td>
-						                      </tr>
-											  <tr>					                           
-													<td>
-										            	5.0
-										            </td>
-													<td>
-										            	3G
-										            </td>
-										            <td>
-										           		<input class="form-control"  placeholder="价格">
-										            </td>
-										            <td>
-										            	<input class="form-control" placeholder="库存数量">
-										            </td>
-										            <td>
-										             	<input type="checkbox" >
-										            </td>
-										            <td>
-										                <input type="checkbox" >									             	
-										            </td>
-						                      </tr>
-											  <tr>					                           
-													<td>
-										            	5.0
-										            </td>
-													<td>
-										            	4G
-										            </td>
-										            <td>
-										           		<input class="form-control"  placeholder="价格">
-										            </td>
-										            <td>
-										            	<input class="form-control" placeholder="库存数量">
-										            </td>
-										            <td>
-										             	<input type="checkbox" >
-										            </td>
-										            <td>
-										                <input type="checkbox" >									             	
-										            </td>
-						                      </tr>
-											  
+											<tr v-for="item in entity.itemList">
+												<td v-for="specification in entity.goodsDesc.specificationItems">
+													{{item.spec[specification.attributeName]}}
+												</td>
+
+												<td>
+													<input class="form-control" v-model="item.price"  placeholder="价格">
+												</td>
+												<td>
+													<input class="form-control" v-model="item.num" placeholder="库存数量">
+												</td>
+												<td>
+													<input type="checkbox" :true-value="1" :false-value="0" v-model="item.status" >
+												</td>
+												<td>
+													<input type="checkbox" :true-value="1" :false-value="0" v-model="item.isDefault" >
+												</td>
+											</tr>
 						                    </tbody>
 									 	</table>
 								
