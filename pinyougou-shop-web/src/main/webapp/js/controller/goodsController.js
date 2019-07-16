@@ -241,7 +241,18 @@
     watch:{
         //entity.goods.category1Id 为要监听变量 ，当发生变化时 触发函数，newval 表示的是新值，oldvalue 表示的是旧值
         'entity.goods.category1Id':function (newvalue,oldvalue) {
-            // 赋值为空
+            //赋值为空
+            this.itemCat3List=[];
+            //删除属性回到原始状态
+            if(this.entity.goods.id==null ) {
+                delete this.entity.goods.category2Id;
+
+                delete this.entity.goods.category3Id;
+
+                delete this.entity.goods.typeTemplateId;
+
+            }
+
             if (newvalue != undefined){
                 axios.get('/itemCat/findByParentId/'+newvalue+'.shtml').then(function (response) {
                     app.itemCat2List = response.data;
@@ -252,6 +263,12 @@
         },
 
         'entity.goods.category2Id':function (newvalue,oldvalue) {
+            //删除
+            if(this.entity.goods.id==null ) {
+                delete this.entity.goods.category3Id;
+                delete this.entity.goods.typeTemplateId;
+            }
+
             if (newvalue != undefined){
                 axios.get('/itemCat/findByParentId/'+newvalue+'.shtml').then(function (response) {
                     app.itemCat3List = response.data;
@@ -293,7 +310,25 @@
                     app.specList = response.data;
                 })
             }
-        }
+        },
+
+        //监控变量的变化，如果是已经
+        'entity.goods.isEnableSpec':function (newVal,oldVal) {
+            //如果是隐藏规格列表 则清除所有数据，展开是再进行选择。
+            if(newVal==0){
+                this.entity.goodsDesc.specificationItems=[];
+                this.entity.itemList=[];
+            }
+        },
+
+        //监控数据变化 ，如果最后还剩下一个就直接删除
+        'entity.itemList':function (newval,oldval) {
+            //如果是相同的数据那么直接赋值为空即可
+            console.log(JSON.stringify([{spec:{},price:0,num:0,status:'0',isDefault:'0'}])==JSON.stringify(newval));
+            if(JSON.stringify([{spec:{},price:0,num:0,status:'0',isDefault:'0'}])==JSON.stringify(newval)){
+                this.entity.itemList=[];
+             }
+        },
     },
     //钩子函数 初始化了事件和
     created: function () {
