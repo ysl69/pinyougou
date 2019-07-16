@@ -68,9 +68,10 @@ public class GoodsServiceImpl extends CoreServiceImpl<TbGoods>  implements Goods
         Example.Criteria criteria = example.createCriteria();
 
         if(goods!=null){			
-						if(StringUtils.isNotBlank(goods.getSellerId())){
-				criteria.andLike("sellerId","%"+goods.getSellerId()+"%");
+        	if(StringUtils.isNotBlank(goods.getSellerId())){
+				//criteria.andLike("sellerId","%"+goods.getSellerId()+"%");
 				//criteria.andSellerIdLike("%"+goods.getSellerId()+"%");
+				criteria.andEqualTo("sellerId",goods.getSellerId());
 			}
 			if(StringUtils.isNotBlank(goods.getGoodsName())){
 				criteria.andLike("goodsName","%"+goods.getGoodsName()+"%");

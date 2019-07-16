@@ -18,6 +18,7 @@
 </head>
 
 <body class="hold-transition skin-red sidebar-mini" >
+<div id="app">
   <!-- .box-body -->
                 
                     <div class="box-header with-border">
@@ -41,19 +42,19 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="box-tools pull-right">
-                                <div class="has-feedback">
-                                  状态：<select>
-                                         	<option value="">全部</option>      
-                                         	<option value="0">未申请</option>    
-                                         	<option value="1">申请中</option>    
-                                         	<option value="2">审核通过</option>    
-                                         	<option value="3">已驳回</option>                                     
-                                        </select>
-							                  商品名称：<input >									
-									<button class="btn btn-default" >查询</button>                                    
-                                </div>
-                            </div>
+							<div class="box-tools pull-right">
+								<div class="has-feedback">
+									状态：<select v-model="searchEntity.auditStatus">
+									<option value="">全部</option>
+									<option value="0">未审核</option>
+									<option value="1">已审核</option>
+									<option value="2">审核未通过</option>
+									<option value="3">已关闭</option>
+								</select>
+									商品名称：<input v-model="searchEntity.goodsName">
+									<button class="btn btn-default" @click="searchList(1)">查询</button>
+								</div>
+							</div>
                             <!--工具栏/-->
 
 			                  <!--数据列表-->
@@ -74,36 +75,25 @@
 			                          </tr>
 			                      </thead>
 			                      <tbody>
-			                          <tr>
-			                              <td><input  type="checkbox"></td>			                              
-				                          <td>1</td>
-									      <td>小米6S手机</td>
-									      <td>1090</td>
-									      <td>数码</td>
-									      <td>手机</td>
-									      <td>国产手机</td>
-		                                  <td>
-		                                  	<span>
-		                                  		未申请
-		                                  	</span>
-		                                  	<span >
-		                                  		申请中
-		                                  	</span>
-		                                  	<span>
-		                                  		审核通过
-		                                  	</span>
-		                                  	<span>
-		                                  		已驳回
-		                                  	</span>
-		                                  </td>		                                  
-		                                  <td class="text-center">                                          
-		                                 	  <button type="button" class="btn bg-olive btn-xs">修改</button>                  
-		                                  </td>
-			                          </tr>
+								  <tr v-for="(entity,index) in list">
+									  <td><input type="checkbox"></td>
+									  <td>{{entity.id}}</td>
+									  <td>{{entity.goodsName}}</td>
+									  <td>{{entity.price}}</td>
+									  <td>{{itemCatList[entity.category1Id]}}</td>
+									  <td>{{itemCatList[entity.category2Id]}}</td>
+									  <td>{{itemCatList[entity.category3Id]}}</td>
+									  <td>
+										  {{status[entity.auditStatus]}}
+									  </td>
+									  <td class="text-center">
+										  <a  class="btn bg-olive btn-xs" >修改</a>
+									  </td>
+								  </tr>
 			                      </tbody>
 			                  </table>
-			                  <!--数据列表/-->                        
-							  
+			                  <!--数据列表/-->
+							<navigation :pages="pages" :current.sync="pageNo"  @navpage="searchList"></navigation>
 							 
                         </div>
                         <!-- 数据表格 /-->
@@ -111,7 +101,11 @@
                         
                      </div>
                     <!-- /.box-body -->
-		
+</div>
 </body>
-
+<script src="../plugins/vue/vue.js"></script>
+<!--<script src="../js/controller/base.js"></script>-->
+<script src="../plugins/axios/axios.js"></script>
+<script src="../js/pagination.js"></script>
+<script src="../js/controller/goodsManagerController.js"></script>
 </html>
