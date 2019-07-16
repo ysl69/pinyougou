@@ -20,11 +20,9 @@
 	<link rel="stylesheet" href="../plugins/kindeditor/themes/default/default.css" />
 	<script charset="utf-8" src="../plugins/kindeditor/kindeditor-min.js"></script>
 	<script charset="utf-8" src="../plugins/kindeditor/lang/zh_CN.js"></script>
-    
-    
-      
-    
-    
+
+
+
 </head>
 
 <body class="hold-transition skin-red sidebar-mini" >
@@ -231,6 +229,7 @@
 					                               
 					                            <span v-for="option in spec.options">
 					                            	<input  type="checkbox"
+															:checked="isChecked(spec.text,option.optionName)"
 															@click="updateChecked($event,spec.text,option.optionName);createLsit()">{{option.optionName}}
 					                            </span>
 					                        </div>
@@ -385,7 +384,7 @@
 
 </script>
 <script src="../plugins/vue/vue.js"></script>
-<!--<script src="../js/controller/base.js"></script>-->
+<script src="../js/controller/base.js"></script>
 <script src="../plugins/axios/axios.js"></script>
 <script src="../js/pagination.js"></script>
 <script src="../js/controller/goodsController.js"></script>

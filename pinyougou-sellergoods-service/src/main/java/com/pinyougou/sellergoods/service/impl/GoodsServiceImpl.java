@@ -137,6 +137,33 @@ public class GoodsServiceImpl extends CoreServiceImpl<TbGoods>  implements Goods
 		saveItems(goods,tbGoods,goodsDesc);
 	}
 
+
+	@Autowired
+	private TbItemMapper tbItemMapper;
+
+
+	/**
+	 * 根据id获取实体
+	 * @param id
+	 * @return
+	 */
+	@Override
+	public Goods findOne(Long id) {
+		Goods goods = new Goods();
+		TbGoods tbGoods = goodsMapper.selectByPrimaryKey(id);
+		TbGoodsDesc tbGoodsDesc = goodsDescMapper.selectByPrimaryKey(id);
+
+		TbItem record = new TbItem();
+		record.setGoodsId(id);
+		List<TbItem> tbItemList = tbItemMapper.select(record);
+		goods.setGoods(tbGoods);
+		goods.setGoodsDesc(tbGoodsDesc);
+		goods.setItemList(tbItemList);
+		return goods;
+	}
+
+
+
 	private void saveItems(Goods goods, TbGoods tbGoods,TbGoodsDesc goodsDesc) {
 
 		if("1".equals(tbGoods.getIsEnableSpec())) {

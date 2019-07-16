@@ -89,10 +89,37 @@
         findOne:function (id) {
             axios.get('/goods/findOne/'+id+'.shtml').then(function (response) {
                 app.entity=response.data;
+                // 赋值到富文本编辑器 商品介绍
+                editor.html(app.entity.goodsDesc.introduction);
+                //转换json显示 商品图片列表
+                app.entity.goodsDesc.itemImages = JSON.parse(app.entity.goodsDesc.itemImages);
+                //商品扩展属性
+                app.entity.goodsDesc.customAttributeItems = JSON.parse(app.entity.goodsDesc.customAttributeItems)
+                //商品规格属性
+                app.entity.goodsDesc.specificationItems =JSON.parse(app.entity.goodsDesc.specificationItems);
+                //SKU数据
+                for (var i=0;i<app.entity.itemList.length;i++){
+                    var item = app.entity.itemList[i];
+                    item.spec = JSON.parse(item.spec);
+                }
             }).catch(function (error) {
                 console.log("1231312131321");
             });
         },
+
+        //判断是否存储
+        isChecked:function (specName,specValue) {
+            var obj = this.searchObjectByKey(this.entity.goodsDesc.specificationItems,specName,'attributeName');
+            console.log(obj);
+            if(obj!=null){
+                if(obj.attributeValue.indexOf(specValue)!=-1){
+                    return true;
+                }
+            }
+            return false;
+        },
+
+
         dele:function () {
             axios.post('/goods/delete.shtml',this.ids).then(function (response) {
                 console.log(response);
@@ -302,8 +329,10 @@
                     // 品牌列表
                     app.brandTextList = JSON.parse(typeTempalte.brandIds);//[{"id":1,"text":"联想"}]
 
-                    //获取模板的扩展属性的值赋值显示
-                    app.entity.goodsDesc.customAttributeItems = JSON.parse(typeTempalte.customAttributeItems);
+                    //获取模板中的扩展属性赋值给desc中的扩展属性属性值。
+                    if(app.entity.goods.id==null) {
+                        app.entity.goodsDesc.customAttributeItems = JSON.parse(typeTemplate.customAttributeItems);
+                    }
                 })
                 //监听模板的变化 根据模板的ID 获取模板的规格的数据拼接成要的格式
                 axios.get('/typeTemplate/findSpecList/'+newvalue+'.shtml').then(function (response) {
@@ -335,6 +364,14 @@
         //this.searchList(1);
         this.findItemCat1List();
 
+
+
+        // 使用插件中的方法getUrlParam（） 返回是一个JSON对象，例如：{id:149187842867989}
+        var request = this.getUrlParam();
+        //获取参数的值
+        console.log(request);
+        //根据ID获取商品的信息
+        this.findOne(request.id);
     }
 
 })

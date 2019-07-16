@@ -72,18 +72,21 @@ public class GoodsController {
 			e.printStackTrace();
 			return new Result(false, "修改失败");
 		}
-	}	
-	
+	}
+
 	/**
-	 * 获取实体
+	 * 根据id获取实体
 	 * @param id
 	 * @return
 	 */
 	@RequestMapping("/findOne/{id}")
-	public TbGoods findOne(@PathVariable(value = "id") Long id){
-		return goodsService.findOne(id);		
+	public Goods findOne(@PathVariable(value = "id") Long id){
+		return goodsService.findOne(id);
 	}
-	
+
+
+
+
 	/**
 	 * 批量删除
 	 * @param ids
@@ -110,5 +113,7 @@ public class GoodsController {
 
         return goodsService.findPage(pageNo, pageSize, goods);
     }
-	
+
+
+
 }

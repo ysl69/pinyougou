@@ -34,4 +34,13 @@ public interface GoodsService extends CoreService<TbGoods> {
 
 
 	public void add(Goods goods);
+
+
+	/**
+	 * 根据id获取实体
+	 * @param id
+	 * @return
+	 */
+	public Goods findOne(Long id);
+
 }
