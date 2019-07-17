@@ -187,6 +187,21 @@ public class GoodsServiceImpl extends CoreServiceImpl<TbGoods>  implements Goods
 	}
 
 
+	/**
+	 * 批量修改状态
+	 * @param ids
+	 * @param status
+	 */
+	@Override
+	public void updateStatus(Long[] ids, String status) {
+		TbGoods tbGoods = new TbGoods();
+		tbGoods.setAuditStatus(status);
+		Example example = new Example(TbGoods.class);
+		example.createCriteria().andIn("id",Arrays.asList(ids));
+		goodsMapper.updateByExampleSelective(tbGoods,example);//update set status=1 where id in (12,3)
+	}
+
+
 	private void saveItems(Goods goods, TbGoods tbGoods,TbGoodsDesc goodsDesc) {
 
 		if("1".equals(tbGoods.getIsEnableSpec())) {

@@ -6,6 +6,7 @@ import com.pinyougou.pojo.TbGoods;
 import com.pinyougou.sellergoods.service.GoodsService;
 import entity.Goods;
 import entity.Result;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
@@ -116,5 +117,20 @@ public class GoodsController {
     }
 
 
-
+    /**
+     * 批量修改状态
+     * @param ids
+     * @param status
+     * @return
+     */
+    @RequestMapping("/updateStatus/{status}")
+    public Result updateStatus(@RequestBody Long[] ids, @PathVariable(value = "status")String status){
+        try {
+            goodsService.updateStatus(ids,status);
+            return new Result(true,"更新成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new Result(false,"更新失败");
+        }
+    }
 }

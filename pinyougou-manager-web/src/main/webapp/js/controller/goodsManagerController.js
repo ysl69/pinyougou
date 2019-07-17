@@ -107,6 +107,17 @@
             });
         },
 
+        //批量修改状态
+        updateStatus:function (status) {
+            axios.post('/goods/updateStatus/'+status+'.shtml',this.ids).then(function (response) {
+                if (response.data.success){
+                    app.searchList(1);
+                }
+            }).catch(function (error) {
+                console.log("123123123123");
+            })
+        }
+
 
 
     },
