@@ -67,6 +67,9 @@ public class GoodsServiceImpl extends CoreServiceImpl<TbGoods>  implements Goods
         Example example = new Example(TbGoods.class);
         Example.Criteria criteria = example.createCriteria();
 
+        //只查询没有删除的
+		 criteria.andEqualTo("isDelete",false);
+
         if(goods!=null){			
         	if(StringUtils.isNotBlank(goods.getSellerId())){
 				//criteria.andLike("sellerId","%"+goods.getSellerId()+"%");
@@ -202,7 +205,24 @@ public class GoodsServiceImpl extends CoreServiceImpl<TbGoods>  implements Goods
 	}
 
 
-	private void saveItems(Goods goods, TbGoods tbGoods,TbGoodsDesc goodsDesc) {
+	/**
+	 * 商品删除
+	 * @param ids
+	 */
+	@Override
+	public void delete(Object[] ids) {
+		Example example = new Example(TbGoods.class);
+		Example.Criteria criteria = example.createCriteria();
+		criteria.andIn("id",Arrays.asList(ids));
+
+		//更新后的值
+		TbGoods tbGoods = new TbGoods();
+		tbGoods.setIsDelete(true);
+		goodsMapper.updateByExampleSelective(tbGoods,example);
+
+	}
+
+	private void saveItems(Goods goods, TbGoods tbGoods, TbGoodsDesc goodsDesc) {
 
 		if("1".equals(tbGoods.getIsEnableSpec())) {
 
@@ -295,6 +315,10 @@ public class GoodsServiceImpl extends CoreServiceImpl<TbGoods>  implements Goods
 			tbItem.setBrand(tbBrand.getName());
 			itemMapper.insert(tbItem);
 		}
+
+
+
+
 	}
 
 

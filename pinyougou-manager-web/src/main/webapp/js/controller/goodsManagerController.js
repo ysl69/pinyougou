@@ -88,6 +88,7 @@
             axios.post('/goods/delete.shtml',this.ids).then(function (response) {
                 console.log(response);
                 if(response.data.success){
+                    app.ids=[];//清空
                     app.searchList(1);
                 }
             }).catch(function (error) {

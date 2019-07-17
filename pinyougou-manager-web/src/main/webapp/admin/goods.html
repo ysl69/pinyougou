@@ -34,7 +34,7 @@
                             <div class="pull-left">
                                 <div class="form-group form-inline">
                                     <div class="btn-group">
-                                        <button type="button" class="btn btn-default" title="删除" ><i class="fa fa-trash-o"></i> 删除</button>
+                                        <button type="button" class="btn btn-default" title="删除" @click="dele()"><i class="fa fa-trash-o"></i> 删除</button>
                                         <button type="button" class="btn btn-default" title="审核通过" @click="updateStatus(1)"><i class="fa fa-check"></i> 审核通过</button>
                                         <button type="button" class="btn btn-default" title="驳回"
 												@click="updateStatus(2)"><i class="fa fa-ban"></i> 驳回</button>
