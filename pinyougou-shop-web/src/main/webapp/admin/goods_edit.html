@@ -58,7 +58,7 @@
 
                             <!--表单内容-->
                             <div class="tab-pane active" id="home">
-								{{entity}}
+								<!--{{entity}}-->
                                 <div class="row data-type">
 
 								   <div class="col-md-2 title">商品分类</div>
@@ -140,7 +140,7 @@
 		                           
 		                           <div class="col-md-2 title rowHeight2x">售后服务</div>
 		                           <div class="col-md-10 data rowHeight2x">
-		                               <textarea rows="4" v-model="entity.goods.saleService"  class="form-control"
+		                               <textarea rows="4" v-model="entity.goodsDesc.saleService"  class="form-control"
 												 placeholder="售后服务"></textarea>
 		                           </div>                        
                                   
@@ -286,8 +286,8 @@
                  	
                    </div>
                   <div class="btn-toolbar list-toolbar">
-				      <button class="btn btn-primary" @click="add()"><i class="fa fa-save"></i>保存</button>
-				      <button class="btn btn-default" ng-click="goListPage()">返回列表</button>
+				      <button class="btn btn-primary" @click="save()"><i class="fa fa-save"></i>保存</button>
+				      <button class="btn btn-default" href="goods.html">返回列表</button>
 				  </div>
 			
             </section>

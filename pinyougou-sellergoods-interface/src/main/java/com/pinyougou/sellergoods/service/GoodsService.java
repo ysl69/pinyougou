@@ -43,4 +43,11 @@ public interface GoodsService extends CoreService<TbGoods> {
 	 */
 	public Goods findOne(Long id);
 
+
+	/**
+	 * 更新数据
+	 * @param goods
+	 */
+	public void update(Goods goods);
+
 }

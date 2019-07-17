@@ -163,6 +163,29 @@ public class GoodsServiceImpl extends CoreServiceImpl<TbGoods>  implements Goods
 	}
 
 
+	/**
+	 * 更新数据
+	 * @param goods
+	 */
+	@Override
+	public void update(Goods goods) {
+		TbGoods tbGoods = goods.getGoods();
+		tbGoods.setAuditStatus("0");
+		goodsMapper.updateByPrimaryKey(tbGoods);
+
+		//更新描述
+		goodsDescMapper.updateByPrimaryKey(goods.getGoodsDesc());
+
+		// 更新sku 先删除原来的SKUid对应的SKU的列表
+		TbItem tbItem = new TbItem();
+		tbItem.setGoodsId(tbGoods.getId());
+		tbItemMapper.delete(tbItem);
+
+		// 新增 判断是否为启用状态
+		saveItems(goods,tbGoods,goods.getGoodsDesc());
+
+	}
+
 
 	private void saveItems(Goods goods, TbGoods tbGoods,TbGoodsDesc goodsDesc) {
 
