@@ -1,11 +1,17 @@
 package com.pinyougou.pojo;
 
+import org.springframework.data.elasticsearch.annotations.Document;
+import org.springframework.data.elasticsearch.annotations.Field;
+import org.springframework.data.elasticsearch.annotations.FieldType;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.Map;
 import javax.persistence.*;
 
 @Table(name = "tb_item")
+@Document(indexName = "pinyougou",type="item")
 public class TbItem implements Serializable {
     /**
      * 商品id，同时也是商品编号
@@ -13,12 +19,15 @@ public class TbItem implements Serializable {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Field
+    @org.springframework.data.annotation.Id
     private Long id;
 
     /**
      * 商品标题
      */
     @Column(name = "title")
+    @Field(index = true, analyzer = "ik_smart",searchAnalyzer = "ik_smart", type = FieldType.Text, copyTo = "keyword")
     private String title;
 
     /**
@@ -31,6 +40,7 @@ public class TbItem implements Serializable {
      * 商品价格，单位为：元
      */
     @Column(name = "price")
+    @Field(type = FieldType.Double)
     private BigDecimal price;
 
     @Column(name = "stock_count")
@@ -52,6 +62,7 @@ public class TbItem implements Serializable {
      * 商品图片
      */
     @Column(name = "image")
+    @Field(index = false,type = FieldType.Text)
     private String image;
 
     /**
@@ -91,6 +102,7 @@ public class TbItem implements Serializable {
     private String isDefault;
 
     @Column(name = "goods_id")
+    @Field(type = FieldType.Long)
     private Long goodsId;
 
     @Column(name = "seller_id")
@@ -103,22 +115,42 @@ public class TbItem implements Serializable {
      * 冗余字段 存放三级分类名称
      */
     @Column(name = "category")
+    @Field(type = FieldType.Keyword,copyTo = "keyword")
     private String category;
 
     /**
      * 冗余字段 存放品牌名称
      */
     @Column(name = "brand")
+    @Field (type = FieldType.Keyword, copyTo = "keyword")
     private String brand;
 
     @Column(name = "spec")
+    @Field(index = false,type = FieldType.Keyword)
     private String spec;
 
     /**
      * 冗余字段，用于存放商家的店铺名称
      */
     @Column(name = "seller")
+    @Field(type = FieldType.Keyword, copyTo = "keyword")
     private String seller;
+
+
+    //要索引 嵌套类型?对象类型？  我使用对象类型 这里没有必要使用嵌套类型 只有数组的情况下再使用
+    @Field(index = true,type=FieldType.Object)
+    //注意要使用这个字段来标识不需要从数据库进行映射
+    @Transient
+    private Map<String,String> specMap;
+
+    public Map<String, String> getSpecMap() {
+        return specMap;
+    }
+
+    public void setSpecMap(Map<String, String> specMap) {
+        this.specMap = specMap;
+    }
+
 
     private static final long serialVersionUID = 1L;
 
