@@ -21,6 +21,7 @@
       <module>../pinyougou-content-interface</module>
     <module>../pinyougou-content-service</module>
       <module>../pinyougou-portal-web</module>
+      <module>../itheima-elasticsearch-demo</module>
   </modules>
   <packaging>pom</packaging>
 
