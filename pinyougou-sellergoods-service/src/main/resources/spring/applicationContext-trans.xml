@@ -37,4 +37,5 @@
     <!-- 引入-->
     <import resource="applicationContext-dao.xml"></import>
     <import resource="applicationContext-service.xml"></import>
+    <import resource="applicationContext-redis.xml"></import>
 </beans>

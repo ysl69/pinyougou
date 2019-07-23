@@ -16,5 +16,6 @@
     <dubbo:provider timeout="100000"></dubbo:provider>
 
     <import resource="applicationContext-es.xml"></import>
+    <import resource="applicationContext-redis.xml"></import>
 
 </beans>

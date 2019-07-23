@@ -25,7 +25,7 @@
     //钩子函数 初始化了事件和
     created: function () {
       
-        this.searchList();
+        //this.searchList();
 
     }
 

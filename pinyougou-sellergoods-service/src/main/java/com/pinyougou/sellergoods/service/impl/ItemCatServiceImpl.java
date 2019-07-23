@@ -1,7 +1,9 @@
 package com.pinyougou.sellergoods.service.impl;
 import java.util.Arrays;
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired; 
+
+import org.apache.lucene.analysis.query.QueryAutoStopWordAnalyzer;
+import org.springframework.beans.factory.annotation.Autowired;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.PageHelper;
@@ -9,6 +11,7 @@ import com.github.pagehelper.PageInfo;
 import org.apache.commons.lang3.StringUtils;
 import com.pinyougou.core.service.CoreServiceImpl;
 
+import org.springframework.data.redis.core.RedisTemplate;
 import tk.mybatis.mapper.entity.Example;
 
 import com.pinyougou.mapper.TbItemCatMapper;
@@ -74,9 +77,14 @@ public class ItemCatServiceImpl extends CoreServiceImpl<TbItemCat>  implements I
         String s = JSON.toJSONString(info);
         PageInfo<TbItemCat> pageInfo = JSON.parseObject(s, PageInfo.class);
 
+
         return pageInfo;
     }
 
+
+
+    @Autowired
+    private RedisTemplate redisTemplate;
 
     /**
      * 分类列表查询
@@ -89,6 +97,13 @@ public class ItemCatServiceImpl extends CoreServiceImpl<TbItemCat>  implements I
         cat.setParentId(parentId);
         // 根据条件查询
         List<TbItemCat> tbItemCats = itemCatMapper.select(cat);
+
+        //每次执行查询的时候，一次性读取缓存进行存储 (因为每次增删改都要执行此方法)
+        List<TbItemCat> list = findAll();
+        for (TbItemCat itemCat : list) {
+            redisTemplate.boundHashOps("itemCat").put(itemCat.getName(),itemCat.getTypeId());
+        }
+
         return tbItemCats;
     }
 
