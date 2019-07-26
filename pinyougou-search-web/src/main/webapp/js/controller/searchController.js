@@ -6,7 +6,7 @@
         list:[],
         entity:{},
         ids:[],
-        searchMap:{'keywords':'','category':'','brand':'',spec:{}},//搜索的条件封装对象
+        searchMap:{'keywords':'','category':'','brand':'',spec:{},'price':''},//搜索的条件封装对象
         resultMap:{},//搜索的结果封装对象
         searchEntity:{}
     },
@@ -23,7 +23,7 @@
 
         //添加搜索项
         addSearchItem:function (key, value) {
-            if (key=='category' || key=='brand'){
+            if (key=='category' || key=='brand' || key=='price'){
                 this.searchMap[key] = value;
             }else {
                 this.searchMap.spec[key] = value;
@@ -33,7 +33,7 @@
 
         //撤销搜索项
         removeSearchItem:function (key) {
-            if (key=='category' || key=='brand'){
+            if (key=='category' || key=='brand' || key=='price'){
                 this.searchMap[key] = '';
             } else {
                 delete this.searchMap.spec[key];

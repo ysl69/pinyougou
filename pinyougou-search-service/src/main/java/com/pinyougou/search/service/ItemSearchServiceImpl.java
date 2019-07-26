@@ -102,6 +102,19 @@ public class ItemSearchServiceImpl implements ItemSearchService {
             }
         }
 
+        //3.5过滤查询  价格区间过滤
+        String price = (String) searchMap.get("price");
+
+        if (StringUtils.isNotBlank(price)){
+            String[] split = price.split("-");
+            if ("*".equals(split[1])){
+                //价格大于
+                boolQueryBuilder.filter(QueryBuilders.rangeQuery("price").gte(split[0]));
+            }else {
+                boolQueryBuilder.filter(QueryBuilders.rangeQuery("price").from(split[0],true).to(split[1],true));
+            }
+        }
+
 
         searchQueryBuilder.withFilter(boolQueryBuilder);
 
