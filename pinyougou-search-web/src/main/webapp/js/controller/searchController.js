@@ -6,7 +6,7 @@
         list:[],
         entity:{},
         ids:[],
-        searchMap:{'keywords':''},//搜索的条件封装对象
+        searchMap:{'keywords':'','category':'','brand':'',spec:{}},//搜索的条件封装对象
         resultMap:{},//搜索的结果封装对象
         searchEntity:{}
     },
@@ -20,6 +20,26 @@
             });
         },
 
+
+        //添加搜索项
+        addSearchItem:function (key, value) {
+            if (key=='category' || key=='brand'){
+                this.searchMap[key] = value;
+            }else {
+                this.searchMap.spec[key] = value;
+            }
+            this.searchList();
+        },
+
+        //撤销搜索项
+        removeSearchItem:function (key) {
+            if (key=='category' || key=='brand'){
+                this.searchMap[key] = '';
+            } else {
+                delete this.searchMap.spec[key];
+            }
+            this.searchList();
+        }
 
     },
     //钩子函数 初始化了事件和

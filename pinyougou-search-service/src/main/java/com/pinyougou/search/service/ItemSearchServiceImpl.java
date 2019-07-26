@@ -6,7 +6,9 @@ import com.pinyougou.pojo.TbItem;
 import org.apache.commons.lang3.StringUtils;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.common.text.Text;
+import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.index.query.TermQueryBuilder;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
 import org.elasticsearch.search.aggregations.Aggregation;
@@ -60,6 +62,7 @@ public class ItemSearchServiceImpl implements ItemSearchService {
         //高亮时设置查询多个指定的域
         searchQueryBuilder.withQuery(QueryBuilders.multiMatchQuery(keywords,"seller","category","brand","title"));
 
+        //设置一个聚合查询的条件 ：1.设置聚合查询的名称（别名）2.设置分组的字段
         searchQueryBuilder.addAggregation(AggregationBuilders.terms("category_group").field("category").size(50));
 
 
@@ -70,8 +73,42 @@ public class ItemSearchServiceImpl implements ItemSearchService {
                         .postTags("</em>"));
 
 
+        //3.2 过滤查询  ----商品分类的过滤查询
+        BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
+
+        String category = (String) searchMap.get("category");
+        if (StringUtils.isNotBlank(category)){
+            //不为空才设置过滤
+            boolQueryBuilder.filter(QueryBuilders.termQuery("category",category));
+        }
+
+
+        //3.3 过滤查询 ----商品的品牌的过滤查询
+        String brand = (String) searchMap.get("brand");
+        if (StringUtils.isNotBlank(category)){
+            //不为空才设置过滤
+            // searchQueryBuilder.withFilter(QueryBuilders.termQuery("brand",brand));
+            boolQueryBuilder.filter(QueryBuilders.termQuery("category",category));
+        }
+
+
+        //3.4 过滤查询 ----规格的过滤查询 获取到规格的名称 和规格的值  执行过滤查询
+        Map<String,String> spec = (Map<String, String>) searchMap.get("spec");//{"网络":"移动4G","机身内存":"16G"}
+        if(spec!=null) {
+            for (String key : spec.keySet()) {
+                //该路径上去查询
+                TermQueryBuilder termQueryBuilder = QueryBuilders.termQuery("specMap."+key+".keyword", spec.get(key));
+                boolQueryBuilder.filter(termQueryBuilder);
+            }
+        }
+
+
+        searchQueryBuilder.withFilter(boolQueryBuilder);
+
         //4.构建查询对象pinyougou-search-web
         NativeSearchQuery searchQuery = searchQueryBuilder.build();
+
+
 
         //5.执行查询  自定义数据映射封装
         AggregatedPage<TbItem> tbItems = elasticsearchTemplate.queryForPage(searchQuery, TbItem.class, new SearchResultMapper() {
@@ -137,8 +174,14 @@ public class ItemSearchServiceImpl implements ItemSearchService {
 
 
         //获取第一个分类下的所有的品牌和规格列表
-        Map map = searchBrandAndSpecList(categoryList.get(0));
-        resultMap.putAll(map);
+        if (StringUtils.isNotBlank(category)){
+            Map map = searchBrandAndSpecList(category);
+            resultMap.putAll(map);
+        }else {
+            Map map = searchBrandAndSpecList(categoryList.get(0));
+            resultMap.putAll(map);
+        }
+
 
 
         //6.获取结果集 返回
