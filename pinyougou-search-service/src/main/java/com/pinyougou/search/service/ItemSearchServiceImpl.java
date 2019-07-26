@@ -17,6 +17,7 @@ import org.elasticsearch.search.aggregations.bucket.terms.StringTerms;
 import org.elasticsearch.search.fetch.subphase.highlight.HighlightBuilder;
 import org.elasticsearch.search.fetch.subphase.highlight.HighlightField;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 import org.springframework.data.elasticsearch.core.SearchResultMapper;
@@ -102,12 +103,39 @@ public class ItemSearchServiceImpl implements ItemSearchService {
             }
         }
 
+        //3.5过滤查询  价格区间过滤
+        String price = (String) searchMap.get("price");
+
+        if (StringUtils.isNotBlank(price)){
+            String[] split = price.split("-");
+            if ("*".equals(split[1])){
+                //价格大于
+                boolQueryBuilder.filter(QueryBuilders.rangeQuery("price").gte(split[0]));
+            }else {
+                boolQueryBuilder.filter(QueryBuilders.rangeQuery("price").from(split[0],true).to(split[1],true));
+            }
+        }
+
 
         searchQueryBuilder.withFilter(boolQueryBuilder);
 
         //4.构建查询对象pinyougou-search-web
         NativeSearchQuery searchQuery = searchQueryBuilder.build();
 
+
+        //参数1 为当前页码 值为0 ：表示第一页
+        //参数2 为每页显示的行
+
+        //6.设置分页条件
+        Integer pageNo = (Integer) searchMap.get("pageNo");
+        Integer pageSize = (Integer) searchMap.get("pageSize");
+        if (pageNo == null){
+            pageNo=1;
+        }
+        if (pageSize == null){
+            pageSize=40;
+        }
+        searchQuery.setPageable(PageRequest.of(pageNo-1,pageSize));
 
 
         //5.执行查询  自定义数据映射封装
