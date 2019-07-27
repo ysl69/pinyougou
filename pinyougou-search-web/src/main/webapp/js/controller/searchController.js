@@ -125,6 +125,12 @@
     created: function () {
       
         //this.searchList();
+        
+        var urlParam = this.getUrlParam();
+        if (urlParam.keywords!=undefined && urlParam!=null){
+            this.searchMap.keywords = decodeURIComponent(urlParam.keywords);
+            this.searchList();
+        }
 
     }
 
