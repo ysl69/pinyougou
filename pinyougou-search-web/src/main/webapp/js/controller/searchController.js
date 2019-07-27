@@ -79,6 +79,14 @@
             for(let i=firstPage;i<=lastPage;i++){
                 this.pageLabels.push(i);
             }
+        },
+
+
+        //点击页码查询
+        queryByPage:function (pageNo) {
+            pageNo = parseInt(pageNo);
+            this.searchMap.pageNo = pageNo;
+            this.searchList();
         }
 
     },
