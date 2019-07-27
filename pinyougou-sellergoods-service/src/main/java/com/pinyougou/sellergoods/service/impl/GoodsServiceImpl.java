@@ -206,6 +206,20 @@ public class GoodsServiceImpl extends CoreServiceImpl<TbGoods>  implements Goods
 
 
 	/**
+	 * 根据商品SPU的数组对象查询所有的该商品的列表数据
+	 * @param ids
+	 * @return
+	 */
+	@Override
+	public List<TbItem> findTbItemListByIds(Long[] ids) {
+		Example example = new Example(TbItem.class);
+		example.createCriteria().andIn("goodsId",Arrays.asList(ids)).andEqualTo("status","1");
+
+		return tbItemMapper.selectByExample(example);
+	}
+
+
+	/**
 	 * 商品删除
 	 * @param ids
 	 */

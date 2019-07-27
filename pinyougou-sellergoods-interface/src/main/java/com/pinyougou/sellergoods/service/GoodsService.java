@@ -4,6 +4,7 @@ import com.pinyougou.pojo.TbGoods;
 
 import com.github.pagehelper.PageInfo;
 import com.pinyougou.core.service.CoreService;
+import com.pinyougou.pojo.TbItem;
 import entity.Goods;
 
 /**
@@ -57,5 +58,13 @@ public interface GoodsService extends CoreService<TbGoods> {
 	 * @param status
 	 */
 	public void updateStatus(Long[] ids,String status);
+
+
+	/**
+	 * 根据商品SPU的数组对象查询所有的该商品的列表数据
+	 * @param ids
+	 * @return
+	 */
+	List<TbItem> findTbItemListByIds(Long[] ids);
 
 }

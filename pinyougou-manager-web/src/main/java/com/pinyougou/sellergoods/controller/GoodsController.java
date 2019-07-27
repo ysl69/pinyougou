@@ -3,6 +3,8 @@ package com.pinyougou.sellergoods.controller;
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.github.pagehelper.PageInfo;
 import com.pinyougou.pojo.TbGoods;
+import com.pinyougou.pojo.TbItem;
+import com.pinyougou.search.service.ItemSearchService;
 import com.pinyougou.sellergoods.service.GoodsService;
 import entity.Goods;
 import entity.Result;
@@ -98,6 +100,8 @@ public class GoodsController {
 	public Result delete(@RequestBody Long[] ids){
 		try {
 			goodsService.delete(ids);
+
+			itemSearchService.deleteByIds(ids);
 			return new Result(true, "删除成功"); 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -117,6 +121,10 @@ public class GoodsController {
     }
 
 
+    @Reference
+    private ItemSearchService itemSearchService;
+
+
     /**
      * 批量修改状态
      * @param ids
@@ -127,10 +135,17 @@ public class GoodsController {
     public Result updateStatus(@RequestBody Long[] ids, @PathVariable(value = "status")String status){
         try {
             goodsService.updateStatus(ids,status);
+
+            if ("1".equals(status)){
+				List<TbItem> tbItemListByIds = goodsService.findTbItemListByIds(ids);
+				itemSearchService.updateIndex(tbItemListByIds);
+			}
+
             return new Result(true,"更新成功");
         } catch (Exception e) {
             e.printStackTrace();
             return new Result(false,"更新失败");
         }
+
     }
 }
