@@ -6,6 +6,8 @@
         list:[],
         entity:{},
         ids:[],
+        preDott:false,
+        nextDott:false,
         searchMap:{'keywords':'','category':'','brand':'',spec:{},'price':'','pageNo':1,"pageSize":40},//搜索的条件封装对象
         pageLabels:[],//页码存储的变量
         resultMap:{},//搜索的结果封装对象
@@ -58,23 +60,23 @@
                 if (this.searchMap.pageNo<=3){
                     firstPage=1;
                     lastPage=5;
-                    //this.preDott=false;
-                    //this.nextDott=true;
+                    this.preDott=false;
+                    this.nextDott=true;
                 }else if (this.searchMap.pageNo>=this.resultMap.totalPages-2) {//如果当前的页码大于= 总页数-2    98 99 100
                     firstPage=this.resultMap.totalPages-4;
                     lastPage=this.resultMap.totalPages;
-                    //this.preDott=true;
-                    //this.nextDott=false;
+                    this.preDott=true;
+                    this.nextDott=false;
                 }else{
                     firstPage=this.searchMap.pageNo-2;
                     lastPage=this.searchMap.pageNo+2;
-                    //this.preDott=true;
-                    //this.nextDott=true;
+                    this.preDott=true;
+                    this.nextDott=true;
 
                 }
             }else{
-                //this.preDott=false;
-                //this.nextDott=false;
+                this.preDott=false;
+                this.nextDott=false;
             }
             for(let i=firstPage;i<=lastPage;i++){
                 this.pageLabels.push(i);
