@@ -11,6 +11,8 @@
         searchMap:{'keywords':'','category':'','brand':'',spec:{},'price':'','pageNo':1,"pageSize":40,'sortFiled':'','sortType':''},//搜索的条件封装对象
         pageLabels:[],//页码存储的变量
         resultMap:{},//搜索的结果封装对象
+        brandList:[], //显示品牌列表数据
+        specMap:{},  //显示规格名以及规格选项
         searchEntity:{}
     },
     methods: {
@@ -101,6 +103,22 @@
             this.searchMap.sortFiled = sortFiled;
             this.searchMap.sortType = sortType;
             this.searchList();
+        },
+        
+        //如果用户输入的是品牌的关键字，则隐藏品牌列表 并展示
+        //判断 搜素的关键字是否就是品牌 如果是 返回true  否则返回false
+        isKeywordIsBrand:function () {
+            //循环遍历品牌的列表  判断 关键字中是否包含品牌即可 如果是 返回true 否则 返回false
+            if (this.resultMap.brandList!=null && this.resultMap.brandList.length>0){
+                for (var i = 0; i < this.resultMap.brandList.length; i++) {//[{id:1,text:"联想"},{}]
+                    if (this.searchMap.keywords.indexOf(this.resultMap.brandList[i].text) != -1){
+                        //赋值brand
+                        this.searchMap.brand = this.resultMap.brandList[i].text;
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
     },
     //钩子函数 初始化了事件和

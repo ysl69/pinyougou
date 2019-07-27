@@ -178,7 +178,7 @@
 						<a href="#" @click="addSearchItem('category',category)">{{category}}</a>
 					</div>
 				</div>
-				<div class="type-wrap logo" v-if="searchMap.brand==''">
+				<div class="type-wrap logo" v-if="searchMap.brand=='' && isKeywordIsBrand()==false">
 					<div class="fl key brand">品牌</div>
 					<div class="value logos">
 						<ul class="logo-list">
