@@ -89,6 +89,11 @@
             pageNo = parseInt(pageNo);
             this.searchMap.pageNo = pageNo;
             this.searchList();
+        },
+
+        //搜索点击处理
+        clear:function () {
+            this.searchMap = {'keywords':this.searchMap.keywords,'category':'','brand':'',spec:{},'price':'','pageNo':1,'pageSize':40};
         }
 
     },
