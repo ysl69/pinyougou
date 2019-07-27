@@ -8,7 +8,7 @@
         ids:[],
         preDott:false,
         nextDott:false,
-        searchMap:{'keywords':'','category':'','brand':'',spec:{},'price':'','pageNo':1,"pageSize":40},//搜索的条件封装对象
+        searchMap:{'keywords':'','category':'','brand':'',spec:{},'price':'','pageNo':1,"pageSize":40,'sortFiled':'','sortType':''},//搜索的条件封装对象
         pageLabels:[],//页码存储的变量
         resultMap:{},//搜索的结果封装对象
         searchEntity:{}
@@ -93,9 +93,15 @@
 
         //搜索点击处理
         clear:function () {
-            this.searchMap = {'keywords':this.searchMap.keywords,'category':'','brand':'',spec:{},'price':'','pageNo':1,'pageSize':40};
+            this.searchMap = {'keywords':this.searchMap.keywords,'category':'','brand':'',spec:{},'price':'','pageNo':1,'pageSize':40,'sortField':'','sortType':''};
+        },
+        
+        //价格排序
+        doSort:function (sortFiled,sortType) {
+            this.searchMap.sortFiled = sortFiled;
+            this.searchMap.sortType = sortType;
+            this.searchList();
         }
-
     },
     //钩子函数 初始化了事件和
     created: function () {

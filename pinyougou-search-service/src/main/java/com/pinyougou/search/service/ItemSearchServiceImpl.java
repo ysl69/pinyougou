@@ -19,6 +19,7 @@ import org.elasticsearch.search.fetch.subphase.highlight.HighlightField;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 import org.springframework.data.elasticsearch.core.SearchResultMapper;
 import org.springframework.data.elasticsearch.core.aggregation.AggregatedPage;
@@ -136,6 +137,20 @@ public class ItemSearchServiceImpl implements ItemSearchService {
             pageSize=40;
         }
         searchQuery.setPageable(PageRequest.of(pageNo-1,pageSize));
+
+
+        // 排序条件 价格排序
+        String sortFiled = (String) searchMap.get("sortFiled");
+        String sortType = (String) searchMap.get("sortType");
+
+        if (StringUtils.isNotBlank(sortFiled) && StringUtils.isNotBlank(sortType)){
+            if (sortType.equals("ASC")){
+                Sort sort = new Sort(Sort.Direction.DESC, sortFiled);
+                searchQuery.addSort(sort);
+            }else {
+                System.out.println("不排序");
+            }
+        }
 
 
         //5.执行查询  自定义数据映射封装
