@@ -6,6 +6,7 @@
         list:[],
         entity:{},
         ids:[],
+        keywords:'',
         contentList:[],
         searchEntity:{}
     },
@@ -101,6 +102,11 @@
             }).catch(function (error) {
                 console.log("123123123123123123");
             })
+        },
+
+        //首页传递关键字
+        doSearch:function () {
+            window.location.href = "http://localhost:9104/search.html?keywords="+encodeURIComponent(this.keywords);
         }
 
 

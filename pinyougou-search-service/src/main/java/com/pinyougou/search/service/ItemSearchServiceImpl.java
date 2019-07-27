@@ -3,6 +3,7 @@ package com.pinyougou.search.service;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.alibaba.fastjson.JSON;
 import com.pinyougou.pojo.TbItem;
+import com.pinyougou.search.dao.ItemSearchDao;
 import org.apache.commons.lang3.StringUtils;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.common.text.Text;
@@ -19,10 +20,12 @@ import org.elasticsearch.search.fetch.subphase.highlight.HighlightField;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 import org.springframework.data.elasticsearch.core.SearchResultMapper;
 import org.springframework.data.elasticsearch.core.aggregation.AggregatedPage;
 import org.springframework.data.elasticsearch.core.aggregation.impl.AggregatedPageImpl;
+import org.springframework.data.elasticsearch.core.query.DeleteQuery;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQuery;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -138,6 +141,20 @@ public class ItemSearchServiceImpl implements ItemSearchService {
         searchQuery.setPageable(PageRequest.of(pageNo-1,pageSize));
 
 
+        // 排序条件 价格排序
+        String sortFiled = (String) searchMap.get("sortFiled");
+        String sortType = (String) searchMap.get("sortType");
+
+        if (StringUtils.isNotBlank(sortFiled) && StringUtils.isNotBlank(sortType)){
+            if (sortType.equals("ASC")){
+                Sort sort = new Sort(Sort.Direction.DESC, sortFiled);
+                searchQuery.addSort(sort);
+            }else {
+                System.out.println("不排序");
+            }
+        }
+
+
         //5.执行查询  自定义数据映射封装
         AggregatedPage<TbItem> tbItems = elasticsearchTemplate.queryForPage(searchQuery, TbItem.class, new SearchResultMapper() {
             @Override
@@ -223,6 +240,39 @@ public class ItemSearchServiceImpl implements ItemSearchService {
         return resultMap;
     }
 
+
+
+    @Autowired
+    private ItemSearchDao itemSearchDao;
+
+    /**
+     * 更新数据到索引库中
+     * @param items  数据
+     */
+    @Override
+    public void updateIndex(List<TbItem> items) {
+        //先设置map 再一次性插入
+        for (TbItem item : items) {
+            String spec = item.getSpec();
+            Map map = JSON.parseObject(spec, Map.class);
+            item.setSpecMap(map);
+        }
+        itemSearchDao.saveAll(items);
+    }
+
+
+    /**
+     *  商品删除同步索引数据
+     * @param ids
+     */
+    @Override
+    public void deleteByIds(Long[] ids) {
+        DeleteQuery deleteQuery = new DeleteQuery();
+        // 删除多个goodsId
+        deleteQuery.setQuery(QueryBuilders.termsQuery("goodsId",ids));
+        //根据删除条件 索引名 和 类型
+        elasticsearchTemplate.delete(deleteQuery,TbItem.class);
+    }
 
 
     @Autowired
