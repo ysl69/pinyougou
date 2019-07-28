@@ -12,7 +12,8 @@
 	<script src="../plugins/jQuery/jquery-2.2.3.min.js"></script>
     <script src="../plugins/bootstrap/js/bootstrap.min.js"></script>
 
-
+	<!-- 引入样式 -->
+	<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
 
 </head>
 <body class="hold-transition skin-red sidebar-mini">
@@ -42,6 +43,15 @@
                                     </div>
                                 </div>
                             </div>
+
+							<!--<el-upload action="/ordersetting/upload.do"
+									   name="excelFile"
+									   :show-file-list="false"
+									   :on-success="handleSuccess"
+									   :before-upload="beforeUpload">
+								<el-button size="small" type="primary">上传文件</el-button>
+							</el-upload>-->
+
                             <div class="box-tools pull-right">
 								<!--{{searchEntity}}-->
 								<div class="has-feedback">
@@ -129,9 +139,13 @@
 </body>
 <!--引入js-->
 <script src="../plugins/vue/vue.js"></script>
+<!-- 引入组件库 -->
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+
 <script src="../plugins/axios/axios.js"></script>
 <script src="../js/controller/brandController.js"></script>
 <!--分页-->
 <script src="../js/pagination.js"></script>
+
 
 </html>
