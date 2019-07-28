@@ -80,5 +80,5 @@ public class BrandServiceImpl extends CoreServiceImpl<TbBrand>  implements Brand
 
         return pageInfo;
     }
-
+	
 }

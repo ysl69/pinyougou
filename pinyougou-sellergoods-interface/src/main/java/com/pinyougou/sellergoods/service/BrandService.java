@@ -28,6 +28,5 @@ public interface BrandService extends CoreService<TbBrand> {
 	 * @return
 	 */
 	PageInfo<TbBrand> findPage(Integer pageNo,Integer pageSize,TbBrand Brand);
-
-
+	
 }
