@@ -2,6 +2,7 @@ package com.pinyougou.sellergoods.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.github.pagehelper.PageInfo;
+import com.pinyougou.page.service.ItemPageService;
 import com.pinyougou.pojo.TbGoods;
 import com.pinyougou.pojo.TbItem;
 import com.pinyougou.search.service.ItemSearchService;
@@ -124,6 +125,8 @@ public class GoodsController {
     @Reference
     private ItemSearchService itemSearchService;
 
+	@Reference
+	private ItemPageService itemPageService;
 
     /**
      * 批量修改状态
@@ -137,8 +140,16 @@ public class GoodsController {
             goodsService.updateStatus(ids,status);
 
             if ("1".equals(status)){
-				List<TbItem> tbItemListByIds = goodsService.findTbItemListByIds(ids);
-				itemSearchService.updateIndex(tbItemListByIds);
+                //1.根据审核的SPU的ID 获取SKU的列表数据
+                List<TbItem> tbItemList = goodsService.findTbItemListByIds(ids);
+                //2.调用搜索服务的方法 （传递SKU的列表数据过去）内部执行更新的动作。
+                itemSearchService.updateIndex(tbItemList);
+
+                //3.生成静态页面
+                //调用静态化服务的方法 根据 商品的ID(spu的ID) 直接从数据库查询 并生成静态页面（服务方法的内部的）
+                for (Long id : ids) {
+                    itemPageService.genItemHtml(id);
+                }
 			}
 
             return new Result(true,"更新成功");
