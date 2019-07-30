@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean class="org.apache.rocketmq.client.consumer.DefaultMQPushConsumer" init-method="start" destroy-method="shutdown">
+        <property name="namesrvAddr" value="127.0.0.1:9876"></property>
+        <property name="consumerGroup" value="consmer_page_group"></property>
+        <!--广播的模式  可以多个消费者一起消费一个消息 ，也就是说一个消费者可以被多个消费者消费-->
+        <property name="messageModel" value="BROADCASTING"></property>
+        <property name="subscription">
+            <map>
+                <!--主题 goods_topic 下的所有的tag的消息-->
+                <entry  key="Goods_Topic" value="*"></entry>
+            </map>
+        </property>
+
+        <property name="messageListener" ref="messageListener"></property>
+    </bean>
+    <!--监听器 对象 用于监听消息  获取消息内容进行相关的操作-->
+    <bean class="com.pinyougou.page.listener.PageMessageListener" id="messageListener"></bean>
+</beans>

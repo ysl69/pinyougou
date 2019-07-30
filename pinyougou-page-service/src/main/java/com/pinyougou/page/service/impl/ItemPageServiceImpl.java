@@ -12,6 +12,7 @@ import com.pinyougou.pojo.TbItem;
 import com.pinyougou.pojo.TbItemCat;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
@@ -60,6 +61,22 @@ public class ItemPageServiceImpl implements ItemPageService {
 
         //2.使用freemarker 创建模板  使用数据集 生成静态页面 (数据集 和模板)
         genHTML("item.ftl", tbGoods, tbGoodsDesc);
+    }
+
+
+    /**
+     * 删除商品详细页
+     * @param longs
+     */
+    @Override
+    public void deleteById(Long[] goodsId) {
+        try {
+            for (Long aLong : goodsId) {
+                FileUtils.forceDelete(new File(pageDir + aLong + ".html"));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 

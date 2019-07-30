@@ -17,5 +17,6 @@
 
     <import resource="applicationContext-es.xml"></import>
     <import resource="applicationContext-redis.xml"></import>
+    <import resource="applicationContext-consumer.xml"></import>
 
 </beans>

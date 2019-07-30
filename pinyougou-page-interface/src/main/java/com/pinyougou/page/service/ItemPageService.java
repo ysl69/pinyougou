@@ -13,4 +13,10 @@ public interface ItemPageService {
      */
     public void genItemHtml(Long goodsId);
 
+
+    /**
+     * 删除商品详细页
+     * @param goodsId
+     */
+    void deleteById(Long[] goodsId);
 }

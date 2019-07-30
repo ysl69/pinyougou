@@ -46,5 +46,6 @@
 
     <!--引入-->
     <import resource="spring-security.xml"></import>
+    <import resource="spring-producer.xml"></import>
 
 </beans>
