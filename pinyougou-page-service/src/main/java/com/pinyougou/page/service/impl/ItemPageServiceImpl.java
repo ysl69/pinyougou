@@ -8,14 +8,18 @@ import com.pinyougou.mapper.TbItemMapper;
 import com.pinyougou.page.service.ItemPageService;
 import com.pinyougou.pojo.TbGoods;
 import com.pinyougou.pojo.TbGoodsDesc;
+import com.pinyougou.pojo.TbItem;
+import com.pinyougou.pojo.TbItemCat;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
+import tk.mybatis.mapper.entity.Example;
 
 import java.io.*;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -72,6 +76,28 @@ public class ItemPageServiceImpl implements ItemPageService {
             Map model = new HashMap();
             model.put("tbGoods", tbGoods);
             model.put("tbGoodsDesc", tbGoodsDesc);
+
+            //根据分类的Id，查询分类的对象
+            TbItemCat itemCat1 = itemCatMapper.selectByPrimaryKey(tbGoods.getCategory1Id());
+            TbItemCat itemCat2 = itemCatMapper.selectByPrimaryKey(tbGoods.getCategory2Id());
+            TbItemCat itemCat3 = itemCatMapper.selectByPrimaryKey(tbGoods.getCategory3Id());
+
+            model.put("itemCat1",itemCat1.getName());
+            model.put("itemCat2",itemCat2.getName());
+            model.put("itemCat3",itemCat3.getName());
+
+
+            //查询商品SPU的对应的所有的SKU的列表数据
+            //select * from tb_item where goods_id=1 and status=1 order by is_default desc
+
+            Example example = new Example(TbItem.class);
+            Example.Criteria criteria = example.createCriteria();
+            criteria.andEqualTo("goodsId",tbGoods.getId());
+            criteria.andEqualTo("status","1");
+            example.setOrderByClause("is_default desc");  //order by  is_default desc
+
+            List<TbItem> tbItems = tbItemMapper.selectByExample(example);
+            model.put("skuList",tbItems);
 
             //5.创建一个写流
             writer =
