@@ -30,6 +30,8 @@
       <module>../pinyougou-page-interface</module>
       <module>../pinyougou-page-service</module>
       <module>../pinyougou-page-web</module>
+      <module>../itheima-rokectmq-producer</module>
+      <module>../itheima-rokectmq-consumer</module>
 
   </modules>
   <packaging>pom</packaging>
