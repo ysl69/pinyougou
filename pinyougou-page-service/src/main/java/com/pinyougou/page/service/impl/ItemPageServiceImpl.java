@@ -66,7 +66,7 @@ public class ItemPageServiceImpl implements ItemPageService {
 
     /**
      * 删除商品详细页
-     * @param longs
+     * @param goodsId
      */
     @Override
     public void deleteById(Long[] goodsId) {
