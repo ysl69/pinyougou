@@ -32,6 +32,7 @@
       <module>../pinyougou-page-web</module>
       <module>../itheima-rokectmq-producer</module>
       <module>../itheima-rokectmq-consumer</module>
+    <module>../itheima-sms-demo1</module>
 
   </modules>
   <packaging>pom</packaging>
