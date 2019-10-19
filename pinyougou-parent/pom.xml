@@ -32,7 +32,10 @@
       <module>../pinyougou-page-web</module>
       <module>../itheima-rokectmq-producer</module>
       <module>../itheima-rokectmq-consumer</module>
-    <module>../itheima-sms-demo1</module>
+      <module>../pinyougou-user-interface</module>
+      <module>../pinyougou-user-service</module>
+      <module>../pinyougou-user-web</module>
+      <module>../itheima-sms-service</module>
 
   </modules>
   <packaging>pom</packaging>
