@@ -63,9 +63,14 @@ public class UserController {
 	 * @param user
 	 * @return
 	 */
-	@RequestMapping("/add")
-	public Result add(@RequestBody TbUser user){
+	@RequestMapping("/add/{smscode}")
+	public Result add(@RequestBody TbUser user,@PathVariable(value = "smscode")String smscode){
 		try {
+			boolean checkSmsCode = userService.checkSmsCode(user.getPhone(), smscode);
+			if (checkSmsCode == false){
+				return new Result(false,"验证码输入错误!");
+			}
+
 			user.setCreated(new Date()); ///创建日期
 			user.setUpdated(new Date()); //修改日期
 			String password = DigestUtils.md5Hex(user.getPassword());//对密码加密

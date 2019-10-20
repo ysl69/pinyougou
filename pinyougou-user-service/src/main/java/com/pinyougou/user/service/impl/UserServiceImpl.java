@@ -148,7 +148,10 @@ public class UserServiceImpl extends CoreServiceImpl<TbUser>  implements UserSer
 	private  String templateCode;
 
 
-
+	/**
+	 * 生成短信验证码
+	 * @param phone
+	 */
 	@Override
 	public void createSmsCode(String phone) {
 		//那么math.random()*9+1一定是小于10的，(Math.random()*9+1)*100000一定是<10*100000=1000000的一个数
@@ -167,6 +170,26 @@ public class UserServiceImpl extends CoreServiceImpl<TbUser>  implements UserSer
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+
+	/**
+	 * 判断短信验证码是否存在
+	 * @param phone
+	 * @param code
+	 * @return
+	 */
+	@Override
+	public boolean checkSmsCode(String phone, String code) {
+		//得到缓存中储存的验证码
+		String smsCode = (String) redisTemplate.boundHashOps("SmsCode").get(phone);
+		if (smsCode==null){
+			return false;
+		}
+		if (!smsCode.equals(code)){
+			return false;
+		}
+		return true;
 	}
 
 }

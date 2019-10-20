@@ -35,4 +35,12 @@ public interface UserService extends CoreService<TbUser> {
 	 * @param phone
 	 */
 	public void createSmsCode(String phone);
+
+
+	/**
+	 * 判断短信验证码是否存在
+	 * @param phone
+	 * @return
+	 */
+	public boolean checkSmsCode(String phone,String code);
 }

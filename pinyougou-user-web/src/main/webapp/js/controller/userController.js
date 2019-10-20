@@ -6,6 +6,7 @@
         list:[],
         entity:{},
         ids:[],
+        smsCode:'',
         searchEntity:{}
     },
     methods: {
@@ -51,7 +52,7 @@
         },
         //该方法只要不在生命周期的
         add: function () {
-            axios.post('/user/add.shtml', this.entity).then(function (response) {
+            axios.post('/user/add'+this.smsCode+'.shtml', this.entity).then(function (response) {
                 console.log(response);
                 if (response.data.success) {
                     //app.searchList(1);
@@ -100,7 +101,8 @@
         createSmsCode: function () {
             axios.get('/user/sendCode.shtml?phone=' + this.entity.phone).then(function (response) {
                 if (response.data.success) {
-                    alert(response.data.message);//显示数据
+                    //显示数据
+                    alert(response.data.message);
                 } else {
                     //发送失败
                     alert(response.data.message);
