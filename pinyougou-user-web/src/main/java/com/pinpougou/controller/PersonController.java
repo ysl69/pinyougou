@@ -1,6 +1,7 @@
 package com.pinpougou.controller;
 
 import com.pinpougou.model.Person;
+import entity.Error;
 import entity.Result;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -26,10 +27,13 @@ public class PersonController {
 
         if (bindingResult.hasErrors()) {
             List<FieldError> fieldErrors = bindingResult.getFieldErrors();
+            Result result = new Result(false, "error" );
             for (FieldError fieldError : fieldErrors) {
+                Error error = new Error(fieldError.getField(),fieldError.getDefaultMessage());
+                result.getErrorList().add(error);
                 System.out.println("错误信息>>>>>>>>>" + fieldError.getDefaultMessage());
             }
-            return new Result(false, "error");
+            return result;
         }else {
             return new Result(true,"meicuo");
         }

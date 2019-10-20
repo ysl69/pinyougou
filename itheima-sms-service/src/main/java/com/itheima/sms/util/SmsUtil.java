@@ -29,7 +29,7 @@ public class SmsUtil {
 
     // TODO 此处需要替换成开发者自己的AK(在阿里云访问控制台寻找)
     static final String accessKeyId = "LTAIJyN0mgef7r0I";
-    static final String accessKeySecret = "gwUhDh4lpIDEgPFFPGjmopQTKIKEGz";
+    static final String accessKeySecret = "ygwUhDh4lpIDEgPFFPGjmopQTKIKEGzl";
 
     public static SendSmsResponse sendSms(Map<String,String> map) throws ClientException {
 

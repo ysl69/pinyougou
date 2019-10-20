@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>person</title>
+</head>
+<body>
+<div id="app">
+    <form method="post" action="/person/add.shtml">
+        <div>
+            邮箱： <input v-validate="'required|email|min:5|max:20'" v-model="entity.email" name="email" type="text">
+            <span>{{ errors.first('email') }}</span>
+        </div>
+        <div>
+            手机号： <input v-model="entity.mobile"
+                        v-validate="{ required: true, regex: '^((13[0-9])|(14[5,7])|(15[0-3,5-9])|(17[0,3,5-8])|(18[0-9])|166|198|199|(147))\\d{8}$' }"
+                        name="mobile" type="text">
+            <span>{{ errors.first('mobile') }}</span>
+        </div>
+        <div>
+            用户名： <input v-model="entity.username" v-validate="'required|alpha_num'" name="username" type="text">
+            <span>{{ errors.first('username') }}</span>
+        </div>
+        <div>
+            年龄： <input v-model="entity.age" v-validate="'required|between:1,160'" name="age" type="text">
+            <span>{{ errors.first('age') }}</span>
+        </div>
+        <div>
+            <button type="button" @click="formSubmit()">保存</button>
+        </div>
+    </form>
+</div>
+</body>
+<script type="text/javascript"  src="plugins/vue/vue.js"></script>
+<script type="text/javascript"  src="plugins/axios/axios.js"></script>
+<script type="text/javascript"  src="js/veeValidate/vee-validate.js"></script>
+<script type="text/javascript"  src="js/veeValidate/zh_CN.js"></script>
+
+<script>
+    Vue.use(VeeValidate, {locale: 'zh_CN'});
+    var app=new Vue({
+        el:'#app',
+        data:{
+            entity:{}
+        },
+        methods:{
+            //数据校验
+            formSubmit: function () {
+                this.$validator.validate().then(result => {
+                    if (!result) {
+                        alert("验证出问题了");
+                    }else{
+                        axios.post('/person/add.shtml',this.entity).then(
+                            result=>{
+                                console.log(result);
+                                app.$validator.errors.add(result.date.errorList);
+                            }
+                        )
+                    }
+                });
+            }
+        }
+    });
+</script>
+</html>

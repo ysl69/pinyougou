@@ -1,6 +1,8 @@
 package entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @Author ysl
@@ -12,6 +14,17 @@ import java.io.Serializable;
 public class Result implements Serializable {
     private boolean success;  //定义是否成功
     private String message;  //定义相关的信息
+
+    //错误信息
+    private List<Error> errorList = new ArrayList<>();
+
+    public List<Error> getErrorList() {
+        return errorList;
+    }
+
+    public void setErrorList(List<Error> errorList) {
+        this.errorList = errorList;
+    }
 
     public Result() {
     }
