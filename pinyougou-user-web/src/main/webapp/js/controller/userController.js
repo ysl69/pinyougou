@@ -50,19 +50,30 @@
 
             })
         },
-        //该方法只要不在生命周期的
-        add: function () {
-            axios.post('/user/add'+this.smsCode+'.shtml', this.entity).then(function (response) {
-                console.log(response);
-                if (response.data.success) {
-                    //app.searchList(1);
-                    //跳转到其他用户后台的首页
-                    window.location.href = "home-index.html";
+
+
+        formSubmit:function () {
+            var that=this;
+            this.$validator.validate().then(
+                function (result) {
+                    if(result){
+                        console.log(that);
+                        axios.post('/user/add/'+that.smsCode+'.shtml',that.entity).then(function (response) {
+                            if(response.data.success){
+                                //跳转到其用户后台的首页
+                                window.location.href="home-index.html";
+                            }else{
+                                that.$validator.errors.add(response.data.errorsList);
+                            }
+                        }).catch(function (error) {
+                            console.log("1231312131321");
+                        });
+                    }
                 }
-            }).catch(function (error) {
-                console.log("1231312131321");
-            });
+            )
         },
+
+
         update: function () {
             axios.post('/user/update.shtml', this.entity).then(function (response) {
                 console.log(response);
