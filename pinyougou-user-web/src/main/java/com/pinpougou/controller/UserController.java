@@ -25,6 +25,11 @@ public class UserController {
 	private UserService userService;
 
 
+	/**
+	 * 发送短信验证码
+	 * @param phone
+	 * @return
+	 */
 	@RequestMapping("/sendCode")
 	public Result sendCode(String phone){
 		//判断手机格式

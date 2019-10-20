@@ -141,7 +141,7 @@ public class UserServiceImpl extends CoreServiceImpl<TbUser>  implements UserSer
 	@Autowired
 	private DefaultMQProducer producer;
 
-	@Value("${sogin_name}")
+	@Value("${sign_name}")
 	private String signName;
 
 	@Value("${template_code}")

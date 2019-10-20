@@ -98,12 +98,13 @@
             });
         },
 
-        createSmsCode: function () {
-            axios.get('/user/sendCode.shtml?phone=' + this.entity.phone).then(function (response) {
-                if (response.data.success) {
+        //发送短信验证码
+        createSmsCode:function () {
+            axios.get('/user/sendCode.shtml?phone='+this.entity.phone).then(function (response) {
+                if(response.data.success){
                     //显示数据
                     alert(response.data.message);
-                } else {
+                }else{
                     //发送失败
                     alert(response.data.message);
                 }

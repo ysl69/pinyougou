@@ -9,9 +9,6 @@
         <webroots>
           <root url="file://$MODULE_DIR$/src/main/webapp" relative="/" />
         </webroots>
-        <sourceRoots>
-          <root url="file://$MODULE_DIR$/src/main/resources" />
-        </sourceRoots>
       </configuration>
     </facet>
     <facet type="Spring" name="Spring">
@@ -167,5 +164,9 @@
     <orderEntry type="library" name="Maven: io.netty:netty:3.7.0.Final" level="project" />
     <orderEntry type="library" name="Maven: com.github.sgroschupf:zkclient:0.1" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: javax.servlet:servlet-api:2.5" level="project" />
+    <orderEntry type="library" name="Maven: javax.validation:validation-api:1.1.0.Final" level="project" />
+    <orderEntry type="library" name="Maven: org.hibernate:hibernate-validator:5.2.0.Final" level="project" />
+    <orderEntry type="library" name="Maven: org.jboss.logging:jboss-logging:3.2.1.Final" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml:classmate:1.1.0" level="project" />
   </component>
 </module>
