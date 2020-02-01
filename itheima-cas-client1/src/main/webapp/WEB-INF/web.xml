@@ -7,6 +7,7 @@
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
 
+
     <!-- 用于单点退出，该过滤器用于实现单点登出功能，可选配置 -->
     <listener>
         <listener-class>org.jasig.cas.client.session.SingleSignOutHttpSessionListener</listener-class>
