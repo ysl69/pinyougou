@@ -6,7 +6,8 @@
         list:[],
         entity:{},
         ids:[],
-        smsCode:'',
+        smsCode:'',//验证码
+        repwd:'',//确认密码
         searchEntity:{}
     },
     methods: {
@@ -123,12 +124,23 @@
                 console.log("1231312131321");
             });
         },
+        
+        //获取登陆名
+        getName:function () {
+            axios.get('/login/name.html').then(function (response) {
+                app.loginName = response.data;
+            }).catch(function (error) {
+                console.log("121323121313231");
+            })
+        }
 
     },
     //钩子函数 初始化了事件和
     created: function () {
       
         //this.searchList(1);
+
+        this.getName();
 
     }
 })
