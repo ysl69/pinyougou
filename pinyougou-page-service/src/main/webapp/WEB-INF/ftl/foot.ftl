@@ -268,10 +268,10 @@
 <script type="text/javascript" src="js/plugins/jquery/jquery.min.js"></script>
 <script type="text/javascript">
     $(function(){
-        $("#service").hover(function(){
-            $(".service").show();
+        $("#security").hover(function(){
+            $(".security").show();
         },function(){
-            $(".service").hide();
+            $(".security").hide();
         });
         $("#shopcar").hover(function(){
             $("#shopcarlist").show();

@@ -4232,7 +4232,7 @@ function createComponent (
   resolveConstructorOptions(Ctor);
 
   // transform component v-model data into props & events
-  if (isDef(data.model)) {
+  if (isDef(com.pinpougou.model)) {
     transformModel(Ctor.options, data);
   }
 
@@ -4315,13 +4315,13 @@ function installComponentHooks (data) {
 // transform component v-model info (value and callback) into
 // prop and event handler respectively.
 function transformModel (options, data) {
-  var prop = (options.model && options.model.prop) || 'value';
-  var event = (options.model && options.model.event) || 'input';(data.props || (data.props = {}))[prop] = data.model.value;
+  var prop = (com.pinpougou.model && com.pinpougou.model.prop) || 'value';
+  var event = (com.pinpougou.model && com.pinpougou.model.event) || 'input';(data.props || (data.props = {}))[prop] = com.pinpougou.model.value;
   var on = data.on || (data.on = {});
   if (isDef(on[event])) {
-    on[event] = [data.model.callback].concat(on[event]);
+    on[event] = [com.pinpougou.model.callback].concat(on[event]);
   } else {
-    on[event] = data.model.callback;
+    on[event] = com.pinpougou.model.callback;
   }
 }
 
@@ -9577,7 +9577,7 @@ function processAttrs (el) {
           name = name.slice(0, -(arg.length + 1));
         }
         addDirective(el, name, rawName, value, arg, modifiers);
-        if ("development" !== 'production' && name === 'model') {
+        if ("development" !== 'production' && name === 'com.pinyougou.model') {
           checkForAliasModel(el, value);
         }
       }
@@ -10327,8 +10327,8 @@ function genData$2 (el, state) {
     data += (genScopedSlots(el.scopedSlots, state)) + ",";
   }
   // component v-model
-  if (el.model) {
-    data += "model:{value:" + (el.model.value) + ",callback:" + (el.model.callback) + ",expression:" + (el.model.expression) + "},";
+  if (com.pinpougou.model) {
+    data += "model:{value:" + (com.pinpougou.model.value) + ",callback:" + (com.pinpougou.model.callback) + ",expression:" + (com.pinpougou.model.expression) + "},";
   }
   // inline-template
   if (el.inlineTemplate) {

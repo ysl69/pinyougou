@@ -1,4 +1,4 @@
-package com.pinpougou.controller;
+package com.pinyougou.controller;
 import java.util.Date;
 import java.util.List;
 

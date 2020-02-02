@@ -1,6 +1,6 @@
-package com.pinpougou.controller;
+package com.pinyougou.controller;
 
-import com.pinpougou.model.Person;
+import com.pinyougou.model.Person;
 import entity.Error;
 import entity.Result;
 import org.springframework.validation.BindingResult;

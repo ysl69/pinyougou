@@ -4,6 +4,7 @@
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+
     <http pattern="/css/**" security="none"></http>
     <http pattern="/data/**" security="none"></http>
     <http pattern="/fonts/**" security="none"></http>
@@ -18,11 +19,9 @@
     <!--   entry-point-ref  入口点引用 -->
     <http use-expressions="false" entry-point-ref="casProcessingFilterEntryPoint">
         <intercept-url pattern="/**" access="ROLE_USER"/>
-        <intercept-url pattern="/favicon.ico" access="IS_AUTHENTICATED_ANONYMOUSLY"></intercept-url>
         <csrf disabled="true"/>
         <!-- custom-filter为过滤器， position 表示将过滤器放在指定的位置上，before表示放在指定位置之前  ，after表示放在指定的位置之后  -->
         <custom-filter ref="casAuthenticationFilter" position="CAS_FILTER"/>
-        <!--通知CAS服务器去单点登出-->
         <custom-filter ref="requestSingleLogoutFilter" before="LOGOUT_FILTER"/>
         <custom-filter ref="singleLogoutFilter" before="CAS_FILTER"/>
     </http>
@@ -67,10 +66,12 @@
         </beans:property>
         <beans:property name="key" value="an_id_for_this_auth_provider_only"/>
     </beans:bean>
-    <!-- 认证类  只做权限的认证 -->
-    <beans:bean id="userDetailsService" class="com.pinyougou.user.security.UserDetailsServiceImpl"/>
+    <!-- 认证类 -->
+    <beans:bean id="userDetailsService" class="com.pinyougou.security.UserDetailsServiceImpl"/>
 
     <!-- 认证过滤器 结束 -->
+
+
     <!-- 单点登出  开始  -->
     <beans:bean id="singleLogoutFilter" class="org.jasig.cas.client.session.SingleSignOutFilter"/>
     <beans:bean id="requestSingleLogoutFilter"
@@ -79,7 +80,6 @@
         <beans:constructor-arg>
             <beans:bean class="org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler"/>
         </beans:constructor-arg>
-        <!--就是在本地写上，<a href="/logout/cas">  就会 将本身自己(-client3)的session清除,通知 CAS服务器也登出，cas服务器还需要将全部关联的client都登出-->
         <beans:property name="filterProcessesUrl" value="/logout/cas"/>
     </beans:bean>
     <!-- 单点登出  结束 -->

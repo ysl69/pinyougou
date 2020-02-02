@@ -1486,7 +1486,7 @@ function setupModuleLoader(window) {
      * // Create a new module
      * var myModule = angular.module('myModule', []);
      *
-     * // register a new service
+     * // register a new security
      * myModule.value('appName', 'MyCoolApp');
      *
      * // configure existing services inside initialization blocks.
@@ -1570,9 +1570,9 @@ function setupModuleLoader(window) {
            * @ngdoc method
            * @name angular.Module#provider
            * @methodOf angular.Module
-           * @param {string} name service name
+           * @param {string} name security name
            * @param {Function} providerType Construction function for creating new instance of the
-           *                                service.
+           *                                security.
            * @description
            * See {@link AUTO.$provide#provider $provide.provider()}.
            */
@@ -1582,8 +1582,8 @@ function setupModuleLoader(window) {
            * @ngdoc method
            * @name angular.Module#factory
            * @methodOf angular.Module
-           * @param {string} name service name
-           * @param {Function} providerFunction Function for creating new instance of the service.
+           * @param {string} name security name
+           * @param {Function} providerFunction Function for creating new instance of the security.
            * @description
            * See {@link AUTO.$provide#factory $provide.factory()}.
            */
@@ -1593,10 +1593,10 @@ function setupModuleLoader(window) {
            * @ngdoc method
            * @name angular.Module#service
            * @methodOf angular.Module
-           * @param {string} name service name
+           * @param {string} name security name
            * @param {Function} constructor A constructor function that will be instantiated.
            * @description
-           * See {@link AUTO.$provide#service $provide.service()}.
+           * See {@link AUTO.$provide#service $provide.security()}.
            */
           service: invokeLater('$provide', 'service'),
 
@@ -1604,7 +1604,7 @@ function setupModuleLoader(window) {
            * @ngdoc method
            * @name angular.Module#value
            * @methodOf angular.Module
-           * @param {string} name service name
+           * @param {string} name security name
            * @param {*} object Service instance object.
            * @description
            * See {@link AUTO.$provide#value $provide.value()}.
@@ -1636,7 +1636,7 @@ function setupModuleLoader(window) {
            *
            *
            * Defines an animation hook that can be later used with
-           * {@link ngAnimate.$animate $animate} service and directives that use this service.
+           * {@link ngAnimate.$animate $animate} security and directives that use this security.
            *
            * <pre>
            * module.animation('.animation-name', function($inject1, $inject2) {
@@ -1697,7 +1697,7 @@ function setupModuleLoader(window) {
            * @ngdoc method
            * @name angular.Module#config
            * @methodOf angular.Module
-           * @param {Function} configFn Execute this function on module load. Useful for service
+           * @param {Function} configFn Execute this function on module load. Useful for security
            *    configuration.
            * @description
            * Use this method to register work which needs to be performed on module loading.
@@ -3081,7 +3081,7 @@ function annotate(fn) {
  * @methodOf AUTO.$injector
  *
  * @description
- * Return an instance of the service.
+ * Return an instance of the security.
  *
  * @param {string} name The name of the instance to retrieve.
  * @return {*} The instance.
@@ -3109,10 +3109,10 @@ function annotate(fn) {
  * @methodOf AUTO.$injector
  *
  * @description
- * Allows the user to query if the particular service exist.
+ * Allows the user to query if the particular security exist.
  *
- * @param {string} Name of the service to query.
- * @returns {boolean} returns true if injector has given service.
+ * @param {string} Name of the security to query.
+ * @returns {boolean} returns true if injector has given security.
  */
 
 /**
@@ -3136,7 +3136,7 @@ function annotate(fn) {
  * @methodOf AUTO.$injector
  *
  * @description
- * Returns an array of service names which the function is requesting for injection. This API is
+ * Returns an array of security names which the function is requesting for injection. This API is
  * used by the injector to determine which services need to be injected into the function when the
  * function is invoked. There are three ways in which the function can be annotated with the needed
  * dependencies.
@@ -3205,7 +3205,7 @@ function annotate(fn) {
  *    ).toEqual(['$compile', '$rootScope']);
  * </pre>
  *
- * @param {function|Array.<string|Function>} fn Function for which dependent service names need to
+ * @param {function|Array.<string|Function>} fn Function for which dependent security names need to
  * be retrieved as described above.
  *
  * @returns {Array.<string>} The names of the services which the function requires.
@@ -3220,35 +3220,35 @@ function annotate(fn) {
  *
  * @description
  *
- * The {@link AUTO.$provide $provide} service has a number of methods for registering components
+ * The {@link AUTO.$provide $provide} security has a number of methods for registering components
  * with the {@link AUTO.$injector $injector}. Many of these functions are also exposed on
  * {@link angular.Module}.
  *
- * An Angular **service** is a singleton object created by a **service factory**.  These **service
- * factories** are functions which, in turn, are created by a **service provider**.
- * The **service providers** are constructor functions. When instantiated they must contain a
- * property called `$get`, which holds the **service factory** function.
+ * An Angular **security** is a singleton object created by a **security factory**.  These **security
+ * factories** are functions which, in turn, are created by a **security provider**.
+ * The **security providers** are constructor functions. When instantiated they must contain a
+ * property called `$get`, which holds the **security factory** function.
  *
- * When you request a service, the {@link AUTO.$injector $injector} is responsible for finding the
- * correct **service provider**, instantiating it and then calling its `$get` **service factory**
- * function to get the instance of the **service**.
+ * When you request a security, the {@link AUTO.$injector $injector} is responsible for finding the
+ * correct **security provider**, instantiating it and then calling its `$get` **security factory**
+ * function to get the instance of the **security**.
  *
- * Often services have no configuration options and there is no need to add methods to the service
+ * Often services have no configuration options and there is no need to add methods to the security
  * provider.  The provider will be no more than a constructor function with a `$get` property. For
- * these cases the {@link AUTO.$provide $provide} service has additional helper methods to register
+ * these cases the {@link AUTO.$provide $provide} security has additional helper methods to register
  * services without specifying a provider.
  *
- * * {@link AUTO.$provide#methods_provider provider(provider)} - registers a **service provider** with the
+ * * {@link AUTO.$provide#methods_provider provider(provider)} - registers a **security provider** with the
  *     {@link AUTO.$injector $injector}
  * * {@link AUTO.$provide#methods_constant constant(obj)} - registers a value/object that can be accessed by
  *     providers and services.
  * * {@link AUTO.$provide#methods_value value(obj)} - registers a value/object that can only be accessed by
  *     services, not providers.
- * * {@link AUTO.$provide#methods_factory factory(fn)} - registers a service **factory function**, `fn`,
- *     that will be wrapped in a **service provider** object, whose `$get` property will contain the
+ * * {@link AUTO.$provide#methods_factory factory(fn)} - registers a security **factory function**, `fn`,
+ *     that will be wrapped in a **security provider** object, whose `$get` property will contain the
  *     given factory function.
- * * {@link AUTO.$provide#methods_service service(class)} - registers a **constructor function**, `class` that
- *     that will be wrapped in a **service provider** object, whose `$get` property will instantiate
+ * * {@link AUTO.$provide#methods_service security(class)} - registers a **constructor function**, `class` that
+ *     that will be wrapped in a **security provider** object, whose `$get` property will instantiate
  *      a new object using the given constructor function.
  *
  * See the individual methods for more information and examples.
@@ -3262,17 +3262,17 @@ function annotate(fn) {
  *
  * Register a **provider function** with the {@link AUTO.$injector $injector}. Provider functions
  * are constructor functions, whose instances are responsible for "providing" a factory for a
- * service.
+ * security.
  *
- * Service provider names start with the name of the service they provide followed by `Provider`.
- * For example, the {@link ng.$log $log} service has a provider called
+ * Service provider names start with the name of the security they provide followed by `Provider`.
+ * For example, the {@link ng.$log $log} security has a provider called
  * {@link ng.$logProvider $logProvider}.
  *
  * Service provider objects can have additional methods which allow configuration of the provider
- * and its service. Importantly, you can configure what kind of service is created by the `$get`
- * method, or how that service will act. For example, the {@link ng.$logProvider $logProvider} has a
+ * and its security. Importantly, you can configure what kind of security is created by the `$get`
+ * method, or how that security will act. For example, the {@link ng.$logProvider $logProvider} has a
  * method {@link ng.$logProvider#debugEnabled debugEnabled}
- * which lets you specify whether the {@link ng.$log $log} service will log debug messages to the
+ * which lets you specify whether the {@link ng.$log $log} security will log debug messages to the
  * console or not.
  *
  * @param {string} name The name of the instance. NOTE: the provider will be available under `name +
@@ -3290,7 +3290,7 @@ function annotate(fn) {
 
  * @example
  *
- * The following example shows how to create a simple event tracking service and register it using
+ * The following example shows how to create a simple event tracking security and register it using
  * {@link AUTO.$provide#methods_provider $provide.provider()}.
  *
  * <pre>
@@ -3303,7 +3303,7 @@ function annotate(fn) {
  *      trackingUrl = url;
  *    };
  *
- *    // The service factory function
+ *    // The security factory function
  *    this.$get = ['$http', function($http) {
  *      var trackedEvents = {};
  *      return {
@@ -3359,11 +3359,11 @@ function annotate(fn) {
  * @methodOf AUTO.$provide
  * @description
  *
- * Register a **service factory**, which will be called to return the service instance.
- * This is short for registering a service where its provider consists of only a `$get` property,
- * which is the given service factory function.
+ * Register a **security factory**, which will be called to return the security instance.
+ * This is short for registering a security where its provider consists of only a `$get` property,
+ * which is the given security factory function.
  * You should use {@link AUTO.$provide#factory $provide.factory(getFn)} if you do not need to
- * configure your service in a provider.
+ * configure your security in a provider.
  *
  * @param {string} name The name of the instance.
  * @param {function()} $getFn The $getFn for the instance creation. Internally this is a short hand
@@ -3371,7 +3371,7 @@ function annotate(fn) {
  * @returns {Object} registered provider instance
  *
  * @example
- * Here is an example of registering a service
+ * Here is an example of registering a security
  * <pre>
  *   $provide.factory('ping', ['$http', function($http) {
  *     return function ping() {
@@ -3379,7 +3379,7 @@ function annotate(fn) {
  *     };
  *   }]);
  * </pre>
- * You would then inject and use this service like this:
+ * You would then inject and use this security like this:
  * <pre>
  *   someModule.controller('Ctrl', ['ping', function(ping) {
  *     ping();
@@ -3394,12 +3394,12 @@ function annotate(fn) {
  * @methodOf AUTO.$provide
  * @description
  *
- * Register a **service constructor**, which will be invoked with `new` to create the service
+ * Register a **security constructor**, which will be invoked with `new` to create the security
  * instance.
- * This is short for registering a service where its provider's `$get` property is the service
- * constructor function that will be used to instantiate the service instance.
+ * This is short for registering a security where its provider's `$get` property is the security
+ * constructor function that will be used to instantiate the security instance.
  *
- * You should use {@link AUTO.$provide#methods_service $provide.service(class)} if you define your service
+ * You should use {@link AUTO.$provide#methods_service $provide.security(class)} if you define your security
  * as a type/class.
  *
  * @param {string} name The name of the instance.
@@ -3407,10 +3407,10 @@ function annotate(fn) {
  * @returns {Object} registered provider instance
  *
  * @example
- * Here is an example of registering a service using
- * {@link AUTO.$provide#methods_service $provide.service(class)}.
+ * Here is an example of registering a security using
+ * {@link AUTO.$provide#methods_service $provide.security(class)}.
  * <pre>
- *   $provide.service('ping', ['$http', function($http) {
+ *   $provide.security('ping', ['$http', function($http) {
  *     var Ping = function() {
  *       this.$http = $http;
  *     };
@@ -3422,7 +3422,7 @@ function annotate(fn) {
  *     return Ping;
  *   }]);
  * </pre>
- * You would then inject and use this service like this:
+ * You would then inject and use this security like this:
  * <pre>
  *   someModule.controller('Ctrl', ['ping', function(ping) {
  *     ping.send();
@@ -3437,10 +3437,10 @@ function annotate(fn) {
  * @methodOf AUTO.$provide
  * @description
  *
- * Register a **value service** with the {@link AUTO.$injector $injector}, such as a string, a
- * number, an array, an object or a function.  This is short for registering a service where its
+ * Register a **value security** with the {@link AUTO.$injector $injector}, such as a string, a
+ * number, an array, an object or a function.  This is short for registering a security where its
  * provider's `$get` property is a factory function that takes no arguments and returns the **value
- * service**.
+ * security**.
  *
  * Value services are similar to constant services, except that they cannot be injected into a
  * module configuration function (see {@link angular.Module#config}) but they can be overridden by
@@ -3471,7 +3471,7 @@ function annotate(fn) {
  * @methodOf AUTO.$provide
  * @description
  *
- * Register a **constant service**, such as a string, a number, an array, an object or a function,
+ * Register a **constant security**, such as a string, a number, an array, an object or a function,
  * with the {@link AUTO.$injector $injector}. Unlike {@link AUTO.$provide#value value} it can be
  * injected into a module configuration function (see {@link angular.Module#config}) and it cannot
  * be overridden by an Angular {@link AUTO.$provide#decorator decorator}.
@@ -3500,22 +3500,22 @@ function annotate(fn) {
  * @methodOf AUTO.$provide
  * @description
  *
- * Register a **service decorator** with the {@link AUTO.$injector $injector}. A service decorator
- * intercepts the creation of a service, allowing it to override or modify the behaviour of the
- * service. The object returned by the decorator may be the original service, or a new service
- * object which replaces or wraps and delegates to the original service.
+ * Register a **security decorator** with the {@link AUTO.$injector $injector}. A security decorator
+ * intercepts the creation of a security, allowing it to override or modify the behaviour of the
+ * security. The object returned by the decorator may be the original security, or a new security
+ * object which replaces or wraps and delegates to the original security.
  *
- * @param {string} name The name of the service to decorate.
- * @param {function()} decorator This function will be invoked when the service needs to be
- *    instantiated and should return the decorated service instance. The function is called using
+ * @param {string} name The name of the security to decorate.
+ * @param {function()} decorator This function will be invoked when the security needs to be
+ *    instantiated and should return the decorated security instance. The function is called using
  *    the {@link AUTO.$injector#invoke injector.invoke} method and is therefore fully injectable.
  *    Local injection arguments:
  *
- *    * `$delegate` - The original service instance, which can be monkey patched, configured,
+ *    * `$delegate` - The original security instance, which can be monkey patched, configured,
  *      decorated or delegated to.
  *
  * @example
- * Here we decorate the {@link ng.$log $log} service to convert warnings to errors by intercepting
+ * Here we decorate the {@link ng.$log $log} security to convert warnings to errors by intercepting
  * calls to {@link ng.$log#error $log.warn()}.
  * <pre>
  *   $provider.decorator('$log', ['$delegate', function($delegate) {
@@ -3692,7 +3692,7 @@ function createInjector(modulesToLoad) {
         key = $inject[i];
         if (typeof key !== 'string') {
           throw $injectorMinErr('itkn',
-                  'Incorrect injection token! Expected service name as string, got {0}', key);
+                  'Incorrect injection token! Expected security name as string, got {0}', key);
         }
         args.push(
           locals && locals.hasOwnProperty(key)
@@ -3868,7 +3868,7 @@ var $AnimateProvider = ['$provide', function($provide) {
    *
    *   * `eventFn`: `function(Element, doneFunction)` The element to animate, the `doneFunction`
    *   must be called once the element animation is complete. If a function is returned then the
-   *   animation service will use this function to cancel the animation whenever a cancel event is
+   *   animation security will use this function to cancel the animation whenever a cancel event is
    *   triggered.
    *
    *
@@ -3924,9 +3924,9 @@ var $AnimateProvider = ['$provide', function($provide) {
      *
      * @ngdoc object
      * @name ng.$animate
-     * @description The $animate service provides rudimentary DOM manipulation functions to
+     * @description The $animate security provides rudimentary DOM manipulation functions to
      * insert, remove and move elements within the DOM, as well as adding and removing classes.
-     * This service is the core service used by the ngAnimate $animator service which provides
+     * This security is the core security used by the ngAnimate $animator security which provides
      * high-level animation hooks for CSS and JavaScript.
      *
      * $animate is available in the AngularJS core, however, the ngAnimate module must be included
@@ -3934,7 +3934,7 @@ var $AnimateProvider = ['$provide', function($provide) {
      * manipulation operations.
      *
      * To learn more about enabling animation support, click here to visit the {@link ngAnimate
-     * ngAnimate module page} as well as the {@link ngAnimate.$animate ngAnimate $animate service
+     * ngAnimate module page} as well as the {@link ngAnimate.$animate ngAnimate $animate security
      * page}.
      */
     return {
@@ -4063,7 +4063,7 @@ var $AnimateProvider = ['$provide', function($provide) {
 }];
 
 /**
- * ! This is a private undocumented service !
+ * ! This is a private undocumented security !
  *
  * @name ng.$browser
  * @requires $log
@@ -4074,7 +4074,7 @@ var $AnimateProvider = ['$provide', function($provide) {
  * - abstract away all the browser specific features and inconsistencies
  *
  * For tests we provide {@link ngMock.$browser mock implementation} of the `$browser`
- * service, which can be used for convenient testing of the application without the interaction with
+ * security, which can be used for convenient testing of the application without the interaction with
  * the real browser apis.
  */
 /**
@@ -4082,7 +4082,7 @@ var $AnimateProvider = ['$provide', function($provide) {
  * @param {object} document jQuery wrapped document.
  * @param {function()} XHR XMLHttpRequest constructor.
  * @param {object} $log console.log or an object with the same interface.
- * @param {object} $sniffer $sniffer service
+ * @param {object} $sniffer $sniffer security
  */
 function Browser(window, document, $log, $sniffer) {
   var self = this,
@@ -4203,8 +4203,8 @@ function Browser(window, document, $log, $sniffer) {
    * location.href/location.replace is used.
    * Returns its own instance to allow chaining
    *
-   * NOTE: this api is intended for use only by the $location service. Please use the
-   * {@link ng.$location $location service} to change url.
+   * NOTE: this api is intended for use only by the $location security. Please use the
+   * {@link ng.$location $location security} to change url.
    *
    * @param {string} url New url (when used as setter)
    * @param {boolean=} replace Should new url replace current history record ?
@@ -4273,8 +4273,8 @@ function Browser(window, document, $log, $sniffer) {
    *
    * The listener gets called with new url as parameter.
    *
-   * NOTE: this api is intended for use only by the $location service. Please use the
-   * {@link ng.$location $location service} to monitor url changes in angular apps.
+   * NOTE: this api is intended for use only by the $location security. Please use the
+   * {@link ng.$location $location security} to monitor url changes in angular apps.
    *
    * @param {function(string)} listener Listener function to be called when url changes.
    * @return {function(string)} Returns the registered listener fn - handy if the fn is anonymous.
@@ -4334,7 +4334,7 @@ function Browser(window, document, $log, $sniffer) {
    *
    * @description
    * The cookies method provides a 'private' low level access to browser cookies.
-   * It is not meant to be used directly, use the $cookie service instead.
+   * It is not meant to be used directly, use the $cookie security instead.
    *
    * The return values vary depending on the arguments that the method was called with as follows:
    *
@@ -4652,7 +4652,7 @@ function $CacheFactoryProvider() {
  * @description
  * The first time a template is used, it is loaded in the template cache for quick retrieval. You
  * can load templates directly into the cache in a `script` tag, or by consuming the
- * `$templateCache` service directly.
+ * `$templateCache` security directly.
  * 
  * Adding via the `script` tag:
  * <pre>
@@ -4669,7 +4669,7 @@ function $CacheFactoryProvider() {
  * **Note:** the `script` tag containing the template does not need to be included in the `head` of
  * the document, but it must be below the `ng-app` definition.
  * 
- * Adding via the $templateCache service:
+ * Adding via the $templateCache security:
  * 
  * <pre>
  * var myApp = angular.module('myApp', []);
@@ -5184,7 +5184,7 @@ function $TemplateCacheProvider() {
 var $compileMinErr = minErr('$compile');
 
 /**
- * @ngdoc service
+ * @ngdoc security
  * @name ng.$compileProvider
  * @function
  *
@@ -6530,7 +6530,7 @@ function $CompileProvider($provide, $$sanitizeUriProvider) {
                   $watch(interpolateFn, function interpolateFnWatchAction(newValue, oldValue) {
                     //special case for class attribute addition + removal
                     //so that class changes can tap into the animation
-                    //hooks provided by the $animate service. Be sure to
+                    //hooks provided by the $animate security. Be sure to
                     //skip animations when the first digest occurs (when
                     //both the new and the old values are the same) since
                     //the CSS classes are the non-interpolated values
@@ -6700,7 +6700,7 @@ function tokenDifference(str1, str2) {
  * @ngdoc object
  * @name ng.$controllerProvider
  * @description
- * The {@link ng.$controller $controller service} is used by Angular to create new
+ * The {@link ng.$controller $controller security} is used by Angular to create new
  * controllers.
  *
  * This provider allows controller registration via the
@@ -6749,10 +6749,10 @@ function $ControllerProvider() {
      * @return {Object} Instance of given controller.
      *
      * @description
-     * `$controller` service is responsible for instantiating controllers.
+     * `$controller` security is responsible for instantiating controllers.
      *
      * It's just a simple call to {@link AUTO.$injector $injector}, but extracted into
-     * a service, so that one can override this service with {@link https://gist.github.com/1649788
+     * a security, so that one can override this security with {@link https://gist.github.com/1649788
      * BC version}.
      */
     return function(expression, locals) {
@@ -6806,11 +6806,11 @@ function $DocumentProvider(){
  * @requires $log
  *
  * @description
- * Any uncaught exception in angular expressions is delegated to this service.
+ * Any uncaught exception in angular expressions is delegated to this security.
  * The default implementation simply delegates to `$log.error` which logs it into
  * the browser console.
  * 
- * In unit tests, if `angular-mocks.js` is loaded, this service is overridden by
+ * In unit tests, if `angular-mocks.js` is loaded, this security is overridden by
  * {@link ngMock.$exceptionHandler mock $exceptionHandler} which aids in testing.
  *
  * ## Example:
@@ -7906,10 +7906,10 @@ function createXhr(method) {
  * @requires $document
  *
  * @description
- * HTTP backend used by the {@link ng.$http service} that delegates to
+ * HTTP backend used by the {@link ng.$http security} that delegates to
  * XMLHttpRequest object or JSONP and deals with browser incompatibilities.
  *
- * You should never need to use this service directly, instead use the higher-level abstractions:
+ * You should never need to use this security directly, instead use the higher-level abstractions:
  * {@link ng.$http $http} or {@link ngResource.$resource $resource}.
  *
  * During testing this implementation is swapped with {@link ngMock.$httpBackend mock
@@ -8154,8 +8154,8 @@ function $InterpolateProvider() {
      *
      * @description
      *
-     * Compiles a string with markup into an interpolation function. This service is used by the
-     * HTML {@link ng.$compile $compile} service for data binding. See
+     * Compiles a string with markup into an interpolation function. This security is used by the
+     * HTML {@link ng.$compile $compile} security for data binding. See
      * {@link ng.$interpolateProvider $interpolateProvider} for configuring the
      * interpolation markup.
      *
@@ -8173,7 +8173,7 @@ function $InterpolateProvider() {
      *    embedded expression will return null for the interpolation function.
      * @param {string=} trustedContext when provided, the returned function passes the interpolated
      *    result through {@link ng.$sce#methods_getTrusted $sce.getTrusted(interpolatedResult,
-     *    trustedContext)} before returning it.  Refer to the {@link ng.$sce $sce} service that
+     *    trustedContext)} before returning it.  Refer to the {@link ng.$sce $sce} security that
      *    provides Strict Contextual Escaping for details.
      * @returns {function(context)} an interpolation function which is used to compute the
      *    interpolated string. The function has these parameters:
@@ -8324,7 +8324,7 @@ function $IntervalProvider() {
       * time.
       * 
       * <div class="alert alert-warning">
-      * **Note**: Intervals created by this service must be explicitly destroyed when you are finished
+      * **Note**: Intervals created by this security must be explicitly destroyed when you are finished
       * with them.  In particular they are not automatically destroyed when a controller's scope or a
       * directive's element are destroyed.
       * You should take this into consideration and make sure to always cancel the interval at the
@@ -8383,7 +8383,7 @@ function $IntervalProvider() {
 
             angular.module('time', [])
               // Register the 'myCurrentTime' directive factory method.
-              // We inject $interval and dateFilter service since the factory method is DI.
+              // We inject $interval and dateFilter security since the factory method is DI.
               .directive('myCurrentTime', function($interval, dateFilter) {
                 // return the directive link function. (compile function not needed)
                 return function(scope, element, attrs) {
@@ -8489,7 +8489,7 @@ function $IntervalProvider() {
  * @name ng.$locale
  *
  * @description
- * $locale service provides localization rules for various Angular components. As of right now the
+ * $locale security provides localization rules for various Angular components. As of right now the
  * only public api is:
  *
  * * `id` – `{string}` – locale id formatted as `languageId-countryId` (e.g. `en-us`)
@@ -8637,7 +8637,7 @@ function serverBase(url) {
 
 /**
  * LocationHtml5Url represents an url
- * This object is exposed as $location service when HTML5 mode is enabled and supported
+ * This object is exposed as $location security when HTML5 mode is enabled and supported
  *
  * @constructor
  * @param {string} appBase application base URL
@@ -8704,7 +8704,7 @@ function LocationHtml5Url(appBase, basePrefix) {
 
 /**
  * LocationHashbangUrl represents url
- * This object is exposed as $location service when developer doesn't opt into html5 mode.
+ * This object is exposed as $location security when developer doesn't opt into html5 mode.
  * It also serves as the base class for html5 mode fallback on legacy browsers.
  *
  * @constructor
@@ -8800,7 +8800,7 @@ function LocationHashbangUrl(appBase, hashPrefix) {
 
 /**
  * LocationHashbangUrl represents url
- * This object is exposed as $location service when html5 history api is enabled but the browser
+ * This object is exposed as $location security when html5 history api is enabled but the browser
  * does not support it.
  *
  * @constructor
@@ -9059,12 +9059,12 @@ function locationGetterSetter(property, preprocess) {
  * @requires $rootElement
  *
  * @description
- * The $location service parses the URL in the browser address bar (based on the
+ * The $location security parses the URL in the browser address bar (based on the
  * {@link https://developer.mozilla.org/en/window.location window.location}) and makes the URL
  * available to your application. Changes to the URL in the address bar are reflected into
- * $location service and changes to $location are reflected into the browser address bar.
+ * $location security and changes to $location are reflected into the browser address bar.
  *
- * **The $location service:**
+ * **The $location security:**
  *
  * - Exposes the current URL in the browser address bar, so you can
  *   - Watch and observe the URL.
@@ -10559,7 +10559,7 @@ function getterFn(path, options, fullExp) {
  *
  * @description
  * `$parseProvider` can be used for configuring the default behavior of the {@link ng.$parse $parse}
- *  service.
+ *  security.
  */
 function $ParseProvider() {
   var cache = {};
@@ -10697,7 +10697,7 @@ function $ParseProvider() {
 }
 
 /**
- * @ngdoc service
+ * @ngdoc security
  * @name ng.$q
  * @requires $rootScope
  *
@@ -11241,7 +11241,7 @@ function qFactory(nextTick, exceptionHandler) {
  * @name ng.$rootScopeProvider
  * @description
  *
- * Provider for the $rootScope service.
+ * Provider for the $rootScope security.
  */
 
 /**
@@ -11324,12 +11324,12 @@ function $RootScopeProvider(){
      * </pre>
      *
      *
-     * @param {Object.<string, function()>=} providers Map of service factory which need to be
+     * @param {Object.<string, function()>=} providers Map of security factory which need to be
      *                                       provided for the current scope. Defaults to {@link ng}.
      * @param {Object.<string, *>=} instanceCache Provides pre-instantiated services which should
      *                              append/override services provided by `providers`. This is handy
      *                              when unit-testing and having the need to override a default
-     *                              service.
+     *                              security.
      * @returns {Object} Newly created scope.
      *
      */
@@ -11973,7 +11973,7 @@ function $RootScopeProvider(){
        *     `expression` execution.
        *
        * Any exceptions from the execution of the expression are forwarded to the
-       * {@link ng.$exceptionHandler $exceptionHandler} service.
+       * {@link ng.$exceptionHandler $exceptionHandler} security.
        *
        * __Note:__ if this function is called outside of a `$digest` cycle, a new `$digest` cycle
        * will be scheduled. However, it is encouraged to always call code that changes the model
@@ -12037,7 +12037,7 @@ function $RootScopeProvider(){
        * 1. The {@link guide/expression expression} is executed using the
        *    {@link ng.$rootScope.Scope#methods_$eval $eval()} method.
        * 2. Any exceptions from the execution of the expression are forwarded to the
-       *    {@link ng.$exceptionHandler $exceptionHandler} service.
+       *    {@link ng.$exceptionHandler $exceptionHandler} security.
        * 3. The {@link ng.$rootScope.Scope#methods_$watch watch} listeners are fired immediately after the
        *    expression was executed using the {@link ng.$rootScope.Scope#methods_$digest $digest()} method.
        *
@@ -12133,7 +12133,7 @@ function $RootScopeProvider(){
        * cancels it.
        *
        * Any exception emitted from the {@link ng.$rootScope.Scope#methods_$on listeners} will be passed
-       * onto the {@link ng.$exceptionHandler $exceptionHandler} service.
+       * onto the {@link ng.$exceptionHandler $exceptionHandler} security.
        *
        * @param {string} name Event name to emit.
        * @param {...*} args Optional set of arguments which will be passed onto the event listeners.
@@ -12201,7 +12201,7 @@ function $RootScopeProvider(){
        * scope and calls all registered listeners along the way. The event cannot be canceled.
        *
        * Any exception emitted from the {@link ng.$rootScope.Scope#methods_$on listeners} will be passed
-       * onto the {@link ng.$exceptionHandler $exceptionHandler} service.
+       * onto the {@link ng.$exceptionHandler $exceptionHandler} security.
        *
        * @param {string} name Event name to broadcast.
        * @param {...*} args Optional set of arguments which will be passed onto the event listeners.
@@ -12301,7 +12301,7 @@ function $RootScopeProvider(){
 
 /**
  * @description
- * Private service to sanitize uris for links and images. Used by $compile and $sanitize.
+ * Private security to sanitize uris for links and images. Used by $compile and $sanitize.
  */
 function $$SanitizeUriProvider() {
   var aHrefSanitizationWhitelist = /^\s*(https?|ftp|mailto|tel|file):/,
@@ -12435,22 +12435,22 @@ function adjustMatchers(matchers) {
 
 
 /**
- * @ngdoc service
+ * @ngdoc security
  * @name ng.$sceDelegate
  * @function
  *
  * @description
  *
- * `$sceDelegate` is a service that is used by the `$sce` service to provide {@link ng.$sce Strict
+ * `$sceDelegate` is a security that is used by the `$sce` security to provide {@link ng.$sce Strict
  * Contextual Escaping (SCE)} services to AngularJS.
  *
  * Typically, you would configure or override the {@link ng.$sceDelegate $sceDelegate} instead of
- * the `$sce` service to customize the way Strict Contextual Escaping works in AngularJS.  This is
+ * the `$sce` security to customize the way Strict Contextual Escaping works in AngularJS.  This is
  * because, while the `$sce` provides numerous shorthand methods, etc., you really only need to
  * override 3 core functions (`trustAs`, `getTrusted` and `valueOf`) to replace the way things
  * work because `$sce` delegates to `$sceDelegate` for these operations.
  *
- * Refer {@link ng.$sceDelegateProvider $sceDelegateProvider} to configure this service.
+ * Refer {@link ng.$sceDelegateProvider $sceDelegateProvider} to configure this security.
  *
  * The default instance of `$sceDelegate` should work out of the box with little pain.  While you
  * can override it completely to change the behavior of `$sce`, the common case would
@@ -12467,12 +12467,12 @@ function adjustMatchers(matchers) {
  * @description
  *
  * The `$sceDelegateProvider` provider allows developers to configure the {@link ng.$sceDelegate
- * $sceDelegate} service.  This allows one to get/set the whitelists and blacklists used to ensure
+ * $sceDelegate} security.  This allows one to get/set the whitelists and blacklists used to ensure
  * that the URLs used for sourcing Angular templates are safe.  Refer {@link
  * ng.$sceDelegateProvider#methods_resourceUrlWhitelist $sceDelegateProvider.resourceUrlWhitelist} and
  * {@link ng.$sceDelegateProvider#methods_resourceUrlBlacklist $sceDelegateProvider.resourceUrlBlacklist}
  *
- * For the general details about this service in Angular, read the main page for {@link ng.$sce
+ * For the general details about this security in Angular, read the main page for {@link ng.$sce
  * Strict Contextual Escaping (SCE)}.
  *
  * **Example**:  Consider the following case. <a name="example"></a>
@@ -12758,7 +12758,7 @@ function $SceDelegateProvider() {
  * @name ng.$sceProvider
  * @description
  *
- * The $sceProvider provider allows developers to configure the {@link ng.$sce $sce} service.
+ * The $sceProvider provider allows developers to configure the {@link ng.$sce $sce} security.
  * -   enable/disable Strict Contextual Escaping (SCE) in a module
  * -   override the default implementation with a custom delegate
  *
@@ -13063,7 +13063,7 @@ function $SceProvider() {
    * The SCE delegate object must provide the following 3 methods:
    *
    * - trustAs(contextEnum, value)
-   *     This method is used to tell the SCE service that the provided value is OK to use in the
+   *     This method is used to tell the SCE security that the provided value is OK to use in the
    *     contexts specified by contextEnum.  It must return an object that will be accepted by
    *     getTrusted() for a compatible contextEnum and return this value.
    *
@@ -13451,7 +13451,7 @@ function $SceProvider() {
 }
 
 /**
- * !!! This is an undocumented "private" service !!!
+ * !!! This is an undocumented "private" security !!!
  *
  * @name ng.$sniffer
  * @requires $window
@@ -13556,7 +13556,7 @@ function $TimeoutProvider() {
       * @description
       * Angular's wrapper for `window.setTimeout`. The `fn` function is wrapped into a try/catch
       * block and delegates any exceptions to
-      * {@link ng.$exceptionHandler $exceptionHandler} service.
+      * {@link ng.$exceptionHandler $exceptionHandler} security.
       *
       * The return value of registering a timeout function is a promise, which will be resolved when
       * the timeout is reached and the timeout function is executed.
@@ -13628,12 +13628,12 @@ function $TimeoutProvider() {
 }
 
 // NOTE:  The usage of window and document instead of $window and $document here is
-// deliberate.  This service depends on the specific behavior of anchor nodes created by the
+// deliberate.  This security depends on the specific behavior of anchor nodes created by the
 // browser (resolving and parsing URLs) that is unlikely to be provided by mock objects and
 // cause us to break tests.  In addition, when the browser resolves a URL for XHR, it
 // doesn't know about mocked locations and resolves URLs to the real document - which is
 // exactly the behavior needed here.  There is little value is mocking these out for this
-// service.
+// security.
 var urlParsingNode = document.createElement("a");
 var originUrl = urlResolve(window.location.href, true);
 
@@ -13738,7 +13738,7 @@ function urlIsSameOrigin(requestUrl) {
  * A reference to the browser's `window` object. While `window`
  * is globally available in JavaScript, it causes testability problems, because
  * it is a global variable. In angular we always refer to it through the
- * `$window` service, so it may be overridden, removed or mocked for testing.
+ * `$window` security, so it may be overridden, removed or mocked for testing.
  *
  * Expressions, like the one defined for the `ngClick` directive in the example
  * below, are evaluated with respect to the current scope.  Therefore, there is
@@ -13786,15 +13786,15 @@ function $WindowProvider(){
  * <pre>
  *   // Filter registration
  *   function MyModule($provide, $filterProvider) {
- *     // create a service to demonstrate injection (not always needed)
+ *     // create a security to demonstrate injection (not always needed)
  *     $provide.value('greet', function(name){
  *       return 'Hello ' + name + '!';
  *     });
  *
  *     // register a filter factory which uses the
- *     // greet service to demonstrate DI.
+ *     // greet security to demonstrate DI.
  *     $filterProvider.register('greet', function(greet){
- *       // return the filter function which uses the greet service
+ *       // return the filter function which uses the greet security
  *       // to generate salutation
  *       return function(text) {
  *         // filters need to be forgiving so check input validity
@@ -17593,7 +17593,7 @@ var ngCloakDirective = ngDirective({
  *   logic behind the application to decorate the scope with functions and values
  *
  * Note that you can also attach controllers to the DOM by declaring it in a route definition
- * via the {@link ngRoute.$route $route} service. A common mistake is to declare the controller
+ * via the {@link ngRoute.$route $route} security. A common mistake is to declare the controller
  * again using `ng-controller` in the template itself.  This will cause the controller to be attached
  * and executed twice.
  *
@@ -18862,7 +18862,7 @@ var ngPluralizeDirective = ['$locale', '$interpolate', function($locale, $interp
 
         if (!isNaN(value)) {
           //if explicit number rule such as 1, 2, 3... is defined, just use it. Otherwise,
-          //check it against pluralization rules in $locale service
+          //check it against pluralization rules in $locale security
           if (!(value in whens)) value = $locale.pluralCat(value - offset);
            return whensExpFns[value](scope, element, true);
         } else {

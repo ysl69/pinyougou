@@ -7327,12 +7327,12 @@
         }
 
         // Component Model
-        if (vnode.data.model) {
-            return vnode.data.model;
+        if (com.pinpougou.model) {
+            return com.pinpougou.model;
         }
 
         return !!(vnode.data.directives) && find(vnode.data.directives, function (d) {
-            return d.name === 'model';
+            return d.name === 'com.pinyougou.model';
         });
     }
 
@@ -7375,7 +7375,7 @@
             return null;
         }
 
-        return vnode.componentOptions.Ctor.options.model;
+        return com.pinpougou.model;
     }
 
     // Adds a listener to vnode listener object.
@@ -7540,8 +7540,8 @@
      * @param {*} vnode
      */
     Resolver.resolveInitialValue = function resolveInitialValue(vnode) {
-        var model = vnode.data.model || find(vnode.data.directives, function (d) {
-            return d.name === 'model';
+        var model = com.pinpougou.model || find(vnode.data.directives, function (d) {
+            return d.name === 'com.pinyougou.model';
         });
 
         return model && model.value;
@@ -7621,7 +7621,7 @@
 
         // resolve the model event if its configured for custom components.
         if (events && vnode.componentInstance && includes(events, 'input')) {
-            var ref = vnode.componentInstance.$options.model || {event: 'input'};
+            var ref = com.pinpougou.model || {event: 'input'};
             var event = ref.event;
             // if the prop was configured but not the model.
             if (!event) {
@@ -7733,7 +7733,7 @@
                 };
             }
 
-            var ref = vnode.componentInstance.$options.model || {prop: 'value'};
+            var ref = com.pinpougou.model || {prop: 'value'};
             var prop = ref.prop;
 
             return function () {
@@ -8092,7 +8092,7 @@
         this.name = (!isNullOrUndefined(options.name) ? String(options.name) : options.name) || this.name || null;
         this.rules = options.rules !== undefined ? normalizeRules(options.rules) : this.rules;
         this._bails = options.bails !== undefined ? options.bails : this._bails;
-        this.model = options.model || this.model;
+        this.model = com.pinpougou.model || this.model;
         this.listen = options.listen !== undefined ? options.listen : this.listen;
         this.classes = (options.classes || this.classes || false) && !this.componentInstance;
         this.classNames = isObject(options.classNames) ? merge(this.classNames, options.classNames) : this.classNames;
@@ -8413,7 +8413,7 @@
     Field.prototype._determineInputEvent = function _determineInputEvent() {
         // if its a custom component, use the customized model event or the input event.
         if (this.componentInstance) {
-            return (this.componentInstance.$options.model && this.componentInstance.$options.model.event) || 'input';
+            return (com.pinpougou.model && com.pinpougou.model.event) || 'input';
         }
 
         if (this.model && this.model.lazy) {
@@ -8497,9 +8497,9 @@
             }
 
             // watch it from the custom component vm instead.
-            if (!expression && this.componentInstance && this.componentInstance.$options.model) {
+            if (!expression && this.componentInstance && com.pinpougou.model) {
                 ctx = this.componentInstance;
-                expression = this.componentInstance.$options.model.prop || 'value';
+                expression = com.pinpougou.model.prop || 'value';
             }
 
             if (ctx && expression) {
@@ -11146,7 +11146,7 @@
             };
         }
 
-        var eventName = (options.model && options.model.event) || 'input';
+        var eventName = (com.pinpougou.model && com.pinpougou.model.event) || 'input';
 
         hoc.render = function (h) {
             var obj;
