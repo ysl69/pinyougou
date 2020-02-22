@@ -37,6 +37,8 @@
       <module>../pinyougou-user-web</module>
       <module>../itheima-sms-service</module>
     <module>../itheima-cas-client3-springsecurity</module>
+      <module>../pinyougou-cart-service</module>
+    <module>../pinyouogu-cart-web</module>
 
   </modules>
   <packaging>pom</packaging>
