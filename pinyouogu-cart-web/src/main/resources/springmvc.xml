@@ -49,5 +49,6 @@
     <import resource="spring-security.xml"></import>
 
 
-
+    <!--配置消费者的超时时间 单位是毫秒-->
+    <dubbo:consumer timeout="100000"></dubbo:consumer>
 </beans>

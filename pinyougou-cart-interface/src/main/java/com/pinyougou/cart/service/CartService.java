@@ -23,4 +23,19 @@ public interface CartService {
      */
     public List<Cart> addGoodsToCartList(List<Cart> cartList, Long itemId, Integer num);
 
+
+    /**
+     * 从redis中查询购物车
+     * @param username
+     * @return
+     */
+    public List<Cart> findCartListFormRedis(String username);
+
+
+    /**
+     * 将购物车保存到redis
+     * @param username
+     * @param cartList
+     */
+    public void saveCartListToRedis(String username,List<Cart> cartList);
 }

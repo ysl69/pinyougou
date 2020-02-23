@@ -17,4 +17,7 @@
     <dubbo:annotation package="com.pinyougou.cart.service"></dubbo:annotation>
 
     <dubbo:provider timeout="100000"></dubbo:provider>
+
+    <!--配置服务提供者的超时时间 单位是毫秒-->
+    <dubbo:provider timeout="100000"></dubbo:provider>
 </beans>

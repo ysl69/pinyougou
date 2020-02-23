@@ -6,6 +6,7 @@ import com.pinyougou.pojo.Cart;
 import com.pinyougou.pojo.TbItem;
 import com.pinyougou.pojo.TbOrderItem;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -99,6 +100,19 @@ public class CartServiceImpl implements CartService {
         }
 
         return null;
+    }
+
+    @Autowired
+    private RedisTemplate redisTemplate;
+
+    @Override
+    public List<Cart> findCartListFormRedis(String username) {
+        return (List<Cart>) redisTemplate.boundHashOps("cartList").get(username);
+    }
+
+    @Override
+    public void saveCartListToRedis(String username, List<Cart> cartList) {
+        redisTemplate.boundHashOps("cartList").put(username,cartList);
     }
 
 
