@@ -115,6 +115,16 @@ public class CartServiceImpl implements CartService {
         redisTemplate.boundHashOps("cartList").put(username,cartList);
     }
 
+    @Override
+    public List<Cart> mergeCartList(List<Cart> cookieList, List<Cart> redisList) {
+        for(Cart cart: cookieList){
+            for(TbOrderItem orderItem:cart.getOrderItemList()){
+                redisList= addGoodsToCartList(redisList,orderItem.getItemId(),orderItem.getNum());
+            }
+        }
+        return redisList;
+    }
+
 
     /**
      * 判断是否属于同一商品

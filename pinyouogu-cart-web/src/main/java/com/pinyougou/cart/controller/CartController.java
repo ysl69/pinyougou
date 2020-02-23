@@ -99,4 +99,53 @@ public class CartController {
             return new Result(false, "添加失败");
         }
     }
+
+
+    /**
+     * 购物车合并
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping("/findCartList")
+    public List<Cart> findCartList(HttpServletRequest request,HttpServletResponse response) {
+        //获取用户名
+        String name = SecurityContextHolder.getContext().getAuthentication().getName();
+        //如果是匿名用户 则操作cookie
+        if("anonymousUser".equals(name)){
+            String cartListString = CookieUtil.getCookieValue(request, "cartList", "UTF-8");
+            if (StringUtils.isEmpty(cartListString)) {
+                cartListString = "[]";
+            }
+            List<Cart> cookieCartList = JSON.parseArray(cartListString, Cart.class);
+            return cookieCartList;
+        }else{
+            //获取redis中的购物车
+            List<Cart> cartListFromRedis = cartService.findCartListFormRedis(name);
+            if(cartListFromRedis==null){
+                cartListFromRedis=new ArrayList<>();
+            }
+
+            String cartListString = CookieUtil.getCookieValue(request, "cartList", "UTF-8");
+            if (StringUtils.isEmpty(cartListString)) {
+                cartListString = "[]";
+            }
+            //cookie中购物车
+            List<Cart> cookieCartList = JSON.parseArray(cartListString, Cart.class);
+
+            if(cookieCartList.size()>0) {
+                //redis中购物车
+                //合并
+                List<Cart> carts = cartService.mergeCartList(cookieCartList, cartListFromRedis);
+
+                cartService.saveCartListToRedis(name, carts);
+                //移除
+                CookieUtil.deleteCookie(request, response, "cartList");
+
+                return carts;
+            }
+            return cartListFromRedis;
+
+        }
+    }
 }

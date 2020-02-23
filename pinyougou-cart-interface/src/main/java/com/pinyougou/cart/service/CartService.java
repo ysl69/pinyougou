@@ -38,4 +38,13 @@ public interface CartService {
      * @param cartList
      */
     public void saveCartListToRedis(String username,List<Cart> cartList);
+
+
+    /**
+     * 购物车合并
+     * @param cookieList
+     * @param redisList
+     * @return
+     */
+    public List<Cart> mergeCartList(List<Cart> cookieList,List<Cart> redisList);
 }
