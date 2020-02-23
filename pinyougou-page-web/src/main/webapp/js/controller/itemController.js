@@ -47,7 +47,8 @@ var app = new Vue({
                 params: {
                     itemId: this.sku.id,
                     num: this.num
-                }
+                },
+                withCredentials:true
             }).then(
                 function (response) {
                     if (response.data.success) {

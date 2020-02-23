@@ -71,7 +71,8 @@ public class CartController {
      */
     @RequestMapping("/addGoodsToCartList")
     public Result addGoodsToCartList(Long itemId, Integer num, HttpServletRequest request, HttpServletResponse response) {
-
+        response.setHeader("Access-Control-Allow-Origin", "http://localhost:9105");//统一指定的域访问我的服务器资源
+        response.setHeader("Access-Control-Allow-Credentials", "true");//同意客户端携带cookie
 
         try {
             //获取登录人账户，判断当前是否有人登陆
