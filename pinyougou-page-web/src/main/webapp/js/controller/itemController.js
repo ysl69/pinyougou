@@ -41,6 +41,25 @@ var app = new Vue({
         },
 
 
+        //添加到购物车中
+        addGoodsToCartList: function () {
+            axios.get('http://localhost:9107/cart/addGoodsToCartList.shtml', {
+                params: {
+                    itemId: this.sku.id,
+                    num: this.num
+                }
+            }).then(
+                function (response) {
+                    if (response.data.success) {
+                        //添加购物车成功
+                        window.location.href = "http://localhost:9107/cart.html";
+                    } else {
+                        //添加购物车失败
+                        alert(response.data.message);
+                    }
+                })
+        },
+
     },
 
     created:function () {
