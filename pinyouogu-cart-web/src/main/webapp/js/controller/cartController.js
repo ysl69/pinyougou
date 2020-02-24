@@ -93,7 +93,10 @@ var app = new Vue({
     created: function () {
         this.findCartList();
         
-        if (window.location.href.indexOf("getOrderInfo.html")!=-1)
-            this.findAddressList();
+        /*if (window.location.href.indexOf("getOrderInfo.html")!=-1)
+            this.findAddressList();*/
+
+        //判断如果是getOrderInfo.html的时候才加载
+        this.findAddressList();
     }
 })

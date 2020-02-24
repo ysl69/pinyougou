@@ -160,32 +160,31 @@
 					</div>
 					<div class="step-cont">
 						<ul class="send-detail">
-							<li>
-								
-								<div class="sendGoods">
-									
+							<li v-for="cart in cartList">
+								<div class="sendGoods" v-for="orderItem in cart.orderItemList">
+
 									<ul class="yui3-g">
 										<li class="yui3-u-1-6">
-											<span><img src="img/goods.png"/></span>
+											<span><img :src="orderItem.picPath"/></span>
 										</li>
 										<li class="yui3-u-7-12">
-											<div class="desc">Apple iPhone 6s (A1700) 64G 玫瑰金色 移动联通电信4G手机硅胶透明防摔软壳 本色系列</div>
+											<div class="desc">{{orderItem.title}}</div>
 											<div class="seven">7天无理由退货</div>
 										</li>
 										<li class="yui3-u-1-12">
-											<div class="price">￥5399.00</div>
+											<div class="price">￥{{orderItem.price}}</div>
 										</li>
 										<li class="yui3-u-1-12">
-											<div class="num">X1</div>
+											<div class="num">X{{orderItem.num}}</div>
 										</li>
 										<li class="yui3-u-1-12">
 											<div class="exit">有货</div>
 										</li>
 									</ul>
 								</div>
+
 							</li>
-							<li></li>
-							<li></li>
+
 						</ul>
 					</div>
 					<div class="hr"></div>
@@ -210,8 +209,8 @@
 		<div class="order-summary">
 			<div class="static fr">
 				<div class="list">
-					<span><i class="number">1</i>件商品，总商品金额</span>
-					<em class="allprice">¥5399.00</em>
+					<span><i class="number">{{totalNum}}</i>件商品，总商品金额</span>
+					<em class="allprice">¥{{totalMoney}}</em>
 				</div>
 				<div class="list">
 					<span>返现：</span>
@@ -224,9 +223,10 @@
 			</div>
 		</div>
 		<div class="clearfix trade">
-			<div class="fc-price">应付金额:　<span class="price">¥5399.00</span></div>
-			<div class="fc-receiverInfo">寄送至:北京市海淀区三环内 中关村软件园9号楼 收货人：某某某 159****3201</div>
+			<div class="fc-price">应付金额:　<span class="price">¥{{totalMoney}}</span></div>
+			<div class="fc-receiverInfo">寄送至:{{address.address}} 收货人：{{address.contact}}{{address.mobile}}</div>
 		</div>
+
 		<div class="submit">
 			<a class="sui-btn btn-danger btn-xlarge" href="pay.html">提交订单</a>
 		</div>
