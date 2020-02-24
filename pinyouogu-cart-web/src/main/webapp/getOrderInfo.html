@@ -151,10 +151,8 @@
 						<h5>支付方式</h5>
 					</div>
 					<div class="step-cont">
-						<ul class="payType">
-							<li class="selected">微信付款<span title="点击取消选择"></span></li>
-							<li>货到付款<span title="点击取消选择"></span></li>
-						</ul>
+						<ul class="payType"><li class="selected" @click="selectType('1')">微信付款<span title="点击取消选择"></span></li>
+							<li @click="selectType('2')">货到付款<span title="点击取消选择"></span></li></ul>
 					</div>
 					<div class="hr"></div>
 					<div class="step-tit">

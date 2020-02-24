@@ -6,6 +6,7 @@ var app = new Vue({
         totalNum:0, //总数量
         addressList:[],
         address:[],
+        order:{paymentType:'1'},
     },
     methods:{
       findCartLsit:function () {
@@ -76,6 +77,17 @@ var app = new Vue({
             }
             return  false;
         },
+
+
+        /**
+         * 支付方式选择
+         * @param type
+         */
+        selectType:function (type) {
+            console.log(type);
+            this.$set(this.order,'paymentType',type);
+            //this.order.paymentType=type;
+        }
     },
     //钩子函数 初始化了事件和
     created: function () {
