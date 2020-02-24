@@ -175,6 +175,11 @@
             <artifactId>spring-security-cas</artifactId>
             <version>${spring.security.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.pinyougou</groupId>
+            <artifactId>pinyougou-user-service</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
     <build>

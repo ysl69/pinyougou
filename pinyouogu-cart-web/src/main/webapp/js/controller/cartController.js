@@ -3,7 +3,9 @@ var app = new Vue({
     data:{
         catrList:[],
         totalMoney:0,//总金额
-        totalNum:0 //总数量
+        totalNum:0, //总数量
+        addressList:[],
+        address:[],
     },
     methods:{
       findCartLsit:function () {
@@ -46,10 +48,40 @@ var app = new Vue({
                     alert(response.data.message);
                 }
             })
-        }
+        },
+
+
+        /**
+         * 获取收件人地址
+         */
+        findAddressList:function () {
+            axios.get('/address/findAddressLsitByUserId.shtml').then(function (response) {
+                app.addressList = response.data;
+                for(var i=0;i<app.addressList.length;i++){
+                    if(app.addressList[i].isDefault=='1'){
+                        app.address=app.addressList[i];
+                        break;
+                    }
+                }
+            })
+        },
+
+        selectAddress:function (address) {
+            this.address = address;
+        },
+
+        isSelectedAddress:function (address) {
+            if (address == this.address){
+                return true;
+            }
+            return  false;
+        },
     },
     //钩子函数 初始化了事件和
     created: function () {
         this.findCartList();
+        
+        if (window.location.href.indexOf("getOrderInfo.html")!=-1)
+            this.findAddressList();
     }
 })
