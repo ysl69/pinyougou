@@ -87,7 +87,26 @@ var app = new Vue({
             console.log(type);
             this.$set(this.order,'paymentType',type);
             //this.order.paymentType=type;
-        }
+        },
+
+
+        //添加一个方法
+        submitOrder: function () {
+            //设置值
+            this.$set(this.order,'receiverAreaName',this.address.address);
+            this.$set(this.order,'receiverMobile',this.address.mobile);
+            this.$set(this.order,'receiver',this.address.contact);
+            axios.post('/order/add.shtml', this.order).then(
+                function (response) {
+                    if(response.data.success){
+                        //跳转到支付页面
+                        window.location.href="pay.html";
+                    }else{
+                        alert(response.data.message);
+                    }
+                }
+            )
+        },
     },
     //钩子函数 初始化了事件和
     created: function () {
