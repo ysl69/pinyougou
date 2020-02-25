@@ -111,7 +111,7 @@
     <orderEntry type="library" name="Maven: org.elasticsearch:jna:4.5.1" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: junit:junit:4.12" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.hamcrest:hamcrest-core:1.3" level="project" />
-    <orderEntry type="library" name="Maven: com.pinyougou:pinyougou-seckill-interface:1.0-SNAPSHOT" level="project" />
+    <orderEntry type="module" module-name="pinyougou-seckill-interface" />
     <orderEntry type="module" module-name="pinyougou-core-service" />
     <orderEntry type="module" module-name="pinyougou-dao" />
     <orderEntry type="module" module-name="pinyougou-sellergoods-interface" />
