@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pinyougou.mapper.TbSpecificationOptionMapper" >
+  <resultMap id="BaseResultMap" type="com.pinyougou.pojo.TbSpecificationOption" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="option_name" property="optionName" jdbcType="VARCHAR" />
+    <result column="spec_id" property="specId" jdbcType="BIGINT" />
+    <result column="orders" property="orders" jdbcType="INTEGER" />
+  </resultMap>
+</mapper>

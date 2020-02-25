@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <form action="http://www.itheima.com">
+        <!--
+          v-validate:指定校验的规则  "'规则名| 规则'"
+          name 指定input 的名称
+         {{ errors.first('email') }} 中的first中的email和input name的值保持一致
+          -->
+        <div>
+            邮箱： <input v-validate="'required|email'"  name="email" type="text">
+            <span>{{ errors.first('email') }}</span>
+        </div>
+        <div>
+            日期： <input v-validate="'date_format:yyyy/MM/dd'" name="afterField" type="text">
+            <span>{{ errors.first('afterField') }}</span>
+        </div>
+        <div>
+            开始日期： <input v-validate="'date_format:yyyy/MM/dd|before:endTime'" name="startTime" type="text">
+            <!--ref 指定一个名称 用于外部的校验进行引用-->
+            结束日期： <input v-validate="'date_format:yyyy/MM/dd'" ref="endTime" name="endTime" type="text">
+            <span>{{ errors.first('startTime') }}</span>
+            <span>{{ errors.first('endTime') }}</span>
+        </div>
+        <div>
+            只包含字母： <input v-validate="'alpha'" name="alpha_field" type="text">
+            <span>{{ errors.first('alpha_field') }}</span>
+        </div>
+        <div>
+            可能包含字母字符，数字，短划线或下划线： <input v-validate="'alpha_dash'" name="alpha_dash" type="text">
+            <span>{{ errors.first('alpha_dash') }}</span>
+        </div>
+        <div>
+            可能包含字母字符或数字： <input v-validate="'alpha_num'" name="alpha_num" type="text">
+            <span>{{ errors.first('alpha_num') }}</span>
+        </div>
+        <div>
+            最大最小长度： <input v-validate="'max:10|min:5'" name="maxmin" type="text">
+            <span>{{ errors.first('maxmin') }}</span>
+        </div>
+        <div>
+            数字范围： <input v-validate="'between:1,5'" name="betweenField" type="text">
+            <span>{{ errors.first('betweenField') }}</span>
+        </div>
+        <div>
+            2次密码是否一致： <input v-validate="'required'" name="password" ref="password" type="text">
+            <span>{{ errors.first('password') }}</span>
+            <br/>
+            确认密码：<input v-validate="'required|confirmed:password'" name="password_confirmation" data-vv-as="password"
+                        type="text">
+            <span>{{ errors.first('password_confirmation') }}</span>
+        </div>
+        <div>
+            正则表达式： <input
+                v-validate="{ required: true, regex: '^((13[0-9])|(14[5,7])|(15[0-3,5-9])|(17[0,3,5-8])|(18[0-9])|166|198|199|(147))\\d{8}$' }"
+                name="regex" type="text">
+            <span>{{ errors.first('regex') }}</span>
+        </div>
+
+        <button type="button" @click="formSubmit()">提交</button>
+    </form>
+</div>
+</body>
+<script type="text/javascript"  src="plugins/vue/vue.js"></script>
+<script type="text/javascript"  src="js/veeValidate/vee-validate.js"></script>
+<script type="text/javascript"  src="js/veeValidate/zh_CN.js"></script>
+
+<script>
+
+    Vue.use(VeeValidate, {locale: 'zh_CN'});
+
+    var app=new Vue({
+        el:'#app',
+        methods:{
+            //数据校验
+            formSubmit: function () {
+                this.$validator.validate().then(result => {
+                    if (!result) {
+                        alert("验证出问题了");
+                    }else{
+                        alert("验证通过");
+                    }
+                });
+            }
+        }
+    });
+
+</script>
+
+</html>

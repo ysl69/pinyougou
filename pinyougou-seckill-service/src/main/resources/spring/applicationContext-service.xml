@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+    <!--组件扫描-->
+    <!--配置dubbo的配置项-->
+    <dubbo:application name="pinyougou-seckill"></dubbo:application>
+
+    <dubbo:registry protocol="zookeeper" address="192.168.25.133" port="2181"></dubbo:registry>
+    <!--增加暴露服务的端口-->
+    <dubbo:protocol name="dubbo" port="20888"></dubbo:protocol>
+
+    <dubbo:annotation package="com.pinyougou.seckill.service"></dubbo:annotation>
+
+    <dubbo:provider timeout="100000"></dubbo:provider>
+
+    <bean class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer" id="freeMarkerConfigurer">
+        <property name="defaultEncoding" value="utf-8"></property>
+        <property name="templateLoaderPath" value="/WEB-INF/ftl"></property>
+    </bean>
+
+    <bean class="com.pinyougou.common.util.IdWorker">
+        <constructor-arg name="workerId" value="0"></constructor-arg>
+        <constructor-arg name="datacenterId" value="0"></constructor-arg>
+    </bean>
+</beans>

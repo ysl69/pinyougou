@@ -1,0 +1,486 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.pinyougou</groupId>
+  <artifactId>pinyougou-parent</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <modules>
+    <module>../pinyougou-common</module>
+    <module>../pinyougou-pojo</module>
+    <module>../pinyougou-dao</module>
+    <module>../pinyougou-sellergoods-interface</module>
+    <module>../pinyougou-sellergoods-service</module>
+    <module>../pinyougou-manager-web</module>
+    <module>../pinyougou-core-service</module>
+    <module>../itheima-spring-security</module>
+    <module>../pinyougou-shop-web</module>
+      <module>../pinyougou-upload-web</module>
+      <module>../pinyougou-content-interface</module>
+    <module>../pinyougou-content-service</module>
+      <module>../pinyougou-portal-web</module>
+      <module>../itheima-elasticsearch-demo</module>
+      <module>../pinyougou-es-import</module>
+    <module>../pinyougou-search-interface</module>
+    <module>../pinyougou-search-service</module>
+    <module>../pinyougou-search-web</module>
+      <module>../itheima-freemarker</module>
+      <module>../pinyougou-page-interface</module>
+    <module>../pinyougou-page-service</module>
+      <module>../pinyougou-page-web</module>
+      <module>../itheima-rokectmq-producer</module>
+      <module>../itheima-rokectmq-consumer</module>
+      <module>../itheima-sms-demo</module>
+    <module>../pinyougou-user-interface</module>
+    <module>../pinyougou-user-service</module>
+    <module>../pinyougou-user-web</module>
+      <module>../pinyougou-cart-interface</module>
+    <module>../pinyougou-cart-service</module>
+      <module>../pinyouogu-cart-web</module>
+      <module>../pinyougou-order-interface</module>
+    <module>../pinyougou-order-service</module>
+      <module>../pinyougou-pay-interface</module>
+      <module>../pinyougou-pay-service</module>
+      <module>../pinyougou-seckill-task</module>
+      <module>../pinyougou-seckill-interface</module>
+      <module>../pinyougou-seckill-service</module>
+      <module>../pinyougou-seckill-web</module>
+  </modules>
+  <packaging>pom</packaging>
+
+  <!-- FIXME change it to the project's website -->
+  <url>http://www.example.com</url>
+
+  <properties>
+    <!--设置编译的版本使用1.8版本-->
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <!--//和设置编译插件是一样的效果-->
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+    <junit.version>4.12</junit.version>
+    <joda-time.version>2.9.9</joda-time.version>
+    <spring.version>5.0.2.RELEASE</spring.version>
+    <pagehelper.version>4.0.0</pagehelper.version>
+    <servlet-api.version>2.5</servlet-api.version>
+    <dubbo.version>2.6.1</dubbo.version>
+    <zookeeper.version>3.4.7</zookeeper.version>
+    <zkclient.version>0.1</zkclient.version>
+    <mybatis.version>3.4.5</mybatis.version>
+    <mybatis.spring.version>1.3.2</mybatis.spring.version>
+    <javassist.version>3.20.0-GA</javassist.version>
+    <mysql.version>5.1.32</mysql.version>
+    <druid.version>1.0.9</druid.version>
+    <commons-fileupload.version>1.3.1</commons-fileupload.version>
+    <freemarker.version>2.3.23</freemarker.version>
+    <solrj.version>4.10.3</solrj.version>
+    <fastdfs-client.versioin>1.25</fastdfs-client.versioin>
+    <jackson.version>2.9.8</jackson.version>
+    <httpclient.version>4.5.4</httpclient.version>
+    <jstl.version>1.2</jstl.version>
+    <commons-lang3.version>3.3.2</commons-lang3.version>
+    <commons-io.version>1.3.2</commons-io.version>
+    <jedis.version>2.9.0</jedis.version>
+    <fastjson.version>1.2.28</fastjson.version>
+    <spring.data.redis>2.0.0.RELEASE</spring.data.redis>
+    <spring.security.version>5.0.0.RELEASE</spring.security.version>
+    <cas-client.version>3.3.3</cas-client.version>
+    <slf4j.version>1.7.6</slf4j.version>
+    <mapper.version>3.4.6</mapper.version>
+    <persistence.version>1.0</persistence.version>
+    <curator-framework.version>4.0.1</curator-framework.version>
+    <rocketmq-version>4.4.0</rocketmq-version>
+    <spring-data-elasticsearch-version>3.1.3.RELEASE</spring-data-elasticsearch-version>
+  </properties>
+
+  <dependencyManagement>
+    <dependencies>
+      <!-- Apache工具组件 -->
+      <dependency>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-lang3</artifactId>
+        <version>${commons-lang3.version}</version>
+      </dependency>
+
+      <!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
+      <dependency>
+        <groupId>commons-io</groupId>
+        <artifactId>commons-io</artifactId>
+        <version>2.2</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-io</artifactId>
+        <version>${commons-io.version}</version>
+      </dependency>
+      <!-- Jackson Json处理工具包 -->
+      <dependency>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-databind</artifactId>
+        <version>${jackson.version}</version>
+      </dependency>
+
+      <!-- https://mvnrepository.com/artifact/joda-time/joda-time -->
+      <dependency>
+        <groupId>joda-time</groupId>
+        <artifactId>joda-time</artifactId>
+        <version>${joda-time.version}</version>
+      </dependency>
+
+
+      <!--alibaba json处理工具包-->
+      <dependency>
+        <groupId>com.alibaba</groupId>
+        <artifactId>fastjson</artifactId>
+        <version>${fastjson.version}</version>
+      </dependency>
+      <!-- httpclient -->
+      <dependency>
+        <groupId>org.apache.httpcomponents</groupId>
+        <artifactId>httpclient</artifactId>
+        <version>${httpclient.version}</version>
+      </dependency>
+      <!-- 日志处理 -->
+      <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-log4j12</artifactId>
+        <version>${slf4j.version}</version>
+      </dependency>
+      <!--单元测试-->
+      <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>${junit.version}</version>
+      </dependency>
+
+      <!-- Spring -->
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-context</artifactId>
+        <version>${spring.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-webmvc</artifactId>
+        <version>${spring.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-jdbc</artifactId>
+        <version>${spring.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-aspects</artifactId>
+        <version>${spring.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-jms</artifactId>
+        <version>${spring.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-context-support</artifactId>
+        <version>${spring.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-test</artifactId>
+        <version>${spring.version}</version>
+      </dependency>
+      <!-- dubbo相关 -->
+      <dependency>
+        <groupId>com.alibaba</groupId>
+        <artifactId>dubbo</artifactId>
+        <version>${dubbo.version}</version>
+        <exclusions>
+          <exclusion>
+            <artifactId>spring-beans</artifactId>
+            <groupId>org.springframework</groupId>
+          </exclusion>
+          <exclusion>
+            <artifactId>spring-web</artifactId>
+            <groupId>org.springframework</groupId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+
+      <dependency>
+        <groupId>org.apache.curator</groupId>
+        <artifactId>curator-framework</artifactId>
+        <version>${curator-framework.version}</version>
+        <exclusions>
+          <exclusion>
+            <artifactId>log4j</artifactId>
+            <groupId>log4j</groupId>
+          </exclusion>
+          <exclusion>
+            <artifactId>slf4j-api</artifactId>
+            <groupId>org.slf4j</groupId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+
+
+      <dependency>
+        <groupId>org.apache.zookeeper</groupId>
+        <artifactId>zookeeper</artifactId>
+        <version>${zookeeper.version}</version>
+        <exclusions>
+          <exclusion>
+            <artifactId>slf4j-api</artifactId>
+            <groupId>org.slf4j</groupId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>com.github.sgroschupf</groupId>
+        <artifactId>zkclient</artifactId>
+        <version>${zkclient.version}</version>
+        <exclusions>
+          <exclusion>
+            <artifactId>log4j</artifactId>
+            <groupId>log4j</groupId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <!--jsp相关-->
+      <dependency>
+        <groupId>javax.servlet</groupId>
+        <artifactId>servlet-api</artifactId>
+        <version>${servlet-api.version}</version>
+        <scope>provided</scope>
+      </dependency>
+      <!-- 文件上传组件 -->
+      <dependency>
+        <groupId>commons-fileupload</groupId>
+        <artifactId>commons-fileupload</artifactId>
+        <version>${commons-fileupload.version}</version>
+      </dependency>
+      <!-- Mybatis -->
+      <dependency>
+        <groupId>org.mybatis</groupId>
+        <artifactId>mybatis</artifactId>
+        <version>${mybatis.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.mybatis</groupId>
+        <artifactId>mybatis-spring</artifactId>
+        <version>${mybatis.spring.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.github.pagehelper</groupId>
+        <artifactId>pagehelper</artifactId>
+        <version>${pagehelper.version}</version>
+      </dependency>
+
+      <!--通用Mapper-->
+      <dependency>
+        <groupId>tk.mybatis</groupId>
+        <artifactId>mapper</artifactId>
+        <version>${mapper.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>javax.persistence</groupId>
+        <artifactId>persistence-api</artifactId>
+        <version>${persistence.version}</version>
+      </dependency>
+
+      <!-- MySql -->
+      <dependency>
+        <groupId>mysql</groupId>
+        <artifactId>mysql-connector-java</artifactId>
+        <version>${mysql.version}</version>
+      </dependency>
+      <!-- 连接池 -->
+      <dependency>
+        <groupId>com.alibaba</groupId>
+        <artifactId>druid</artifactId>
+        <version>${druid.version}</version>
+      </dependency>
+      <!-- 身份验证 -->
+      <dependency>
+        <groupId>org.springframework.security</groupId>
+        <artifactId>spring-security-web</artifactId>
+        <version>${spring.security.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework.security</groupId>
+        <artifactId>spring-security-config</artifactId>
+        <version>${spring.security.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.springframework.security</groupId>
+        <artifactId>spring-security-cas</artifactId>
+        <version>${spring.security.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.jasig.cas.client</groupId>
+        <artifactId>cas-client-core</artifactId>
+        <version>${cas-client.version}</version>
+        <!-- 排除log4j包冲突 -->
+        <exclusions>
+          <exclusion>
+            <groupId>org.slf4j</groupId>
+            <artifactId>log4j-over-slf4j</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <!--spring data redis-->
+      <dependency>
+        <groupId>org.springframework.data</groupId>
+        <artifactId>spring-data-redis</artifactId>
+        <version>${spring.data.redis}</version>
+      </dependency>
+      <!-- redis客户端 -->
+      <dependency>
+        <groupId>redis.clients</groupId>
+        <artifactId>jedis</artifactId>
+        <version>${jedis.version}</version>
+      </dependency>
+      <!--freemarker-->
+      <dependency>
+        <groupId>org.freemarker</groupId>
+        <artifactId>freemarker</artifactId>
+        <version>${freemarker.version}</version>
+      </dependency>
+      <!--fastdfs客户端-->
+      <dependency>
+        <groupId>org.csource.fastdfs</groupId>
+        <artifactId>fastdfs</artifactId>
+        <version>${fastdfs-client.versioin}</version>
+      </dependency>
+      <!-- solr客户端 -->
+      <dependency>
+        <groupId>org.apache.solr</groupId>
+        <artifactId>solr-solrj</artifactId>
+        <version>${solrj.version}</version>
+      </dependency>
+
+
+      <!-- spring data elasticsearch -->
+      <dependency>
+        <groupId>org.springframework.data</groupId>
+        <artifactId>spring-data-elasticsearch</artifactId>
+        <version>${spring-data-elasticsearch-version}</version>
+        <!--排除该版本的spring 使用统一的spring的版本-->
+        <exclusions>
+          <exclusion>
+            <artifactId>spring-tx</artifactId>
+            <groupId>org.springframework</groupId>
+          </exclusion>
+          <exclusion>
+            <artifactId>spring-core</artifactId>
+            <groupId>org.springframework</groupId>
+          </exclusion>
+          <exclusion>
+            <artifactId>spring-beans</artifactId>
+            <groupId>org.springframework</groupId>
+          </exclusion>
+          <exclusion>
+            <artifactId>jackson-core</artifactId>
+            <groupId>com.fasterxml.jackson.core</groupId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+
+      <dependency>
+        <groupId>org.apache.rocketmq</groupId>
+        <artifactId>rocketmq-client</artifactId>
+        <version>${rocketmq-version}</version>
+      </dependency>
+
+    </dependencies>
+
+  </dependencyManagement>
+
+  <build>
+    <plugins>
+      <!--打包跳过测试-->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>2.12.4</version>
+        <configuration>
+          <skipTests>true</skipTests>
+        </configuration>
+      </plugin>
+      <!--maven清理target插件-->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-clean-plugin</artifactId>
+        <version>2.6.1</version>
+        <configuration>
+          <filesets>
+            <fileset>
+              <directory>${basedir}/pinyougou-common/target</directory>
+              <followSymlinks>false</followSymlinks>
+            </fileset>
+            <fileset>
+              <directory>${basedir}/pinyougou-pojo/target</directory>
+              <followSymlinks>false</followSymlinks>
+            </fileset>
+            <fileset>
+              <directory>${basedir}/pinyougou-dao/target</directory>
+              <followSymlinks>false</followSymlinks>
+            </fileset>
+            <fileset>
+              <directory>${basedir}/pinyougou-sellergoods-interface/target</directory>
+              <followSymlinks>false</followSymlinks>
+            </fileset>
+            <fileset>
+              <directory>${basedir}/pinyougou-sellergoods-service/target</directory>
+              <followSymlinks>false</followSymlinks>
+            </fileset>
+            <fileset>
+              <directory>${basedir}/pinyougou-manager-web/target</directory>
+              <followSymlinks>false</followSymlinks>
+            </fileset>
+            <fileset>
+              <directory>${basedir}/pinyougou-core-service/target</directory>
+              <followSymlinks>false</followSymlinks>
+            </fileset>
+            <fileset>
+              <directory>${basedir}/pinyougou-shop-web/target</directory>
+              <followSymlinks>false</followSymlinks>
+            </fileset>
+
+            <fileset>
+              <directory>${basedir}/pinyougou-upload-web/target</directory>
+              <followSymlinks>false</followSymlinks>
+            </fileset>
+
+            <fileset>
+              <directory>${basedir}/itheima-springsecurity/target</directory>
+              <followSymlinks>false</followSymlinks>
+            </fileset>
+
+          </filesets>
+
+        </configuration>
+      </plugin>
+    </plugins>
+
+    <pluginManagement>
+      <plugins>
+        <!-- 配置Tomcat7插件 -->
+        <plugin>
+          <groupId>org.apache.tomcat.maven</groupId>
+          <artifactId>tomcat7-maven-plugin</artifactId>
+          <version>2.2</version>
+        </plugin>
+        <!-- 配置打包时跳过测试  -->
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <version>2.12.4</version>
+        </plugin>
+
+      </plugins>
+    </pluginManagement>
+  </build>
+</project>

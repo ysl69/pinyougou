@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://code.alibabatech.com/schema/dubbo
+                           http://code.alibabatech.com/schema/dubbo/dubbo.xsd
+                           http://www.springframework.org/schema/mvc
+                           http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+    <!--配置应用名 服务消费方-->
+    <dubbo:application name="pinyougou-shop-web"></dubbo:application>
+    <!--配置注册中心-->
+    <dubbo:registry protocol="zookeeper" address="192.168.25.133" port="2181"></dubbo:registry>
+    <!--引用服务 通过注解 @reference 扫描 即可引用 包含了组件扫描-->
+    <dubbo:annotation package="com.pinyougou.shop.controller,com.pinyougou.shop.security"></dubbo:annotation>
+
+    <dubbo:consumer timeout="1000000"></dubbo:consumer>
+
+    <context:component-scan base-package="com.pinyougou.shop.controller"></context:component-scan>
+
+    <!--注解驱动并设置统一日期的输出格式-->
+    <mvc:annotation-driven>
+        <mvc:message-converters register-defaults="true">
+            <!--字符串转换器处理 使用StringHttpMessageConverter 来进行-->
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+                <constructor-arg name="defaultCharset" value="utf-8"></constructor-arg>
+            </bean>
+            <!--json转换器 使用FastJsonHttpMessageConverter 并支持json转成字符串-->
+            <bean class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">
+                <property name="defaultCharset" value="utf-8"></property>
+                <property name="supportedMediaTypes" >
+                    <list>
+                        <value>text/html;charset=utf-8</value>
+                        <value>application/json;charset=utf-8</value>
+                    </list>
+                </property>
+                <property name="fastJsonConfig">
+                    <bean class="com.alibaba.fastjson.support.config.FastJsonConfig">
+                        <property name="serializerFeatures">
+                            <list>
+                                <value>WriteMapNullValue</value>
+                                <value>WriteDateUseDateFormat</value>
+                            </list>
+                        </property>
+                    </bean>
+                </property>
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+
+    <!--引入springsecurity-->
+    <import resource="spring-security.xml"></import>
+
+</beans>

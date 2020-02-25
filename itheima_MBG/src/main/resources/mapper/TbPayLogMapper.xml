@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pinyougou.mapper.TbPayLogMapper" >
+  <resultMap id="BaseResultMap" type="com.pinyougou.pojo.TbPayLog" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="out_trade_no" property="outTradeNo" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="pay_time" property="payTime" jdbcType="TIMESTAMP" />
+    <result column="total_fee" property="totalFee" jdbcType="BIGINT" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="transaction_id" property="transactionId" jdbcType="VARCHAR" />
+    <result column="trade_state" property="tradeState" jdbcType="VARCHAR" />
+    <result column="order_list" property="orderList" jdbcType="VARCHAR" />
+    <result column="pay_type" property="payType" jdbcType="VARCHAR" />
+  </resultMap>
+</mapper>

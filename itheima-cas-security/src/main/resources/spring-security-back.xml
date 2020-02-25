@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+
+    <!--授权(authorities)和认证(aunthentication)-->
+    <http pattern="/login.html" security="none"></http>
+    <!--<spel></spel>-->
+    <http use-expressions="false">
+        <!--拦截所有的请求，只有拥有ROLE_ADMIN的角色的人可以访问-->
+        <intercept-url pattern="/favicon.ico" access="IS_AUTHENTICATED_ANONYMOUSLY"></intercept-url>
+        <intercept-url pattern="/**" access="ROLE_ADMIN"></intercept-url>
+        <!--httpbasic 登录  formlogin 配置认证表单登录-->
+        <!--<http-basic></http-basic>-->
+        <form-login login-page="/login.html" default-target-url="/index.html" authentication-failure-url="/login.html"
+                    always-use-default-target="true" ></form-login>
+        <!--禁用CSRF-->
+        <csrf disabled="true"></csrf>
+    </http>
+    <!--认证-->
+    <authentication-manager>
+        <authentication-provider>
+            <user-service>
+                <user name="admin" password="{noop}admin" authorities="ROLE_ADMIN"></user>
+            </user-service>
+        </authentication-provider>
+    </authentication-manager>
+
+</beans:beans>

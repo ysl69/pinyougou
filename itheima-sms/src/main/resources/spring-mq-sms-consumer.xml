@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--配置消费者对象-->
+    <bean class="org.apache.rocketmq.client.consumer.DefaultMQPushConsumer" init-method="start"
+          destroy-method="shutdown">
+        <!--1.消费者组名-->
+        <property name="consumerGroup" value="consumer_sms_group1"></property>
+        <!--2.服务地址-->
+        <property name="namesrvAddr" value="127.0.0.1:9876"></property>
+        <!--3.订阅的主题-->
+        <property name="subscription">
+            <map>
+                <!--key指定主题名 value指定的是tag名称 *  表示所有的tag-->
+                <entry key="SMS_TOPIC" value="*"></entry>
+            </map>
+        </property>
+        <!--4.消费模式(默认:集群模式)-->
+
+        <!--5.设置监听器-->
+        <property name="messageListener" ref="messageListener"></property>
+
+    </bean>
+
+    <bean class="com.itheima.sms.listener.SMSMessageListener" id="messageListener"></bean>
+</beans>

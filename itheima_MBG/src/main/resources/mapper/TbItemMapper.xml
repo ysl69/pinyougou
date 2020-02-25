@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pinyougou.mapper.TbItemMapper" >
+  <resultMap id="BaseResultMap" type="com.pinyougou.pojo.TbItem" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="sell_point" property="sellPoint" jdbcType="VARCHAR" />
+    <result column="price" property="price" jdbcType="DECIMAL" />
+    <result column="stock_count" property="stockCount" jdbcType="INTEGER" />
+    <result column="num" property="num" jdbcType="INTEGER" />
+    <result column="barcode" property="barcode" jdbcType="VARCHAR" />
+    <result column="image" property="image" jdbcType="VARCHAR" />
+    <result column="categoryId" property="categoryid" jdbcType="BIGINT" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="item_sn" property="itemSn" jdbcType="VARCHAR" />
+    <result column="cost_pirce" property="costPirce" jdbcType="DECIMAL" />
+    <result column="market_price" property="marketPrice" jdbcType="DECIMAL" />
+    <result column="is_default" property="isDefault" jdbcType="VARCHAR" />
+    <result column="goods_id" property="goodsId" jdbcType="BIGINT" />
+    <result column="seller_id" property="sellerId" jdbcType="VARCHAR" />
+    <result column="cart_thumbnail" property="cartThumbnail" jdbcType="VARCHAR" />
+    <result column="category" property="category" jdbcType="VARCHAR" />
+    <result column="brand" property="brand" jdbcType="VARCHAR" />
+    <result column="spec" property="spec" jdbcType="VARCHAR" />
+    <result column="seller" property="seller" jdbcType="VARCHAR" />
+  </resultMap>
+</mapper>

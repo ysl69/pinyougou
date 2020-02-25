@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pinyougou.mapper.TbGoodsDescMapper" >
+  <resultMap id="BaseResultMap" type="com.pinyougou.pojo.TbGoodsDesc" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="goods_id" property="goodsId" jdbcType="BIGINT" />
+    <result column="introduction" property="introduction" jdbcType="VARCHAR" />
+    <result column="specification_items" property="specificationItems" jdbcType="VARCHAR" />
+    <result column="custom_attribute_items" property="customAttributeItems" jdbcType="VARCHAR" />
+    <result column="item_images" property="itemImages" jdbcType="VARCHAR" />
+    <result column="package_list" property="packageList" jdbcType="VARCHAR" />
+    <result column="sale_service" property="saleService" jdbcType="VARCHAR" />
+  </resultMap>
+</mapper>
